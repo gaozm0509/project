@@ -1,0 +1,84 @@
+//
+//  PrefixHeader.pch
+//  HouseKeeper
+//
+//  Created by 高泽民 on 16/7/16.
+//  Copyright © 2016年 zm. All rights reserved.
+//
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "UIColor+expanded.h"
+#import "UIImage+Common.h"
+#import "NSDate+Common.h"
+#import "NSDate+convenience.h"
+#import "NSObject+Common.h"
+#import "NSString+Common.h"
+#import "UILabel+Common.h"
+#import "UIView+Common.h"
+#import "Masonry.h"
+#import "APIUrl.h"
+#import "UITableView+Common.h"
+#import "PUSHPAGE.h"
+#import "NSDictionary+JudgeObj.h"
+
+
+#endif
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#endif /* PrefixHeader_pch */
+
+#define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#define kHigher_iOS_6_1 (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
+#define kHigher_iOS_6_1_DIS(_X_) ([[NSNumber numberWithBool:kHigher_iOS_6_1] intValue] * _X_)
+#define kNotHigher_iOS_6_1_DIS(_X_) (-([[NSNumber numberWithBool:kHigher_iOS_6_1] intValue]-1) * _X_)
+
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+
+#define kKeyWindow [UIApplication sharedApplication].keyWindow
+
+// 屏幕尺寸及机型
+#define isRetina			([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) | CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size)) : NO)
+#define iPhone4             ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone5				([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define iPhone6				([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define iPhone6p				([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define kScreen_Bounds [UIScreen mainScreen].bounds             //屏幕的Bounds
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height   //屏幕的高
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width   //屏幕的宽
+
+#define kNavTitleFontSize 18        //返回NavBar上标题字体大小
+#define kBackButtonFontSize 15         //返回按钮字体大小
+
+#define kNavHeight 64
+#define kTabbarHeight 49
+
+#define PUSHVC(VC_NAME)   (UIViewController *)[[NSClassFromString([NSString stringWithFormat:@"%@",VC_NAME]) alloc]init]
+
+#define kViewFrame CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavHeight)
+
+//主要的颜色值
+#define KMajorColor [UIColor colorWithHexString:@"35932a"]
+#define kBorderColor [UIColor colorWithHexString:@"dddddd"]
+#define kBackgroundColor [UIColor colorWithHexString:@"efefef"]
+#define Color_Hex(value) [UIColor colorWithHexString:[NSString stringWithFormat:@"%@",value]]
+
+//UIFont
+#define kFont10 [UIFont systemFontOfSize:10]
+#define kFont11 [UIFont systemFontOfSize:11]
+#define kFont12 [UIFont systemFontOfSize:12]
+#define kFont13 [UIFont systemFontOfSize:13]
+#define kFont14 [UIFont systemFontOfSize:14]
+#define kFont15 [UIFont systemFontOfSize:15]
+#define kFont16 [UIFont systemFontOfSize:16]
+#define kFont17 [UIFont systemFontOfSize:17]
+#define kFont18 [UIFont systemFontOfSize:18]
+#define kFont19 [UIFont systemFontOfSize:19]
+#define kFont20 [UIFont systemFontOfSize:20]
+
+#define kShowMapNotification @"showMapNotification"
