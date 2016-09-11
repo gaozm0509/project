@@ -82,7 +82,7 @@
 #define kFont20 [UIFont systemFontOfSize:20]
 
 //常用方法
-#define UIImage(name) [UIImage imageNamed:name]
+#define Image(name) [UIImage imageNamed:name]
 
 //通知
 #define kShowMapNotification @"showMapNotification"

@@ -7,8 +7,11 @@
 //
 
 #import "AssetViewController.h"
+#import "AssetTableView.h"
 
-@interface AssetViewController ()
+@interface AssetViewController ()<AssetTableViewDelegate>
+
+@property (nonatomic, strong) AssetTableView *tableView;
 
 @end
 
@@ -18,27 +21,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的资产";
+    [self.view addSubview:self.tableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Getter and setter
 
-
+- (AssetTableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[AssetTableView alloc]initWithFrame:kViewFrame];
+        _tableView.clickDelegate = self;
+    }
+    return _tableView;
+}
 
 #pragma mark - Delegate
 
+#pragma mark AssetTableViewDelegate
+
+//前去采集
+- (void)assetCollection{
+
+}
+
+//更换
+- (void)assetChange{
+
+}
 
 
 #pragma mark - Net request
+
+
+
+#pragma mark - Event
 
 
 

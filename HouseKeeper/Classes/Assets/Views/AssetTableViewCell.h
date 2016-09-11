@@ -8,7 +8,29 @@
 
 #import "BaseTableViewCell.h"
 
+
 @interface AssetTableViewCell : BaseTableViewCell
+
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *rightIcon;
+
+@end
+
+
+@interface AssetTableViewFirstCell : BaseTableViewCell
+
+@property (nonatomic, strong) UILabel *titleLabel;
+
+@end
+
+
+
+@protocol AssetTableHeadViewCellDelegate <NSObject>
+
+//采集
+- (void)assetCollection;
+//更换
+- (void)assetChange;
 
 @end
 
@@ -20,5 +42,7 @@
 @property (nonatomic, strong) UILabel *addressLabel;
 @property (nonatomic, strong) UIButton *collectionButton;
 @property (nonatomic, strong) UIButton *changeButton;
+
+@property (nonatomic, weak) id<AssetTableHeadViewCellDelegate> delegate;
 
 @end

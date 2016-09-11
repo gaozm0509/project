@@ -13,8 +13,88 @@
 
 @implementation AssetTableViewCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setupSubViews];
+    }
+    return self;
+}
+
+- (UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc]init];
+        _titleLabel.text = @"客厅";
+        _titleLabel.textColor = Color_Hex(@"a4a4a4");
+        _titleLabel.font = kFont14;
+    }
+    return _titleLabel;
+}
+
+- (UIImageView *)rightIcon{
+    if (!_rightIcon) {
+        _rightIcon = [[UIImageView alloc]initWithImage:Image(@"向右按钮")];
+    }
+    return _rightIcon;
+}
+
+- (void)setupSubViews{
+    [self addSubview:self.titleLabel];
+    [self addSubview:self.rightIcon];
+    
+    WS(weakSelf);
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf).offset(10);
+        make.height.offset(14);
+        make.width.lessThanOrEqualTo(@(kScreen_Width));
+        make.centerX.equalTo(weakSelf.mas_centerY);
+    }];
+    [_rightIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.mas_right).offset(- 10);
+        make.centerY.equalTo(weakSelf.mas_centerY);
+        make.width.offset(6);
+        make.height.offset(10);
+    }];
+}
 
 @end
+
+
+
+@implementation AssetTableViewFirstCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setupSubViews];
+    }
+    return self;
+}
+
+- (UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc]init];
+        _titleLabel.text = @"客厅";
+        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.font = kFont14;
+    }
+    return _titleLabel;
+}
+
+- (void)setupSubViews{
+    [self addSubview:self.titleLabel];
+    
+    WS(weakSelf);
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf).offset(10);
+        make.height.offset(14);
+        make.width.lessThanOrEqualTo(@(kScreen_Width));
+        make.centerX.equalTo(weakSelf.mas_centerY);
+    }];
+}
+
+@end
+
 
 
 @implementation AssetTableHeadViewCell
@@ -29,7 +109,7 @@
 
 - (UIImageView *)leftImageView{
     if (!_leftImageView) {
-        _leftImageView = [[UIImageView alloc]initWithImage:UIImage(@"地址")];
+        _leftImageView = [[UIImageView alloc]initWithImage:Image(@"地址")];
     }
     return _leftImageView;
 }
@@ -59,7 +139,7 @@
         _addressLabel = [[UILabel alloc]init];
         _addressLabel.font = kFont;
         _addressLabel.textColor = kTextColor;
-        _addressLabel.text = @"B户型  2室2厅2卫";
+        _addressLabel.text = @"松江－泗泾  松江区泗通路";
     }
     return _addressLabel;
 }
@@ -90,7 +170,16 @@
 
 #pragma parvit method
 - (void)click:(UIButton *)button{
-
+    switch (button.tag) {
+        case 1001:
+            [self.delegate assetCollection];
+            break;
+        case 1002:
+            [self.delegate assetChange];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)setupSubViews{

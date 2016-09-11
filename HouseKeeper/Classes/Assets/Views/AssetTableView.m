@@ -10,7 +10,7 @@
 
 #define kHeadCellHieght 80
 
-@interface AssetTableView()<UITableViewDataSource,UITableViewDelegate>
+@interface AssetTableView()<UITableViewDataSource,UITableViewDelegate,AssetTableHeadViewCellDelegate>
 
 @end
 
@@ -39,6 +39,15 @@
         AssetTableHeadViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
             cell = [[AssetTableHeadViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell.delegate = self;
+        }
+        return cell;
+    }
+    if (indexPath.row == 0) {
+        static NSString *cellId = @"firstCellId";
+        AssetTableViewFirstCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cellId) {
+            cell = [[AssetTableViewFirstCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         return cell;
     }
@@ -51,11 +60,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 0;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return 2;
 }
 
 #pragma mark - UITableViewDelegate
@@ -64,7 +73,7 @@
     if (indexPath.section == 0) {
         return kHeadCellHieght;
     }
-    return 0;
+    return 44;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -81,6 +90,15 @@
     return 0;
 }
 
+#pragma mark - AssetTableHeadViewCellDelegate
+
+- (void)assetCollection{
+    [self.clickDelegate assetCollection];
+}
+
+- (void)assetChange{
+    [self.clickDelegate assetChange];
+}
 
 @end
 

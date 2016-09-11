@@ -10,6 +10,17 @@
 #import "BaseTableView.h"
 #import "AssetTableViewCell.h"
 
+@protocol AssetTableViewDelegate <NSObject>
+
+//采集
+- (void)assetCollection;
+//更换
+- (void)assetChange;
+
+@end
+
 @interface AssetTableView : BaseTableView
+
+@property (nonatomic, weak) id<AssetTableViewDelegate> clickDelegate;
 
 @end
