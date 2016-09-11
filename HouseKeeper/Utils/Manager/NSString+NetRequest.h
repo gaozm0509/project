@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HKAFHTTPSessionManager.h"
 
 @interface NSString (NetRequest)
+
+- (void)httpRequestWithParams:(NSMutableDictionary *)params networkMethod:(NetworkMethod)method andBlock:(void (^)(id data, NSError * error))block;
 
 @end

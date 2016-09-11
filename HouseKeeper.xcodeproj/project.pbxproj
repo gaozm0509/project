@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80011BC61D8063BC002B32AB /* BM_NetAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80011BC31D8063BC002B32AB /* BM_NetAPIManager.m */; };
+		80011BC71D8063BC002B32AB /* HKAFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80011BC51D8063BC002B32AB /* HKAFHTTPSessionManager.m */; };
+		80011BCA1D8065C6002B32AB /* NSString+NetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 80011BC91D8065C6002B32AB /* NSString+NetRequest.m */; };
 		800DC96F1D4C3F5600B89FC2 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC95C1D4C3F5600B89FC2 /* back@3x.png */; };
 		800DC9721D4C3F5600B89FC2 /* login_code_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC9601D4C3F5600B89FC2 /* login_code_left@2x.png */; };
 		800DC9731D4C3F5600B89FC2 /* login_phone_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC9611D4C3F5600B89FC2 /* login_phone_left@2x.png */; };
@@ -136,6 +139,12 @@
 
 /* Begin PBXFileReference section */
 		5BE3449A0FDD6422B65BE78E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		80011BC21D8063BC002B32AB /* BM_NetAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BM_NetAPIManager.h; sourceTree = "<group>"; };
+		80011BC31D8063BC002B32AB /* BM_NetAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BM_NetAPIManager.m; sourceTree = "<group>"; };
+		80011BC41D8063BC002B32AB /* HKAFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HKAFHTTPSessionManager.h; sourceTree = "<group>"; };
+		80011BC51D8063BC002B32AB /* HKAFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HKAFHTTPSessionManager.m; sourceTree = "<group>"; };
+		80011BC81D8065C6002B32AB /* NSString+NetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NetRequest.h"; sourceTree = "<group>"; };
+		80011BC91D8065C6002B32AB /* NSString+NetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NetRequest.m"; sourceTree = "<group>"; };
 		800DC95C1D4C3F5600B89FC2 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		800DC9601D4C3F5600B89FC2 /* login_code_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_code_left@2x.png"; sourceTree = "<group>"; };
 		800DC9611D4C3F5600B89FC2 /* login_phone_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_phone_left@2x.png"; sourceTree = "<group>"; };
@@ -726,8 +735,14 @@
 		8073DCE11D39E345007DA983 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				80011BC21D8063BC002B32AB /* BM_NetAPIManager.h */,
+				80011BC31D8063BC002B32AB /* BM_NetAPIManager.m */,
+				80011BC41D8063BC002B32AB /* HKAFHTTPSessionManager.h */,
+				80011BC51D8063BC002B32AB /* HKAFHTTPSessionManager.m */,
 				8073DCE21D39E345007DA983 /* BubbleView.h */,
 				8073DCE31D39E345007DA983 /* BubbleView.m */,
+				80011BC81D8065C6002B32AB /* NSString+NetRequest.h */,
+				80011BC91D8065C6002B32AB /* NSString+NetRequest.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1024,7 +1039,9 @@
 				8073DD1E1D39E345007DA983 /* NSObject+Common.m in Sources */,
 				8073DD501D3A496E007DA983 /* UIViewController+Swizzle.m in Sources */,
 				8073DD3D1D39E9CD007DA983 /* AssetViewController.m in Sources */,
+				80011BC71D8063BC002B32AB /* HKAFHTTPSessionManager.m in Sources */,
 				8073DD231D39E345007DA983 /* UITableView+Common.m in Sources */,
+				80011BC61D8063BC002B32AB /* BM_NetAPIManager.m in Sources */,
 				8073DD3A1D39E9AD007DA983 /* PersonalCenterViewController.m in Sources */,
 				8073DD101D39E345007DA983 /* BubbleView.m in Sources */,
 				8073DD1F1D39E345007DA983 /* NSString+Common.m in Sources */,
@@ -1039,6 +1056,7 @@
 				8073DD201D39E345007DA983 /* UIColor+expanded.m in Sources */,
 				80CE2DA11D4122A3004E6622 /* XTSegmentControl.m in Sources */,
 				80910F101D5E002500DA6556 /* InvoiceTableViewCell.m in Sources */,
+				80011BCA1D8065C6002B32AB /* NSString+NetRequest.m in Sources */,
 				8073DD291D39E4B7007DA983 /* PUSHPAGE.m in Sources */,
 				804A07451D4900E6007C66C5 /* CouponTableViewCell.m in Sources */,
 				8073DD341D39E97D007DA983 /* HomeViewController.m in Sources */,

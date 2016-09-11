@@ -22,6 +22,7 @@
 #import "UITableView+Common.h"
 #import "PUSHPAGE.h"
 #import "NSDictionary+JudgeObj.h"
+#import "NSString+NetRequest.h"
 
 
 #endif

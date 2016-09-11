@@ -25,6 +25,8 @@
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.leftButton];
     [self .view addSubview:self.rightButton];
+    
+    [self netApiGet];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -119,6 +121,12 @@
 
 #pragma mark - Net request
 
+- (void)netApiGet{
+    [kApi_employee_sendVerificationCode httpRequestWithParams:[@{@"mobile":@"18036396675"} mutableCopy]  networkMethod:Get andBlock:^(id data, NSError *error) {
+        NSLog(@"+++%@++++",data);
+    }];
+    
+}
 
 #pragma mark - Pravit method
 
