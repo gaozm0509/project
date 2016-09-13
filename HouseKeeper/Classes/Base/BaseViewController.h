@@ -10,6 +10,8 @@
 
 @interface BaseViewController : UIViewController
 
+@property (nonatomic, strong) NSDictionary *receiveParams;
+
 @property (nonatomic, strong) UIImage *backgroundImage;
 
 @end

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 #import <AFNetworkActivityIndicatorManager.h>
-
+#import "KeychainItemWrapper.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -21,14 +21,27 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     TabBarViewController *rootVC = [[TabBarViewController alloc]init];
-    self.window.rootViewController = rootVC;
+    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:rootVC];
     [self.window makeKeyAndVisible];
     
     [[AFNetworkActivityIndicatorManager sharedManager]setEnabled:YES];
     
     //设置NavBar
     [self customizeInterface];
+    [self setImeiCode];
     return YES;
+}
+
+/**
+ *  设置uuid存入到KeychainItemWrapper中充当imei code
+ */
+- (void)setImeiCode{
+    KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
+    NSString *devicNum = [keychain  objectForKey:(id)kSecAttrService];
+    if (devicNum==nil) {
+        devicNum = [[NSUUID UUID] UUIDString];
+        [keychain setObject:devicNum forKey:(id)kSecAttrService];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

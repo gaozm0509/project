@@ -36,6 +36,8 @@
     [self.requestSerializer setValue:@"doAction"forHTTPHeaderField:@"te_method"];
     [self.requestSerializer setValue:@"1.0"forHTTPHeaderField:@"te_version"];
     [self.requestSerializer setValue:@"moa"forHTTPHeaderField:@"party_id"];
+    self.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", @"DELETE",@"POST", nil];
+    
     self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",@"application/json",nil];
     self.requestSerializer.timeoutInterval = 15;
     return self;
@@ -54,7 +56,7 @@
             [self GET:aPath parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
                 progressBlock(downloadProgress);
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                block(@0,responseObject[@"data"],responseObject[@"message"],nil);
+                block(@0,responseObject,responseObject[@"message"],nil);
                 
                  NSLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 
@@ -69,7 +71,7 @@
             [self POST:aPath parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
                  progressBlock(uploadProgress);
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                block(@0,responseObject[@"data"],responseObject[@"message"],nil);
+                block(@0,responseObject,responseObject[@"message"],nil);
                 
                 NSLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 

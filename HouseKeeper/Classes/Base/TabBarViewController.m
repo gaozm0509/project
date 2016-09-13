@@ -8,7 +8,7 @@
 
 #import "TabBarViewController.h"
 
-@interface TabBarViewController ()
+@interface TabBarViewController ()<UITabBarControllerDelegate>
 
 @end
 
@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.delegate = self;
     [self setUpController];
 }
 
@@ -24,11 +25,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UITabBarControllerDelegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+    if ([viewController isKindOfClass:[PersonalCenterViewController class]]) {
+        [self showLoginViewController];
+    }
+}
+
 - (void)setUpController{
-    UINavigationController *home = [[UINavigationController alloc]initWithRootViewController:[[HomeViewController alloc]init]];
-    UINavigationController *order = [[UINavigationController alloc]initWithRootViewController:[[OrderViewController alloc]init]];
-    UINavigationController *asset = [[UINavigationController alloc]initWithRootViewController:[[AssetViewController alloc]init]];
-    UINavigationController *personalCenter = [[UINavigationController alloc]initWithRootViewController:[[PersonalCenterViewController alloc]init]];
+//    UINavigationController *home = [[UINavigationController alloc]initWithRootViewController:[[HomeViewController alloc]init]];
+//    UINavigationController *order = [[UINavigationController alloc]initWithRootViewController:[[OrderViewController alloc]init]];
+//    UINavigationController *asset = [[UINavigationController alloc]initWithRootViewController:[[AssetViewController alloc]init]];
+//    UINavigationController *personalCenter = [[UINavigationController alloc]initWithRootViewController:[[PersonalCenterViewController alloc]init]];
+    
+    HomeViewController *home = [[HomeViewController alloc] init];
+    OrderViewController *order = [[OrderViewController alloc] init];
+    AssetViewController *asset = [[AssetViewController alloc] init];
+    PersonalCenterViewController *personalCenter = [[PersonalCenterViewController alloc] init];
+    
     home.title = @"首页";
     order.title = @"我的订单";
     asset.title = @"我的资产";
@@ -43,9 +58,6 @@
     order.tabBarItem.selectedImage = [UIImage imageNamed:@"selected_tab2"];
     asset.tabBarItem.selectedImage = [UIImage imageNamed:@"selected_tab3"];
     personalCenter.tabBarItem.selectedImage = [UIImage imageNamed:@"selected_tab4"];
-    
-//    [self setTabar];
-    
     
 }
 

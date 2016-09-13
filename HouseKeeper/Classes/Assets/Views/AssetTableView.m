@@ -46,8 +46,9 @@
     if (indexPath.row == 0) {
         static NSString *cellId = @"firstCellId";
         AssetTableViewFirstCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cellId) {
+        if (!cell) {
             cell = [[AssetTableViewFirstCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];
         }
         return cell;
     }
@@ -64,6 +65,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if(section == 0){
+        return 1;
+    }
     return 2;
 }
 
@@ -78,6 +82,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.clickDelegate clickTableViewCellWithModel:@"客厅一"];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

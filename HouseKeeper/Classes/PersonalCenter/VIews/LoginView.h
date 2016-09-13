@@ -15,6 +15,13 @@
 
 @end
 
+@protocol LoginViewDelegate <NSCoding>
+
+- (void)loginEvent;
+
+- (void)sendCodeEvent;
+
+@end
 
 @interface LoginView : BaseVIew
 
@@ -35,6 +42,8 @@
 //@property (nonatomic, strong) ThirdPartyButton *wechartButton;
 //@property (nonatomic, strong) ThirdPartyButton *weiboButton;
 //@property (nonatomic, strong) ThirdPartyButton *qqButton;
+
+@property (nonatomic, weak) id<LoginViewDelegate> delegate;
 
 @end
 

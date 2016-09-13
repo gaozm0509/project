@@ -22,12 +22,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f0f0f0"];
     [self setUpForDismissKeyboard];
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
-//    if (([self isKindOfClass:[HomeViewController class]]||[self isKindOfClass:[OrderViewController class]]||[self isKindOfClass:[AssetViewController class]]||[self isKindOfClass:[PersonalCenterViewController class]])) {
-//        self.hidesBottomBarWhenPushed = YES;
-//    }
+    
+    self.receiveParams = [NSDictionary new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,17 +51,18 @@
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(tapAnywhereToDismissKeyboard:)];
     NSOperationQueue *mainQuene =[NSOperationQueue mainQueue];
+    WS(weakSelf);
     [nc addObserverForName:UIKeyboardWillShowNotification
                     object:nil
                      queue:mainQuene
                 usingBlock:^(NSNotification *note){
-                    [self.view addGestureRecognizer:singleTapGR];
+                    [weakSelf.view addGestureRecognizer:singleTapGR];
                 }];
     [nc addObserverForName:UIKeyboardWillHideNotification
                     object:nil
                      queue:mainQuene
                 usingBlock:^(NSNotification *note){
-                    [self.view removeGestureRecognizer:singleTapGR];
+                    [weakSelf.view removeGestureRecognizer:singleTapGR];
                 }];
 }
 - (void)tapAnywhereToDismissKeyboard:(UIGestureRecognizer *)gestureRecognizer {

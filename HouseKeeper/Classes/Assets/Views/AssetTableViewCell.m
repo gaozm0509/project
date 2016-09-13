@@ -47,7 +47,7 @@
         make.left.equalTo(weakSelf).offset(10);
         make.height.offset(14);
         make.width.lessThanOrEqualTo(@(kScreen_Width));
-        make.centerX.equalTo(weakSelf.mas_centerY);
+        make.centerY.equalTo(weakSelf.mas_centerY);
     }];
     [_rightIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf.mas_right).offset(- 10);
@@ -74,7 +74,7 @@
 - (UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.text = @"客厅";
+        _titleLabel.text = @"客厅一";
         _titleLabel.textColor = [UIColor blackColor];
         _titleLabel.font = kFont14;
     }
@@ -89,7 +89,7 @@
         make.left.equalTo(weakSelf).offset(10);
         make.height.offset(14);
         make.width.lessThanOrEqualTo(@(kScreen_Width));
-        make.centerX.equalTo(weakSelf.mas_centerY);
+        make.centerY.equalTo(weakSelf.mas_centerY);
     }];
 }
 

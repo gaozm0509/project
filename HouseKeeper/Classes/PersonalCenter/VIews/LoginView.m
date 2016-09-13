@@ -18,7 +18,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-//        [self setBackgroundColor:[UIColor purpleColor]];
         [self setupSubViews];
     }
     return self;
@@ -101,7 +100,7 @@
         _codeButton.tag = 1001;
         _codeButton.backgroundColor = KMajorColor;
         [_codeButton setTitleColor:[UIColor colorWithHexString:@"ffffff" andAlpha:0.5] forState:UIControlStateHighlighted];
-        [_codeButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchDragInside];
+        [_codeButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
         [_codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         _codeButton.titleLabel.font = kTextFont;
         _codeButton.layer.cornerRadius = 3;
@@ -115,7 +114,7 @@
         _loginButton.tag = 1002;
         _loginButton.backgroundColor = KMajorColor;
         [_loginButton setTitleColor:[UIColor colorWithHexString:@"ffffff" andAlpha:0.5] forState:UIControlStateHighlighted];
-        [_loginButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchDragInside];
+        [_loginButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
         _loginButton.titleLabel.font = [UIFont systemFontOfSize:15];
         _loginButton.layer.cornerRadius = 5;
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
@@ -275,7 +274,14 @@
 }
 
 - (void)click:(UIButton *)button{
-
+    if (button.tag == 1001) {
+        //发送验证码
+        [self.delegate sendCodeEvent];
+    }
+    if (button.tag == 1002) {
+        //登录
+        [self.delegate loginEvent];
+    }
 }
 
 @end

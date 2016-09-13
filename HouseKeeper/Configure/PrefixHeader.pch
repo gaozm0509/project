@@ -23,6 +23,7 @@
 #import "PUSHPAGE.h"
 #import "NSDictionary+JudgeObj.h"
 #import "NSString+NetRequest.h"
+#import "UIViewController+help.h"
 
 
 #endif
@@ -63,10 +64,14 @@
 
 #define kViewFrame CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavHeight)
 
+//存到KeychainItemWrapper中的替代imei吗的key
+#define kImeiCode @"imeiCode"
+
 //主要的颜色值
 #define KMajorColor [UIColor colorWithHexString:@"35932a"]
 #define kBorderColor [UIColor colorWithHexString:@"dddddd"]
 #define kBackgroundColor [UIColor colorWithHexString:@"efefef"]
+#define kTextColor [UIColor colorWithHexString:@"323232"]//黑色字体颜色
 #define Color_Hex(value) [UIColor colorWithHexString:[NSString stringWithFormat:@"%@",value]]
 
 //UIFont

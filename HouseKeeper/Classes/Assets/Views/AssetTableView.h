@@ -17,6 +17,8 @@
 //更换
 - (void)assetChange;
 
+- (void)clickTableViewCellWithModel:(NSString *)model;
+
 @end
 
 @interface AssetTableView : BaseTableView
