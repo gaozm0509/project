@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSInteger currentTimer;
 
+@property (nonatomic, strong) UIButton *backButton;
+
 @end
 
 @implementation LoginViewController
@@ -26,8 +28,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.loginView];
+    [self.view addSubview:self.backButton];
+    
+    [self.navigationController.navigationBar setHidden:YES];
     
     _currentTimer = 60;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +52,17 @@
         _loginView.delegate = self;
     }
     return _loginView;
+}
+
+- (UIButton *)backButton{
+    if (!_backButton) {
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backButton.frame = CGRectMake(5, 15, 30, 30);
+        [_backButton setImage:Image(@"back") forState:UIControlStateNormal];
+        _backButton.tag = 1001;
+        [_backButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backButton;
 }
 
 #pragma mark - Delegate
@@ -110,6 +131,13 @@
     }
 }
 
+- (void)click:(UIButton *)button{
+    if (button.tag == 1001) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 #pragma mark - Pravit method
+
 
 @end

@@ -20,6 +20,9 @@
 #pragma mark - Cycle life
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"支付";
+    
     [self.view addSubview:self.tableView];
 }
 

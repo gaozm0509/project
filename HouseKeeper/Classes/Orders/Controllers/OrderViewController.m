@@ -74,7 +74,7 @@ int _selectedIndex;
                 return;
             }
             _oldSelectedIndex = index;
-            [weakCarousel scrollToItemAtIndex:index animated:NO];
+            [weakCarousel scrollToItemAtIndex:index animated:YES];
         }];
         if (_selectedIndex != 0) {
             [_mySegmentControl selectIndex:_selectedIndex];

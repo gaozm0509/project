@@ -17,7 +17,7 @@
 		1545F4F01D85535E00D96BF7 /* 相机@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1545F4E91D85535E00D96BF7 /* 相机@2x.png */; };
 		80011BC71D8063BC002B32AB /* HKAFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80011BC51D8063BC002B32AB /* HKAFHTTPSessionManager.m */; };
 		80011BCA1D8065C6002B32AB /* NSString+NetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 80011BC91D8065C6002B32AB /* NSString+NetRequest.m */; };
-		800DC96F1D4C3F5600B89FC2 /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC95C1D4C3F5600B89FC2 /* back@3x.png */; };
+		800DC96F1D4C3F5600B89FC2 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC95C1D4C3F5600B89FC2 /* back@2x.png */; };
 		800DC9721D4C3F5600B89FC2 /* login_code_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC9601D4C3F5600B89FC2 /* login_code_left@2x.png */; };
 		800DC9731D4C3F5600B89FC2 /* login_phone_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC9611D4C3F5600B89FC2 /* login_phone_left@2x.png */; };
 		800DC9741D4C3F5600B89FC2 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 800DC9621D4C3F5600B89FC2 /* logo@2x.png */; };
@@ -163,7 +163,7 @@
 		80011BC51D8063BC002B32AB /* HKAFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HKAFHTTPSessionManager.m; sourceTree = "<group>"; };
 		80011BC81D8065C6002B32AB /* NSString+NetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NetRequest.h"; sourceTree = "<group>"; };
 		80011BC91D8065C6002B32AB /* NSString+NetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NetRequest.m"; sourceTree = "<group>"; };
-		800DC95C1D4C3F5600B89FC2 /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
+		800DC95C1D4C3F5600B89FC2 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		800DC9601D4C3F5600B89FC2 /* login_code_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_code_left@2x.png"; sourceTree = "<group>"; };
 		800DC9611D4C3F5600B89FC2 /* login_phone_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_phone_left@2x.png"; sourceTree = "<group>"; };
 		800DC9621D4C3F5600B89FC2 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
@@ -753,7 +753,7 @@
 			children = (
 				1545F4E21D85535E00D96BF7 /* assetManger */,
 				80E65FF71D62218E003CDEA1 /* order */,
-				800DC95C1D4C3F5600B89FC2 /* back@3x.png */,
+				800DC95C1D4C3F5600B89FC2 /* back@2x.png */,
 				800DC95D1D4C3F5600B89FC2 /* Mine */,
 				800DC9661D4C3F5600B89FC2 /* tab */,
 			);
@@ -952,7 +952,6 @@
 				TargetAttributes = {
 					8073DC871D39DB4B007DA983 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = MNR99UX34U;
 					};
 					8073DCA31D39DB4B007DA983 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1009,7 +1008,7 @@
 				800DC9721D4C3F5600B89FC2 /* login_code_left@2x.png in Resources */,
 				1545F4EC1D85535E00D96BF7 /* 地址@2x.png in Resources */,
 				800DC97D1D4C3F5600B89FC2 /* unselected_tab2@3x.png in Resources */,
-				800DC96F1D4C3F5600B89FC2 /* back@3x.png in Resources */,
+				800DC96F1D4C3F5600B89FC2 /* back@2x.png in Resources */,
 				800DC97E1D4C3F5600B89FC2 /* unselected_tab3@3x.png in Resources */,
 				1545F4EA1D85535E00D96BF7 /* 关闭@2x.png in Resources */,
 				800DC97A1D4C3F5600B89FC2 /* selected_tab3@3x.png in Resources */,
@@ -1293,7 +1292,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HouseKeeper/Configure/PrefixHeader.pch";
 				INFOPLIST_FILE = HouseKeeper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zm.HouseKeeper;
+				PRODUCT_BUNDLE_IDENTIFIER = zm.HouseKeepers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1309,7 +1308,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HouseKeeper/Configure/PrefixHeader.pch";
 				INFOPLIST_FILE = HouseKeeper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zm.HouseKeeper;
+				PRODUCT_BUNDLE_IDENTIFIER = zm.HouseKeepers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

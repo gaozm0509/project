@@ -27,22 +27,22 @@
 
 #pragma mark - UITabBarControllerDelegate
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-    if ([viewController isKindOfClass:[PersonalCenterViewController class]]) {
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    UIViewController *VC = [((UINavigationController *)viewController).viewControllers firstObject];
+    if ([VC isKindOfClass:[PersonalCenterViewController class]]) {
         [self showLoginViewController];
+        return NO;
     }
+    return YES;
 }
 
 - (void)setUpController{
-//    UINavigationController *home = [[UINavigationController alloc]initWithRootViewController:[[HomeViewController alloc]init]];
-//    UINavigationController *order = [[UINavigationController alloc]initWithRootViewController:[[OrderViewController alloc]init]];
-//    UINavigationController *asset = [[UINavigationController alloc]initWithRootViewController:[[AssetViewController alloc]init]];
-//    UINavigationController *personalCenter = [[UINavigationController alloc]initWithRootViewController:[[PersonalCenterViewController alloc]init]];
-    
-    HomeViewController *home = [[HomeViewController alloc] init];
-    OrderViewController *order = [[OrderViewController alloc] init];
-    AssetViewController *asset = [[AssetViewController alloc] init];
-    PersonalCenterViewController *personalCenter = [[PersonalCenterViewController alloc] init];
+    UINavigationController *home = [[UINavigationController alloc]initWithRootViewController:[[HomeViewController alloc]init]];
+    UINavigationController *order = [[UINavigationController alloc]initWithRootViewController:[[OrderViewController alloc]init]];
+    UINavigationController *asset = [[UINavigationController alloc]initWithRootViewController:[[AssetViewController alloc]init]];
+    UINavigationController *personalCenter = [[UINavigationController alloc]initWithRootViewController:[[PersonalCenterViewController alloc]init]];
+
     
     home.title = @"首页";
     order.title = @"我的订单";

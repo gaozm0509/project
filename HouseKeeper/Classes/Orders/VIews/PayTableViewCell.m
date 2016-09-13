@@ -8,7 +8,7 @@
 
 #import "PayTableViewCell.h"
 #define kHieght 12
-#define kPadding 5
+#define kPadding 10
 #define kTitleheight 30
 
 @implementation PayTableViewCell
@@ -116,7 +116,7 @@
         _timeLabel = [[UILabel alloc]init];
         _timeLabel.textColor = Color_Hex(@"666666");
         _timeLabel.font = kFont12;
-        _timeLabel.text = @"上门录入-资产录入：99/次";
+        _timeLabel.text = @"上门服务时间：2016-03-01 下午";
     }
     return _timeLabel;
 }
@@ -161,7 +161,7 @@
 
 - (UIImageView *)arrowIcon{
     if (!_arrowIcon) {
-        _arrowIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"order优惠券"]];
+        _arrowIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"order优惠卷"]];
     }
     return _arrowIcon;
 }
@@ -182,6 +182,7 @@
         _actualCostLabel.textColor = Color_Hex(@"ee530e");
         _actualCostLabel.font = kFont12;
         _actualCostLabel.text = @"实付：99元";
+        _actualCostLabel.textAlignment = NSTextAlignmentRight;
     }
     return _actualCostLabel;
 }
@@ -269,7 +270,8 @@
 }
 
 + (CGFloat)getHeightWith{
-   return kScreen_Height;
+    //以“+”分割，相乘的两位数第一位是元素的高度，第二位是元素的个数，依次是title的高度，普通label的高度，间隔的高度，分割view的高度，优惠券Button的高度，支付类型view的高度，应付实付的高度
+   return kTitleheight * 3 + 0.5 * 3 + kHieght * 5 + kPadding * 7 + 10 * 4 + 60 + 70 * 3 + 42;
 }
 
 - (void)setupSubViews{
@@ -314,32 +316,33 @@
         make.top.equalTo(weakSelf.contactsInfoLabel.mas_bottom).offset(0);
         make.height.offset(0.5);
         make.left.equalTo(weakSelf).offset(10);
-        make.left.equalTo(weakSelf).offset(- 10);
+        make.right.equalTo(weakSelf.mas_right).offset(- 10);
     }];
     [_contactsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contactsInfoLabel);
         make.right.equalTo(weakSelf.mas_right);
         make.height.offset(kHieght);
-        make.top.equalTo(weakSelf.lineView1).offset(kPadding);
+        make.top.equalTo(weakSelf.lineView1.mas_bottom).offset(kPadding);
     }];
     [_phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contactsInfoLabel);
         make.height.offset(kHieght);
-        make.top.equalTo(weakSelf.contactsLabel.mas_bottom).offset(5);
+        make.top.equalTo(weakSelf.contactsLabel.mas_bottom).offset(kPadding);
         make.right.equalTo(weakSelf.mas_right);
     }];
     [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contactsInfoLabel);
         make.height.offset(kHieght);
-        make.top.equalTo(weakSelf.phoneLabel .mas_bottom).offset(5);
+        make.top.equalTo(weakSelf.phoneLabel .mas_bottom).offset(kPadding);
         make.right.equalTo(weakSelf.mas_right);
     }];
     [_splitView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.addressLabel.mas_bottom).offset(5);
+        make.top.equalTo(weakSelf.addressLabel.mas_bottom).offset(kPadding);
         make.height.offset(10);
         make.left.equalTo(weakSelf);
         make.right.equalTo(weakSelf.mas_right);
     }];
+    
     
     [_orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.splitView1.mas_bottom).offset(0);
@@ -347,31 +350,33 @@
         make.left.equalTo(weakSelf.contactsInfoLabel);
         make.right.equalTo(weakSelf.mas_right);
     }];
-    [_lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.orderNumberLabel.mas_bottom).offset(0);
         make.height.offset(0.5);
         make.left.equalTo(weakSelf).offset(10);
-        make.left.equalTo(weakSelf).offset(- 10);
+        make.right.equalTo(weakSelf.mas_right).offset(- 10);
     }];
     [_inputLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contactsInfoLabel);
         make.right.equalTo(weakSelf.mas_right);
         make.height.offset(12);
-        make.top.equalTo(weakSelf.lineView2.mas_bottom).offset(5);
+        make.top.equalTo(weakSelf.lineView2.mas_bottom).offset(kPadding);
     }];
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contactsInfoLabel);
         make.right.equalTo(weakSelf.mas_right);
         make.height.offset(12);
-        make.top.equalTo(weakSelf.inputLabel.mas_bottom).offset(5);
+        make.top.equalTo(weakSelf.inputLabel.mas_bottom).offset(kPadding);
     }];
     
     [_splitView2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.timeLabel.mas_bottom).offset(5);
+        make.top.equalTo(weakSelf.timeLabel.mas_bottom).offset(kPadding);
         make.height.offset(10);
         make.left.equalTo(weakSelf);
         make.right.equalTo(weakSelf.mas_right);
     }];
+    
+    
     [_myCouponListButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.splitView2.mas_bottom);
         make.left.equalTo(weakSelf);
@@ -379,21 +384,21 @@
         make.height.offset(60);
     }];
     [_couponLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.myCouponListButton.mas_centerY).offset(- 5);
+        make.bottom.equalTo(weakSelf.myCouponListButton.mas_centerY).offset(- kPadding / 2);
         make.height.offset(12);
-        make.width.offset(200);
-        make.right.equalTo(weakSelf.mas_right);
+        make.width.lessThanOrEqualTo(@(kScreen_Width));
+        make.left.equalTo(weakSelf).offset(10);
     }];
     [_coupnDescriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.myCouponListButton.mas_centerY).offset(5);
+        make.top.equalTo(weakSelf.myCouponListButton.mas_centerY).offset(kPadding / 2);
         make.height.offset(12);
-        make.width.offset(200);
-        make.right.equalTo(weakSelf.mas_right);
+        make.width.lessThanOrEqualTo(@(kScreen_Width));
+        make.left.equalTo(weakSelf).offset(10);
     }];
     [_myCouponLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.myCouponListButton.mas_centerY);
-        make.right.equalTo(weakSelf.mas_right).offset(- 20);
-        make.width.offset(200);
+        make.right.equalTo(weakSelf.mas_right).offset(- 25);
+        make.width.lessThanOrEqualTo(@(kScreen_Width));
         make.height.offset(12);
     }];
     [_arrowIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -410,25 +415,27 @@
         make.right.equalTo(weakSelf.mas_right);
     }];
     
+    
     [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.splitView3.mas_bottom).offset(20);
-        make.height.offset(12);
+        make.top.equalTo(weakSelf.splitView3.mas_bottom).offset(0);
+        make.height.offset(42);
         make.left.equalTo(weakSelf.contactsInfoLabel);
         make.width.offset(200);
     }];
-    [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.splitView3.mas_bottom).offset(20);
-        make.height.offset(12);
-        make.right.equalTo(weakSelf.mas_right).offset(10);
+    [_actualCostLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.paymentLabel).offset(0);
+        make.height.offset(42);
+        make.right.equalTo(weakSelf.mas_right).offset(- 10);
         make.width.offset(200);
     }];
     
     [_splitView4 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.paymentLabel.mas_bottom).offset(10);
+        make.top.equalTo(weakSelf.paymentLabel.mas_bottom).offset(0);
         make.height.offset(10);
         make.left.equalTo(weakSelf);
         make.right.equalTo(weakSelf.mas_right);
     }];
+
     
     [_chosenPaymentMethodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.splitView4.mas_bottom).offset(0);
@@ -524,19 +531,20 @@
     }];
     [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.mas_centerY);
-        make.height.and.with.offset(30);
+        make.height.offset(30);
+        make.width.offset(30);
         make.left.equalTo(weakSelf).offset(10);
     }];
     [_platformNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.mas_centerY).offset(- 2.5);
         make.height.offset(13);
-        make.left.equalTo(weakSelf.imgView);
+        make.left.equalTo(weakSelf.imgView.mas_right).offset(5);
         make.right.equalTo(weakSelf.mas_right);
     }];
     [_platformDescriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.mas_centerY).offset(2.5);
         make.height.offset(13);
-        make.left.equalTo(weakSelf.imgView);
+        make.left.equalTo(weakSelf.imgView.mas_right).offset(5);
         make.right.equalTo(weakSelf.mas_right);
     }];
 }

@@ -69,19 +69,19 @@
 -(UIButton*)backButton{
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage* buttonImage = [UIImage imageNamed:@"back"];
-    button.frame = CGRectMake(0, 0, 30, 30);
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:kBackButtonFontSize];
-    [button.titleLabel setMinimumScaleFactor:0.5];
-    button.titleLabel.shadowOffset = CGSizeMake(0,-1);
-    button.titleLabel.shadowColor = [UIColor darkGrayColor];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, 44, 30);
+    [button setImage:buttonImage forState:UIControlStateNormal];
+//    [button setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+//    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+//    button.titleLabel.font = [UIFont boldSystemFontOfSize:kBackButtonFontSize];
+//    [button.titleLabel setMinimumScaleFactor:0.5];
+//    button.titleLabel.shadowOffset = CGSizeMake(0,-1);
+//    button.titleLabel.shadowColor = [UIColor darkGrayColor];
+//    [button setTitle:@"返回" forState:UIControlStateNormal];
     
     
     button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
     [button addTarget:self action:@selector(goBack_Swizzle) forControlEvents:UIControlEventTouchUpInside];
     return button;

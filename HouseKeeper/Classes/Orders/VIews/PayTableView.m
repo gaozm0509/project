@@ -32,7 +32,9 @@
     PayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[PayTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     TabBarViewController *rootVC = [[TabBarViewController alloc]init];
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:rootVC];
+    self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
     
     [[AFNetworkActivityIndicatorManager sharedManager]setEnabled:YES];
@@ -79,7 +79,7 @@
         
         textAttributes = @{
                            NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
-                           NSForegroundColorAttributeName: [UIColor blackColor],
+                           NSForegroundColorAttributeName: KMajorColor,
                            };
     } else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
