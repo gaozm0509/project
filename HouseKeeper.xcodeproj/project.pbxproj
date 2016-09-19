@@ -38,6 +38,9 @@
 		800DC98A1D4C55A700B89FC2 /* InServiceTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 800DC9891D4C55A700B89FC2 /* InServiceTableView.m */; };
 		800DC98D1D4C55BC00B89FC2 /* InServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 800DC98C1D4C55BC00B89FC2 /* InServiceTableViewCell.m */; };
 		802456E51D86F32900BDB010 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 802456E41D86F32900BDB010 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		802456E81D89A82000BDB010 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802456E71D89A82000BDB010 /* OrderDetailsViewController.m */; };
+		802456EB1D89A84900BDB010 /* OrderDetailsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 802456EA1D89A84900BDB010 /* OrderDetailsTableView.m */; };
+		802456EE1D89A86200BDB010 /* OrderDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 802456ED1D89A86200BDB010 /* OrderDetailsTableViewCell.m */; };
 		803F55761D620C9300EF559F /* OrderTopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803F55751D620C9300EF559F /* OrderTopTableViewCell.m */; };
 		803F55791D620CAB00EF559F /* OrderBottomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 803F55781D620CAB00EF559F /* OrderBottomTableViewCell.m */; };
 		804137DA1D5B7923006B0A3E /* 地址管理@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 804137C41D5B7923006B0A3E /* 地址管理@2x.png */; };
@@ -189,6 +192,12 @@
 		800DC98C1D4C55BC00B89FC2 /* InServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InServiceTableViewCell.m; sourceTree = "<group>"; };
 		802456E31D86F32900BDB010 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		802456E41D86F32900BDB010 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		802456E61D89A82000BDB010 /* OrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsViewController.h; sourceTree = "<group>"; };
+		802456E71D89A82000BDB010 /* OrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsViewController.m; sourceTree = "<group>"; };
+		802456E91D89A84900BDB010 /* OrderDetailsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsTableView.h; sourceTree = "<group>"; };
+		802456EA1D89A84900BDB010 /* OrderDetailsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsTableView.m; sourceTree = "<group>"; };
+		802456EC1D89A86200BDB010 /* OrderDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsTableViewCell.h; sourceTree = "<group>"; };
+		802456ED1D89A86200BDB010 /* OrderDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsTableViewCell.m; sourceTree = "<group>"; };
 		803F55741D620C9300EF559F /* OrderTopTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTopTableViewCell.h; sourceTree = "<group>"; };
 		803F55751D620C9300EF559F /* OrderTopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTopTableViewCell.m; sourceTree = "<group>"; };
 		803F55771D620CAB00EF559F /* OrderBottomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBottomTableViewCell.h; sourceTree = "<group>"; };
@@ -623,6 +632,8 @@
 				8073DD361D39E995007DA983 /* OrderViewController.m */,
 				80E65FE81D6213F5003CDEA1 /* PayViewController.h */,
 				80E65FE91D6213F5003CDEA1 /* PayViewController.m */,
+				802456E61D89A82000BDB010 /* OrderDetailsViewController.h */,
+				802456E71D89A82000BDB010 /* OrderDetailsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -661,6 +672,10 @@
 				80E65FEC1D62140F003CDEA1 /* PayTableView.m */,
 				80E65FEE1D621428003CDEA1 /* PayTableViewCell.h */,
 				80E65FEF1D621428003CDEA1 /* PayTableViewCell.m */,
+				802456E91D89A84900BDB010 /* OrderDetailsTableView.h */,
+				802456EA1D89A84900BDB010 /* OrderDetailsTableView.m */,
+				802456EC1D89A86200BDB010 /* OrderDetailsTableViewCell.h */,
+				802456ED1D89A86200BDB010 /* OrderDetailsTableViewCell.m */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -1108,9 +1123,12 @@
 				8073DD201D39E345007DA983 /* UIColor+expanded.m in Sources */,
 				80CE2DA11D4122A3004E6622 /* XTSegmentControl.m in Sources */,
 				80910F101D5E002500DA6556 /* InvoiceTableViewCell.m in Sources */,
+				802456E81D89A82000BDB010 /* OrderDetailsViewController.m in Sources */,
 				80011BCA1D8065C6002B32AB /* NSString+NetRequest.m in Sources */,
 				8073DD291D39E4B7007DA983 /* PUSHPAGE.m in Sources */,
+				802456EB1D89A84900BDB010 /* OrderDetailsTableView.m in Sources */,
 				804A07451D4900E6007C66C5 /* CouponTableViewCell.m in Sources */,
+				802456EE1D89A86200BDB010 /* OrderDetailsTableViewCell.m in Sources */,
 				8073DD341D39E97D007DA983 /* HomeViewController.m in Sources */,
 				8073DD191D39E345007DA983 /* MBProgressHUD+Add.m in Sources */,
 				804137F51D5CC6C2006B0A3E /* IntegralTableView.m in Sources */,

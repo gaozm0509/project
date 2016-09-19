@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) PayTableView *tableView;
 
+@property (nonatomic, strong) UIButton *payButton;
+
 @end
 
 @implementation PayViewController
@@ -23,7 +25,8 @@
     
     self.title = @"支付";
     
-    [self.view addSubview:self.tableView];
+    [self setupSubViews];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,6 +42,21 @@
     return _tableView;
 }
 
+- (UIButton *)payButton{
+    if (!_payButton) {
+        _payButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        _payButton.backgroundColor = [UIColor whiteColor];
+        [_payButton setTitle:@"确认支付" forState:UIControlStateNormal];
+        [_payButton setTitleColor:Color_Hex(@"37a037") forState:UIControlStateNormal];
+        _payButton.layer.shadowOffset = CGSizeMake(1, 1);
+        _payButton.layer.shadowColor = [UIColor blackColor].CGColor;
+        _payButton.layer.shadowOpacity = 0.6;
+        _payButton.tag = 1001;
+        [_payButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _payButton;
+}
+
 #pragma mark - Delegate
 
 
@@ -49,8 +67,26 @@
 
 #pragma mark - Event method
 
-
+//支付
+- (void)click:(UIButton *)button{
+    if (button.tag == 1001) {
+        
+    }
+}
 
 #pragma mark - Pravit method
+
+- (void)setupSubViews{
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.payButton];
+    
+    WS(weakSelf);
+    [_payButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf.view.mas_bottom);
+        make.left.equalTo(weakSelf.view);
+        make.right.equalTo(weakSelf.view.mas_right);
+        make.height.offset(49);
+    }];
+}
 
 @end
