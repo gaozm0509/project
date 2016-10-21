@@ -25,7 +25,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.text = @"客厅";
-        _titleLabel.textColor = Color_Hex(@"a4a4a4");
+        _titleLabel.textColor = Color_Hex(@"666666");
         _titleLabel.font = kFont14;
     }
     return _titleLabel;
@@ -36,6 +36,11 @@
         _rightIcon = [[UIImageView alloc]initWithImage:Image(@"向右按钮")];
     }
     return _rightIcon;
+}
+
+- (void)setRoomModel:(RoomModel *)roomModel{
+    _roomModel = roomModel;
+    _titleLabel.text = _roomModel.name;
 }
 
 - (void)setupSubViews{
@@ -79,6 +84,11 @@
         _titleLabel.font = kFont14;
     }
     return _titleLabel;
+}
+
+- (void)setRoomListModel:(RoomListModel *)roomListModel{
+    _roomListModel = roomListModel;
+    _titleLabel.text = roomListModel.name;
 }
 
 - (void)setupSubViews{
@@ -166,6 +176,13 @@
         [_changeButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _changeButton;
+}
+
+- (void)setModel:(StateModel *)model{
+    _model = model;
+    _addressLabel.text = _model.address;
+    _apartmentLabel.text = _model.layout;
+    _communityLabel.text = _model.residential;
 }
 
 #pragma parvit method

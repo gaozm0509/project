@@ -232,4 +232,23 @@
     return dic;
 }
 
+/*
+ *对象转成json字符串
+ */
++ (NSString *)JSONString:(id)obj{
+    if (obj == nil) {
+        return nil;
+    }
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if (error) {
+        return nil;
+    }
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                 encoding:NSUTF8StringEncoding];
+    return jsonString;
+}
+
 @end

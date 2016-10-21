@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LoginViewController.h"
 #import "TabBarViewController.h"
 #import <AFNetworkActivityIndicatorManager.h>
 #import "KeychainItemWrapper.h"
@@ -20,11 +21,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    TabBarViewController *rootVC = [[TabBarViewController alloc]init];
-    self.window.rootViewController = rootVC;
+    
+    if (IsLogin) {
+        TabBarViewController *rootVC = [[TabBarViewController alloc]init];
+        self.window.rootViewController = rootVC;
+    }
+    else{
+        LoginViewController *rootVC = [[LoginViewController alloc]init];
+        self.window.rootViewController = rootVC;
+    }
+    
     [self.window makeKeyAndVisible];
     
     [[AFNetworkActivityIndicatorManager sharedManager]setEnabled:YES];
+    
+    [self setUpForDismissKeyboard];
     
     //设置NavBar
     [self customizeInterface];
@@ -66,6 +77,32 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark  键盘隐藏
+- (void)setUpForDismissKeyboard {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    UITapGestureRecognizer *singleTapGR =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(tapAnywhereToDismissKeyboard:)];
+    NSOperationQueue *mainQuene =[NSOperationQueue mainQueue];
+    WS(weakSelf);
+    [nc addObserverForName:UIKeyboardWillShowNotification
+                    object:nil
+                     queue:mainQuene
+                usingBlock:^(NSNotification *note){
+                    [weakSelf.window addGestureRecognizer:singleTapGR];
+                }];
+    [nc addObserverForName:UIKeyboardWillHideNotification
+                    object:nil
+                     queue:mainQuene
+                usingBlock:^(NSNotification *note){
+                    [weakSelf.window removeGestureRecognizer:singleTapGR];
+                }];
+}
+- (void)tapAnywhereToDismissKeyboard:(UIGestureRecognizer *)gestureRecognizer {
+    //此method会将self.view里所有的subview的first responder都resign掉
+    [self.window endEditing:YES];
+}
+
 #pragma mark - Split view
 
 - (void)customizeInterface {
@@ -76,6 +113,7 @@
         [navigationBarAppearance setTintColor:[UIColor whiteColor]];//返回按钮的箭头颜色
         [[UITextField appearance] setTintColor:KMajorColor];//设置UITextField的光标颜色
         [[UITextView appearance] setTintColor:KMajorColor];//设置UITextView的光标颜色
+        [[UIBarButtonItem appearance]setTintColor:KMajorColor];
         
         textAttributes = @{
                            NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],

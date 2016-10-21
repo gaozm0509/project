@@ -11,12 +11,12 @@
 #import <Foundation/Foundation.h>
 #import "UIColor+expanded.h"
 #import "UIImage+Common.h"
-#import "NSDate+Common.h"
-#import "NSDate+convenience.h"
+#import "NSDate+Helper.h"
 #import "NSObject+Common.h"
 #import "NSString+Common.h"
 #import "UILabel+Common.h"
 #import "UIView+Common.h"
+#import "UIButton+TitleImage.h"
 #import "Masonry.h"
 #import "APIUrl.h"
 #import "UITableView+Common.h"
@@ -71,8 +71,12 @@
 #define KMajorColor [UIColor colorWithHexString:@"35932a"]
 #define kBorderColor [UIColor colorWithHexString:@"dddddd"]
 #define kBackgroundColor [UIColor colorWithHexString:@"efefef"]
-#define kTextColor [UIColor colorWithHexString:@"323232"]//黑色字体颜色
-#define Color_Hex(value) [UIColor colorWithHexString:[NSString stringWithFormat:@"%@",value]]
+
+//黄色，经常用到的橘黄色
+#define KMajorYellowColor [UIColor colorWithHexString:@"f7904a"]
+
+#define kText_Color [UIColor colorWithHexString:@"323232"]//黑色字体颜色
+#define Color_Hex(value) [UIColor colorWithHexString:value]
 
 //UIFont
 #define kFont10 [UIFont systemFontOfSize:10]
@@ -89,6 +93,13 @@
 
 //常用方法
 #define Image(name) [UIImage imageNamed:name]
+
+
+#define SetUserDefaults(value,key) [[NSUserDefaults standardUserDefaults]setValue:value forKey:key]
+#define GetUserDefaults(key) [[NSUserDefaults standardUserDefaults] objectForKey:key]
+#define IsLogin ([NSString stringWithFormat:@"%@",GetUserDefaults(@"userId")].length > 0 && GetUserDefaults(@"userId") != nil)
+#define kmember_id GetUserDefaults(@"userId")
+#define kmobile GetUserDefaults(@"mobile")
 
 //通知
 #define kShowMapNotification @"showMapNotification"

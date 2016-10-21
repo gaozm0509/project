@@ -8,13 +8,11 @@
  
 @class metadata;
 @interface BaseModel : NSObject
-@property(nonatomic,assign)NSInteger ResponseStatus;
-@property(nonatomic,strong)NSString *ResponseMsg;
+@property(nonatomic,assign)NSInteger code;
+@property(nonatomic,strong)NSString *message;
 @property(nonatomic,strong)metadata *metadata;
 
 -(instancetype)initWithDic:(NSDictionary*)dic;
-
--(id)initWithDictionary:(NSDictionary*)dict;
 
 - (id) initWithDictionary:(NSDictionary*)dict error:(NSError**)err;
 

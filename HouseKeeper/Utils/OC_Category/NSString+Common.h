@@ -32,4 +32,10 @@
 - (NSString *)stringByTrimmingRightCharactersInSet:(NSCharacterSet *)characterSet;
 - (CGSize)sizeWithFont:(UIFont *)font Size:(CGSize)size;
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString ;
+
+/*
+ *对象转成json字符串
+ */
++ (NSString *)JSONString:(id)obj;
+
 @end

@@ -10,4 +10,6 @@
 
 @interface BaseVIew : UIView
 
+- (void)setupSubViews;
+
 @end

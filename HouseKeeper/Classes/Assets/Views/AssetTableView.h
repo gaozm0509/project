@@ -17,12 +17,16 @@
 //更换
 - (void)assetChange;
 
-- (void)clickTableViewCellWithModel:(NSString *)model;
+- (void)clickTableViewCellWithModel:(RoomModel *)model;
 
 @end
 
 @interface AssetTableView : BaseTableView
 
 @property (nonatomic, weak) id<AssetTableViewDelegate> clickDelegate;
+
+@property (nonatomic , strong) StateModel *model;
+
+@property (nonatomic, strong) RoomClassModel *roomClassModel;
 
 @end

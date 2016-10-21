@@ -332,4 +332,35 @@
     [nVC presentViewController:pushNVc animated:YES completion:nil];
 }
 
+/**
+ *  清除缓存
+ */
+- (void)clearCachingAndFinishBlock:(void (^)(BOOL isFinish))block{
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        //找到缓存所存的路径
+        
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES)lastObject];
+        
+        //要清除的文件
+        NSArray *files = [[NSFileManager defaultManager]subpathsAtPath:path];//返回这个路径下的所有文件的数组
+        
+        for (NSString *p in files) {
+            NSError *error = nil;
+            NSString *cachPath = [path stringByAppendingPathComponent:p];
+            if ([[NSFileManager defaultManager]fileExistsAtPath:cachPath]) {
+                [[NSFileManager defaultManager]removeItemAtPath:cachPath error:&error];//删除
+            }
+            
+        }
+//        [[SDImageCache sharedImageCache] cleanDisk];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (block) {
+                block(YES);
+            }
+        });
+    });
+}
+
 @end

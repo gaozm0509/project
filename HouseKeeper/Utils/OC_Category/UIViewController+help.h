@@ -12,4 +12,6 @@
 
 - (void)pushNewViewController:(NSString *)VCName params:(NSDictionary *)params;
 
+- (void)pushNewViewController:(NSString *)VCName;
+
 @end

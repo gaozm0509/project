@@ -21,9 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f0f0f0"];
-    [self setUpForDismissKeyboard];
-    
-    self.receiveParams = [NSDictionary new];
+
+    self.navigationController.interactivePopGestureRecognizer.delegate=(id)self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,31 +43,10 @@
     imgView.frame = self.view.bounds;
 }
 
-#pragma mark  键盘隐藏
-- (void)setUpForDismissKeyboard {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    UITapGestureRecognizer *singleTapGR =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(tapAnywhereToDismissKeyboard:)];
-    NSOperationQueue *mainQuene =[NSOperationQueue mainQueue];
-    WS(weakSelf);
-    [nc addObserverForName:UIKeyboardWillShowNotification
-                    object:nil
-                     queue:mainQuene
-                usingBlock:^(NSNotification *note){
-                    [weakSelf.view addGestureRecognizer:singleTapGR];
-                }];
-    [nc addObserverForName:UIKeyboardWillHideNotification
-                    object:nil
-                     queue:mainQuene
-                usingBlock:^(NSNotification *note){
-                    [weakSelf.view removeGestureRecognizer:singleTapGR];
-                }];
-}
-- (void)tapAnywhereToDismissKeyboard:(UIGestureRecognizer *)gestureRecognizer {
-    //此method会将self.view里所有的subview的first responder都resign掉
-    [self.view endEditing:YES];
-}
+#pragma mark - 子类中实现的方法
+- (void)netRequest{};
+
+
 
 
 @end

@@ -121,7 +121,7 @@ int _selectedIndex;
 #pragma mark ToBePaidTableViewDelegate
 
 - (void)ToBePaidClickCellButton{
-    [self.navigationController pushViewController:PUSHVC(@"PayViewController") animated:YES];
+    [self pushNewViewController:@"PayViewController"];
 }
 
 #pragma mark - Net request

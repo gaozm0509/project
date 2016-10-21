@@ -9,6 +9,18 @@
 #import "BaseTableView.h"
 #import "AssetRoomTableViewCell.h"
 
+@protocol AssetRoomTableViewDelegate <NSObject>
+
+- (void)clickTableViewCellWithModel:(FurnitureModel *)model;
+
+- (void)showAddFurnitureView;
+
+@end
+
 @interface AssetRoomTableView : BaseTableView
+
+@property (nonatomic, strong) RoomModel *model;
+
+@property (nonatomic, weak) id<AssetRoomTableViewDelegate> clickDelegate;
 
 @end

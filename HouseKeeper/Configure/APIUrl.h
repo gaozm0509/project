@@ -14,34 +14,6 @@
 #define kApi_Host @"http://115.28.69.246:8000"
 
 #pragma mark - 个人中心
-//登录
-#define kApi_employee_signin @"api/employee/signin"
-//登出
-#define kApi_employee_signOut @"api/employee/signOut"
-//个人资料
-#define kApi_employee_info @"api/employee/info"
-//发送验证码
-#define kApi_employee_sendVerificationCode @"api/employee/sendVerificationCode"
-//更新个人资料
-#define kApi_employee_update @"api/employee/update"
-//订单完成
-#define kApi_employee_finish @"api/employee/finish"
-//订单
-#define kApi_employee_orders @"api/employee/orders"
-
-#pragma mark - 个人中心 end
-
-
-#define kApi_furniture_create @"api/furniture/create"
-
-#define kApi_furniture_delete @"api/furniture/delete"
-
-#define kApi_furniture @"api/furniture"
-
-
-#define kApi_info_options @"api/info/options"
-
-
 
 #define kApi_member_sendVerificationCode @"api/member/sendVerificationCode"
 
@@ -52,6 +24,28 @@
 #define kApi_member_image @"api/member/image"
 
 #define kApi_member_upload @"api/member/upload"
+
+#pragma mark - 个人中心 end
+
+
+#define kApi_furniture_create @"api/furniture/create"
+
+#define kApi_furniture_delete @"api/furniture/delete"
+
+#define kApi_furniture @"api/furniture"
+
+#define kApi_furniture_roomList @"api/furniture/roomList"
+
+#define kApi_furniture_auto @"api/furniture/auto"
+
+#define kApi_furniture_setSchedule @"api/furniture/setSchedule"
+
+
+#define kApi_info_options @"api/info/options"
+
+
+
+
 
 
 
@@ -66,6 +60,8 @@
 
 #define kApi_orders_refuse @"api/orders/refuse"
 
+
+#define kApi_type_create @"api/type/create"
 
 #define kApi_room_create @"api/room/create"
 
@@ -84,3 +80,7 @@
 
 
 #define kApi_personal @"api/personal"
+
+
+//获取房间类型
+#define kApi_info_options @"api/info/options"

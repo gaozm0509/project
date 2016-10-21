@@ -10,6 +10,13 @@
 
 @interface AssetRoomTableView()<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic, strong) NSMutableArray<FurnitureModel *> *scheduleList;
+
+@property (nonatomic, strong) UILabel *totalAssetsLabel;
+@property (nonatomic, strong) UIButton *addButton;
+
+@property (nonatomic, strong) UIView *headView;
+
 @end
 
 @implementation AssetRoomTableView
@@ -22,8 +29,48 @@
         self.delegate = self;
         self.backgroundColor = kBackgroundColor;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tableHeaderView = self.headView;
     }
     return self;
+}
+
+- (UIView *)headView{
+    if (!_headView) {
+        _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 50)];
+        _headView.backgroundColor = kBackgroundColor;
+        [_headView addSubview:self.totalAssetsLabel];
+        [_headView addSubview:self.addButton];
+        
+        WS(weakSelf);
+        [_totalAssetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(weakSelf.headView).offset(10);
+            make.centerY.equalTo(weakSelf.headView.mas_centerY);
+            make.width.lessThanOrEqualTo(@(kScreen_Width));
+            make.height.lessThanOrEqualTo(@20);
+        }];
+        [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(weakSelf.headView.mas_right).offset(0);
+            make.width.and.height.offset(44);
+            make.centerY.equalTo(weakSelf.headView.mas_centerY);
+        }];
+    }
+    return _headView;
+}
+
+- (UILabel *)totalAssetsLabel{
+    if (!_totalAssetsLabel) {
+        _totalAssetsLabel = [UILabel new];
+    }
+    return _totalAssetsLabel;
+}
+
+- (UIButton *)addButton{
+    if (!_addButton) {
+        _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addButton setImage:Image(@"添加") forState:UIControlStateNormal];
+        [_addButton addTarget:self action:@selector(addFurniture) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _addButton;
 }
 
 #pragma mark - UITableViewDataSource
@@ -35,6 +82,8 @@
         if (!cell) {
             cell = [[AssetRoomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
+        [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];
+        cell.model = _scheduleList[indexPath.row];
         return cell;
     }
    static NSString *cellId = @"cellId1";
@@ -42,15 +91,20 @@
     if (!cell) {
         cell = [[AssetRoomTableViewCell1 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
+    [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];
+    cell.model = _model.furnitures[indexPath.row];
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return MIN(_model.furnitures.count, 1) + MIN(_scheduleList.count, 1);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    if (section == 1) {
+        return _model.furnitures.count;
+    }
+    return _scheduleList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,6 +154,40 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1) {
+        [self.clickDelegate clickTableViewCellWithModel:_model.furnitures[indexPath.row]];
+    }
+    else{
+    
+    }
+}
+
+- (void)setModel:(RoomModel *)model{
+    _model = model;
+    
+    NSMutableAttributedString *nameText = [[NSMutableAttributedString alloc]initWithString:@"资产共计数：" attributes:@{NSFontAttributeName:kFont14,NSForegroundColorAttributeName:kText_Color}];
+    NSMutableAttributedString *value = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%ld",_model.furnitures.count] attributes:@{NSFontAttributeName:kFont14,NSForegroundColorAttributeName:KMajorYellowColor}];
+    [nameText appendAttributedString:value];
+    _totalAssetsLabel.attributedText = nameText;
+    
+    
+    _scheduleList = [NSMutableArray new];
+    
+   //筛选需要保养得家具
+    for (FurnitureModel *furnitureModel in model.furnitures) {
+        if (furnitureModel.schedule_period.integerValue <= 15) {
+            [_scheduleList addObject:furnitureModel];
+        }
+    }
+    [self reloadData];
+}
+
+#pragma mark - Event
+
+- (void)addFurniture{
+    [self.clickDelegate showAddFurnitureView];
 }
 
 @end

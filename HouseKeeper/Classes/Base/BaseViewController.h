@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) UIImage *backgroundImage;
 
+- (void)netRequest;
+
 @end

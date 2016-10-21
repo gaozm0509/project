@@ -55,19 +55,5 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
--(UIImage*)scaledToSize:(CGSize)targetSize highQuality:(BOOL)highQuality{
-    if (highQuality) {
-        targetSize = CGSizeMake(2*targetSize.width, 2*targetSize.height);
-    }
-    return [self scaledToSize:targetSize];
-}
-
-+ (UIImage *)fullResolutionImageFromALAsset:(ALAsset *)asset{
-    ALAssetRepresentation *assetRep = [asset defaultRepresentation];
-    CGImageRef imgRef = [assetRep fullResolutionImage];
-    UIImage *img = [UIImage imageWithCGImage:imgRef scale:assetRep.scale orientation:(UIImageOrientation)assetRep.orientation];
-//    UIImage *img = [UIImage imageWithCGImage:imgRef];
-    return img;
-}
 
 @end

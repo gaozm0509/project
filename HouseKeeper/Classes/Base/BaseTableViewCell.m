@@ -34,4 +34,12 @@
     return 0;
 }
 
+
+- (void)setupSubViews{
+}
+
++ (CGFloat)getHeightWithModel:(BaseModel *)model{
+    return 0;
+}
+
 @end

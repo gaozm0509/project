@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "StateModel.h"
 
 
 @interface AssetTableViewCell : BaseTableViewCell
@@ -14,12 +15,17 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *rightIcon;
 
+@property (nonatomic, strong) RoomModel *roomModel;
+
 @end
 
 
 @interface AssetTableViewFirstCell : BaseTableViewCell
 
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) RoomListModel *roomListModel;
+
+
 
 @end
 
@@ -42,6 +48,8 @@
 @property (nonatomic, strong) UILabel *addressLabel;
 @property (nonatomic, strong) UIButton *collectionButton;
 @property (nonatomic, strong) UIButton *changeButton;
+
+@property (nonatomic , strong) StateModel *model;
 
 @property (nonatomic, weak) id<AssetTableHeadViewCellDelegate> delegate;
 

@@ -16,7 +16,34 @@
     if (params != nil) {
         VC.receiveParams = params;
     }
+    
+    self.hidesBottomBarWhenPushed = YES;
+    
     [self.navigationController pushViewController:VC animated:YES];
+    if (([self isKindOfClass:NSClassFromString(@"AssetViewController")] ||
+          [self isKindOfClass:NSClassFromString(@"HomeViewController")] ||
+          [self isKindOfClass:NSClassFromString(@"OrderViewController")] ||
+          [self isKindOfClass:NSClassFromString(@"PersonalCenterViewController")])
+        ){
+        self.hidesBottomBarWhenPushed=NO;
+    }
+}
+
+
+- (void)pushNewViewController:(NSString *)VCName{
+    BaseViewController *VC = (BaseViewController *)[[NSClassFromString(VCName) alloc]init];
+        
+    self.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:VC animated:YES];
+    if (([self isKindOfClass:NSClassFromString(@"AssetViewController")] ||
+        [self isKindOfClass:NSClassFromString(@"HomeViewController")] ||
+        [self isKindOfClass:NSClassFromString(@"OrderViewController")] ||
+        [self isKindOfClass:NSClassFromString(@"PersonalCenterViewController")])
+        ){
+        self.hidesBottomBarWhenPushed=NO;
+    }
+    
 }
 
 @end

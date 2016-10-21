@@ -81,11 +81,10 @@
     switch (indexPath.section) {
         case 1:{
             if (indexPath.row == 0) {
-                
-                [self.navigationController pushViewController:PUSHVC(@"AddressManagementViewController") animated:YES];
+                [self pushNewViewController:@"AddressManagementViewController"];
             }
             if (indexPath.row == 1) {
-                [self.navigationController pushViewController:PUSHVC(@"InvoiceViewController") animated:YES];
+                [self pushNewViewController:@"InvoiceViewController"];
             }
             break;
         }
@@ -100,17 +99,17 @@
     switch (index) {
         case 0:{
             //余额BalanceViewController
-            [self.navigationController pushViewController:PUSHVC(@"BalanceViewController") animated:YES];
+            [self pushNewViewController:@"BalanceViewController"];
             break;
         }
         case 1:{
             //优惠卷
-            [self.navigationController pushViewController:PUSHVC(@"CouponViewController") animated:YES];
+            [self pushNewViewController:@"CouponViewController"];
             break;
         }
         case 2:{
             //积分
-             [self.navigationController pushViewController:PUSHVC(@"IntegralViewController") animated:YES];
+            [self pushNewViewController:@"IntegralViewController"];
             break;
         }
             
@@ -132,10 +131,12 @@
 
 - (void)click:(UIButton *)button{
     switch (button.tag) {
+            //设置按钮
         case 1001:{
-            
+            [self pushNewViewController:@"SettingViewController"];
             break;
         }
+            //我的资产
         case 1002:{
             
             break;

@@ -8,6 +8,9 @@
 
 #import "LoginViewController.h"
 #import "LoginView.h"
+#import "AssetAddaddressViewController.h"
+#import "TabBarViewController.h"
+#import "UserAccout.h"
 
 #define kSendCodeTime 60
 
@@ -83,7 +86,7 @@
     NSMutableDictionary *params = [NSMutableDictionary new];
     [params setValue:_loginView.phoneTextField.text forKey:@"mobile"];
     
-    [kApi_employee_sendVerificationCode httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+    [kApi_member_sendVerificationCode httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
         if (error) {
             [self showError:error];
             return ;
@@ -102,16 +105,33 @@
 - (void)netRequestLogin{
     
     NSMutableDictionary *params = [NSMutableDictionary new];
-    [params setValue:_loginView.phoneTextField.text forKey:@"mobile"];
-    [params setValue:_loginView.codeTextField.text forKey:@"code"];
+//    [params setValue:_loginView.phoneTextField.text forKey:@"mobile"];
+//    [params setValue:_loginView.codeTextField.text forKey:@"code"];
     
-    [kApi_employee_signin httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+    [params setValue:@"18036396675" forKey:@"mobile"];
+    [params setValue:@"123456" forKey:@"code"];
+    
+    [kApi_member_signin httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+        
         if (error) {
             [self showError:error];
+            NSLog(@"%@",error);
+            UIWindow * window = [[UIApplication sharedApplication].delegate window];
+            //window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[AssetAddaddressViewController new]];
+            window.rootViewController = [TabBarViewController new];
             return ;
         }
-        if ([data[@"code"] integerValue] == 0) {
-            [self dismissViewControllerAnimated:YES completion:nil];
+        if ([data[@"code"] integerValue] == 1) {
+            UserAccout *userAccout = [[UserAccout alloc]initWithDic:data[@"data"]];
+            
+            SetUserDefaults(userAccout.id, @"userId");
+            SetUserDefaults(_loginView.phoneTextField.text, @"mobile");
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            NSLog(@"%@",userAccout);
+            UIWindow * window = [[UIApplication sharedApplication].delegate window];
+            //window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[AssetAddaddressViewController new]];
+            window.rootViewController = [TabBarViewController new];
         }
     }];
 }

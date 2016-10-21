@@ -37,8 +37,8 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 @implementation BaseModel
-@synthesize ResponseMsg;
-@synthesize ResponseStatus;
+@synthesize code;
+@synthesize message;
 
 -(instancetype)initWithDic:(NSDictionary*)dic{
     if (dic == nil) {
@@ -110,6 +110,7 @@
 
 - (void) mappingSelfProperty:(NSDictionary*) dict
 {
-    
+    self.code = [[dict ConvertStringForKey:@"code"] integerValue];
+    self.message = [dict ConvertStringForKey:@"message"];
 }
 @end

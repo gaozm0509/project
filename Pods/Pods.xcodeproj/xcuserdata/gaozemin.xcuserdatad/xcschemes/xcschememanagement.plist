@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ActionSheetPicker-3.0.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IQKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,6 +47,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4C98AEAB10B2FD100C0E2F8B2DACBF63</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5352D432641F0656C90741034E32F31E</key>
 		<dict>
 			<key>primary</key>
@@ -52,27 +62,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9AC3B49B1CDA9256A3945267B0E46917</key>
+		<key>76F8EDD36E8673194F6592FFE30500E6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B7517FD571ED59DEB9D21C1FAA44685C</key>
+		<key>7F6859C9A77772A617AC044D9D3F185F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B7776553CA532C2751F198572434E1C6</key>
+		<key>88801DCD29040C0DDB064D73C848FFCE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BFE537C1B8832064BA4A721F531BA142</key>
+		<key>932F1569FD893AA39882B035E8695DCB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DE760C4C4EB5635A8B21B734463FCF00</key>
+		<key>BF20131AFE8FA8DDA0E2FB2E2124A077</key>
 		<dict>
 			<key>primary</key>
 			<true/>

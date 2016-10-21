@@ -18,6 +18,8 @@
     KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
     NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
     [params setValue:imeiCode forKey:@"imei"];
+    [params setValue:kmember_id forKey:@"member_id"];
+    [params setValue:@"1" forKey:@"rights"];
     
     //添加hud
     [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];

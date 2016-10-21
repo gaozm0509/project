@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "StateModel.h"
 
 @interface AssetRoomTableViewCell : BaseTableViewCell
 
@@ -14,6 +15,8 @@
 @property (nonatomic, strong) UIImageView *rightIcon;
 @property (nonatomic, strong) UILabel *contentlabel;
 @property (nonatomic, strong) UILabel *appliancesName;
+
+@property (nonatomic, strong) FurnitureModel *model;
 
 @end
 
@@ -23,6 +26,8 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *rightIcon;
 @property (nonatomic, strong) UILabel *appliancesName;
+
+@property (nonatomic, strong) FurnitureModel *model;
 
 @end
 

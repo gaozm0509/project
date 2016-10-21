@@ -22,7 +22,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.text = @"挂式空调";
-        _titleLabel.textColor = kTextColor;
+        _titleLabel.textColor = kText_Color;
         _titleLabel.font = kFont12;
     }
     return _titleLabel;
@@ -31,7 +31,6 @@
 - (UILabel *)contentlabel{
     if (!_contentlabel) {
         _contentlabel = [[UILabel alloc]init];
-        _contentlabel.text = @"还剩三天";
         _contentlabel.textColor = Color_Hex(@"db7742");
         _contentlabel.font = kFont12;
     }
@@ -53,6 +52,13 @@
         _rightIcon = [[UIImageView alloc]initWithImage:Image(@"向右")];
     }
     return _rightIcon;
+}
+
+- (void)setModel:(FurnitureModel *)model{
+    _model = model;
+    _titleLabel.text = _model.name;
+    _appliancesName.text = _model.model;
+    _contentlabel.text = _model.schedule_description;
 }
 
 - (void)setupSubViews{
@@ -86,6 +92,7 @@
         make.width.lessThanOrEqualTo(@(kScreen_Width));
         make.left.equalTo(weakSelf.titleLabel);
     }];
+    
 }
 
 @end
@@ -105,7 +112,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.text = @"挂式空调";
-        _titleLabel.textColor = kTextColor;
+        _titleLabel.textColor = kText_Color;
         _titleLabel.font = kFont12;
     }
     return _titleLabel;
@@ -126,6 +133,12 @@
         _rightIcon = [[UIImageView alloc]initWithImage:Image(@"向右")];
     }
     return _rightIcon;
+}
+
+- (void)setModel:(FurnitureModel *)model{
+    _model = model;
+    _titleLabel.text = _model.name;
+    _appliancesName.text = _model.model;
 }
 
 - (void)setupSubViews{

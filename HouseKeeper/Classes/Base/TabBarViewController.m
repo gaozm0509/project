@@ -29,11 +29,6 @@
 
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    UIViewController *VC = [((UINavigationController *)viewController).viewControllers firstObject];
-    if ([VC isKindOfClass:[PersonalCenterViewController class]]) {
-        [self showLoginViewController];
-        return NO;
-    }
     return YES;
 }
 

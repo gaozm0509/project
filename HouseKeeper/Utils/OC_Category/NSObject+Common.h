@@ -75,4 +75,7 @@ typedef NS_ENUM(NSInteger, DateFormatters)
  *  弹出登录界面
  */
 - (void)showLoginViewController;
+
+//清除app中的缓存
+- (void)clearCachingAndFinishBlock:(void (^)(BOOL isFinish))block;
 @end

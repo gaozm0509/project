@@ -7,6 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseModel.h"
+
+@protocol  BaseTableViewDelegate <NSObject>
+
+- (void)BaseTableViewClickWithModel:(BaseModel *)baseModel;
+
+- (void)BaseTableViewClickWithIndexPath:(NSIndexPath *)indexPath;
+
+@end
 
 @interface BaseTableView : UITableView
 
