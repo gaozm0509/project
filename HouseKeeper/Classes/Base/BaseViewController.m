@@ -22,6 +22,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f0f0f0"];
 
+    
+    
     self.navigationController.interactivePopGestureRecognizer.delegate=(id)self;
 }
 
