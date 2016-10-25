@@ -79,6 +79,11 @@
 		8058226C1DB51A7E00AC20D1 /* AsssetServiceTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058226B1DB51A7E00AC20D1 /* AsssetServiceTableView.m */; };
 		8058226F1DB51A9A00AC20D1 /* AssetServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058226E1DB51A9A00AC20D1 /* AssetServiceTableViewCell.m */; };
 		805822721DB51E6800AC20D1 /* UIButton+TitleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 805822711DB51E6800AC20D1 /* UIButton+TitleImage.m */; };
+		8059431B1DBDB459008E8E68 /* BaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8059431A1DBDB459008E8E68 /* BaseCollectionView.m */; };
+		8059431E1DBDB485008E8E68 /* LifeServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8059431D1DBDB485008E8E68 /* LifeServiceViewController.m */; };
+		805943211DBDB4A5008E8E68 /* LifeServiceCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 805943201DBDB4A5008E8E68 /* LifeServiceCollectionView.m */; };
+		805943241DBDB4C0008E8E68 /* LifeServiceCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 805943231DBDB4C0008E8E68 /* LifeServiceCollectionViewCell.m */; };
+		805943271DBDB4DC008E8E68 /* BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 805943261DBDB4DC008E8E68 /* BaseCollectionViewCell.m */; };
 		807011821DABDE3700F4A350 /* AssetAddaddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807011811DABDE3700F4A350 /* AssetAddaddressViewController.m */; };
 		8073DCA91D39DB4B007DA983 /* HouseKeeperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8073DCA81D39DB4B007DA983 /* HouseKeeperTests.m */; };
 		8073DCD01D39DF7D007DA983 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8073DCBA1D39DF7D007DA983 /* AppDelegate.m */; };
@@ -271,6 +276,16 @@
 		8058226E1DB51A9A00AC20D1 /* AssetServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetServiceTableViewCell.m; sourceTree = "<group>"; };
 		805822701DB51E6800AC20D1 /* UIButton+TitleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+TitleImage.h"; sourceTree = "<group>"; };
 		805822711DB51E6800AC20D1 /* UIButton+TitleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TitleImage.m"; sourceTree = "<group>"; };
+		805943191DBDB459008E8E68 /* BaseCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionView.h; sourceTree = "<group>"; };
+		8059431A1DBDB459008E8E68 /* BaseCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCollectionView.m; sourceTree = "<group>"; };
+		8059431C1DBDB485008E8E68 /* LifeServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeServiceViewController.h; sourceTree = "<group>"; };
+		8059431D1DBDB485008E8E68 /* LifeServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeServiceViewController.m; sourceTree = "<group>"; };
+		8059431F1DBDB4A5008E8E68 /* LifeServiceCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeServiceCollectionView.h; sourceTree = "<group>"; };
+		805943201DBDB4A5008E8E68 /* LifeServiceCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeServiceCollectionView.m; sourceTree = "<group>"; };
+		805943221DBDB4C0008E8E68 /* LifeServiceCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeServiceCollectionViewCell.h; sourceTree = "<group>"; };
+		805943231DBDB4C0008E8E68 /* LifeServiceCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeServiceCollectionViewCell.m; sourceTree = "<group>"; };
+		805943251DBDB4DC008E8E68 /* BaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionViewCell.h; sourceTree = "<group>"; };
+		805943261DBDB4DC008E8E68 /* BaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCollectionViewCell.m; sourceTree = "<group>"; };
 		807011801DABDE3700F4A350 /* AssetAddaddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetAddaddressViewController.h; sourceTree = "<group>"; };
 		807011811DABDE3700F4A350 /* AssetAddaddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetAddaddressViewController.m; sourceTree = "<group>"; };
 		8073DC881D39DB4B007DA983 /* HouseKeeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HouseKeeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -664,6 +679,10 @@
 				80E65FF51D621534003CDEA1 /* BaseTableView.m */,
 				80834F771DAF740D00B98E06 /* BaseSheetView.h */,
 				80834F781DAF740D00B98E06 /* BaseSheetView.m */,
+				805943191DBDB459008E8E68 /* BaseCollectionView.h */,
+				8059431A1DBDB459008E8E68 /* BaseCollectionView.m */,
+				805943251DBDB4DC008E8E68 /* BaseCollectionViewCell.h */,
+				805943261DBDB4DC008E8E68 /* BaseCollectionViewCell.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -681,6 +700,8 @@
 		8073DCBC1D39DF7D007DA983 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8059431C1DBDB485008E8E68 /* LifeServiceViewController.h */,
+				8059431D1DBDB485008E8E68 /* LifeServiceViewController.m */,
 				8073DD321D39E97D007DA983 /* HomeViewController.h */,
 				8073DD331D39E97D007DA983 /* HomeViewController.m */,
 			);
@@ -697,6 +718,10 @@
 		8073DCBE1D39DF7D007DA983 /* VIews */ = {
 			isa = PBXGroup;
 			children = (
+				8059431F1DBDB4A5008E8E68 /* LifeServiceCollectionView.h */,
+				805943201DBDB4A5008E8E68 /* LifeServiceCollectionView.m */,
+				805943221DBDB4C0008E8E68 /* LifeServiceCollectionViewCell.h */,
+				805943231DBDB4C0008E8E68 /* LifeServiceCollectionViewCell.m */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -1215,6 +1240,7 @@
 				8073DD181D39E345007DA983 /* FPTuple.m in Sources */,
 				801DA5E51DB7D3550084C4EC /* FurnitureDetailsViewMaintenanceCycleSheetView.m in Sources */,
 				808B36D51DB1273500967A53 /* FurnitureDetailsTableView.m in Sources */,
+				805943211DBDB4A5008E8E68 /* LifeServiceCollectionView.m in Sources */,
 				8073DCD81D39E019007DA983 /* BaseViewController.m in Sources */,
 				803F55791D620CAB00EF559F /* OrderBottomTableViewCell.m in Sources */,
 				8058226C1DB51A7E00AC20D1 /* AsssetServiceTableView.m in Sources */,
@@ -1242,6 +1268,7 @@
 				80CE2D9D1D41220C004E6622 /* iCarousel.m in Sources */,
 				8073DD221D39E345007DA983 /* UILabel+Common.m in Sources */,
 				1545F4D81D84FC6100D96BF7 /* AssetTableView.m in Sources */,
+				805943241DBDB4C0008E8E68 /* LifeServiceCollectionViewCell.m in Sources */,
 				800DC9841D4C556B00B89FC2 /* ToBePaidTableView.m in Sources */,
 				8073DD1A1D39E345007DA983 /* NSArray+FPAdditions.m in Sources */,
 				8073DD4A1D3A1F46007DA983 /* AddressManagementViewController.m in Sources */,
@@ -1268,6 +1295,7 @@
 				8073DD431D3A1771007DA983 /* BaseModel.m in Sources */,
 				802456E51D86F32900BDB010 /* KeychainItemWrapper.m in Sources */,
 				80769FED1D85A3D400D07EBA /* AssetRoomViewController.m in Sources */,
+				805943271DBDB4DC008E8E68 /* BaseCollectionViewCell.m in Sources */,
 				80E65FF61D621534003CDEA1 /* BaseTableView.m in Sources */,
 				8073DD371D39E995007DA983 /* OrderViewController.m in Sources */,
 				80769FF01D85A51200D07EBA /* UIViewController+help.m in Sources */,
@@ -1278,9 +1306,11 @@
 				80910F0D1D5E001100DA6556 /* InvoiceTableView.m in Sources */,
 				801DA5DF1DB7BE910084C4EC /* SettingTableView.m in Sources */,
 				808B36D81DB1274F00967A53 /* FurnitureDetailsTableViewCell.m in Sources */,
+				8059431B1DBDB459008E8E68 /* BaseCollectionView.m in Sources */,
 				803F55761D620C9300EF559F /* OrderTopTableViewCell.m in Sources */,
 				801DA5DC1DB7BE730084C4EC /* SettingViewController.m in Sources */,
 				80762CDD1DB2790400B3061D /* AddAssetTableViewCell.m in Sources */,
+				8059431E1DBDB485008E8E68 /* LifeServiceViewController.m in Sources */,
 				8073DD311D39E953007DA983 /* TabBarViewController.m in Sources */,
 				8073DD561D3A67BB007DA983 /* AddressManagementTableView.m in Sources */,
 				8073DCD01D39DF7D007DA983 /* AppDelegate.m in Sources */,

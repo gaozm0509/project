@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:HouseKeeper/Classes/Home/Controllers/LifeServiceViewController.h">
+   </FileRef>
+   <FileRef
+      location = "group:HouseKeeper/Classes/Home/Controllers/LifeServiceViewController.m">
+   </FileRef>
+   <FileRef
       location = "group:HouseKeeper.xcodeproj">
    </FileRef>
    <FileRef
