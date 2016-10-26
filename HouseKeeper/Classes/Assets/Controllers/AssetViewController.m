@@ -197,7 +197,7 @@
             [ActionSheetStringPicker showPickerWithTitle:@"房间类型" rows:nameList initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                 
                 _typeId = [idList objectAtIndex:selectedIndex];
-                _sheetView.roomNameField.text = selectedValue;
+                _sheetView.roomTypeField.text = selectedValue;
                 
             } cancelBlock:nil origin:self.view];
 
