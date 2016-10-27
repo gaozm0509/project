@@ -8,6 +8,244 @@
 
 #import "LifeServiceCollectionViewCell.h"
 
+@interface LifeServiceCollectionViewCell()
+
+@property (nonatomic, strong) NSArray<NSString *> *imageArr;
+
+@end
+
 @implementation LifeServiceCollectionViewCell
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupSubViews];
+        self.backgroundColor = [UIColor whiteColor];
+        
+        _imageArr = @[@"service_维修",@"service_绿植",@"service_洗衣",@"service_保洁",@"service_地毯清洗",@"service_装修",@"service_京东",@"service_汽车维修"];
+    }
+    return self;
+}
+
+- (UIImageView *)imageView{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc]init];
+        _imageView.contentMode = UIViewContentModeCenter;
+    }
+    return _imageView;
+}
+
+- (void)setIndexRow:(NSInteger)indexRow{
+    _indexRow = indexRow;
+    _imageView.image = Image([_imageArr objectAtIndex:_indexRow]);
+}
+
+- (void)setupSubViews{
+    [self addSubview:self.imageView];
+    
+    [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
+    }];
+}
+
++ (CGSize)getCellSize{
+    CGFloat width = kScreen_Width / 4 - 0.5;
+    CGFloat height = 75;
+    return CGSizeMake(width, height);
+}
+
+@end
+
+@implementation LifeServiceCollectionViewCell1
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupSubViews];
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
+
+- (UIImageView *)imageView{
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc]init];
+        _imageView.contentMode = UIViewContentModeCenter;
+    }
+    return _imageView;
+}
+
+- (UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = kFont14;
+    }
+    return _titleLabel;
+}
+
+- (UILabel *)contentLabel{
+    if (!_contentLabel) {
+        _contentLabel = [[UILabel alloc] init];
+        _contentLabel.font = kFont12;
+        _contentLabel.textColor = Color_Hex(@"a4a4a4");
+    }
+    return _contentLabel;
+}
+
+- (void)setIndexRow:(NSInteger)indexRow{
+    _indexRow = indexRow;
+    
+    switch (_indexRow) {
+        case 0:{
+            _titleLabel.text = @"99录入入资产";
+            _titleLabel.textColor = Color_Hex(@"ff8f3b");
+            _contentLabel.text = @"专业团队上门录入";
+            _imageView.image = Image(@"service_资产录入");
+            break;
+        }
+        case 1:{
+            _titleLabel.text = @"冲500返50";
+            _titleLabel.textColor = Color_Hex(@"ed777b");
+            _contentLabel.text = @"多冲多反";
+            _imageView.image = Image(@"service_充值");
+            break;
+        }
+        case 2:{
+            _titleLabel.text = @"房屋资产深度检测";
+            _titleLabel.textColor = Color_Hex(@"3e9aff");
+            _contentLabel.text = @"全套资产录入手机";
+            _imageView.image = Image(@"service_深度资产录入");
+            break;
+        }
+        case 3:{
+            _titleLabel.text = @"空气治理";
+            _titleLabel.textColor = Color_Hex(@"80269");
+            _contentLabel.text = @"检测治理房屋空气";
+            _imageView.image = Image(@"service_空气治理");
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+}
+
+- (void)setupSubViews{
+    [self addSubview:self.imageView];
+    [self addSubview:self.titleLabel];
+    [self addSubview:self.contentLabel];
+    
+    [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(10);
+        make.right.equalTo(self.mas_right).offset(- 10);
+        make.bottom.equalTo(self.mas_bottom).offset(- 10);
+        make.width.equalTo(_imageView.mas_height).offset(- 5);
+    }];
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(10);
+        make.right.lessThanOrEqualTo(_imageView.mas_left).offset(- 5);
+        make.height.lessThanOrEqualTo(@20);
+        make.bottom.equalTo(self.mas_centerY);
+    }];
+    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mas_centerY).offset(5);
+        make.left.equalTo(self).offset(10);
+        make.right.lessThanOrEqualTo(_imageView.mas_left).offset(- 5);
+        make.height.lessThanOrEqualTo(@20);
+    }];
+}
+
++ (CGSize)getCellSize{
+    CGFloat width = (kScreen_Width - 0.5) / 2;
+    CGFloat height = 75;
+    return CGSizeMake(width, height);
+}
+
+@end
+
+
+@implementation LifeServiceCollectionViewCell2
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self addSubview:self.button];
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
+
+- (UIButton *)button{
+    if (!_button) {
+        CGFloat buttonW = (kScreen_Width - 1) / 2;
+        CGFloat buttonH = 150;
+        _button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonW, buttonH) verticalValue:10 title:@"绿植水培" image:Image(@"service_活动－水培") font:kFont14];
+        [_button setTitleColor:KMajorColor forState:UIControlStateNormal];
+    }
+    return _button;
+}
+
+- (void)setIndexRow:(NSInteger)indexRow{
+    _indexRow = indexRow;
+    if (_indexRow == 0) {
+        [_button setImage:Image(@"service_活动－水培") forState:UIControlStateNormal];
+        [_button setTitle:@"绿植水陪" forState:UIControlStateNormal];
+    }
+    else{
+        [_button setImage:Image(@"service_活动－楼盘") forState:UIControlStateNormal];
+        [_button setTitle:@"楼盘介绍" forState:UIControlStateNormal];
+    }
+}
+
+
++ (CGSize)getCellSize{
+    CGFloat width = (kScreen_Width - 1) / 2;
+    CGFloat height = 150;
+    return CGSizeMake(width, height);
+}
+
+@end
+
+@implementation LifeServiceCollectionViewCell3
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupSubViews];
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
+
+- (UILabel *)textLabel{
+    if (!_textLabel) {
+        _textLabel = [[UILabel alloc] init];
+        _textLabel.textColor = [UIColor blackColor];
+        _textLabel.text = @"我的";
+        _textLabel.font = kFont14;
+        _textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _textLabel.numberOfLines = 0;
+    }
+    return _textLabel;
+}
+
+- (void)setupSubViews{
+    [self addSubview:self.textLabel];
+    [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(10);
+        make.left.equalTo(self).offset(10);
+        make.right.equalTo(self.mas_right);
+        make.bottom.equalTo(self.mas_bottom).offset(- 10);
+    }];
+}
+
++ (CGSize)getCellSize{
+    return CGSizeMake(kScreen_Width, 50);
+}
 
 @end

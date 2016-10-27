@@ -9,6 +9,14 @@
 #import "BaseCollectionView.h"
 #import "LifeServiceCollectionViewCell.h"
 
+@protocol LifeServiceCollectionViewDelegate <NSObject>
+
+- (void)clickItemWithIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface LifeServiceCollectionView : BaseCollectionView
+
+@property (nonatomic, strong) id<LifeServiceCollectionViewDelegate> clickDelegate;
 
 @end

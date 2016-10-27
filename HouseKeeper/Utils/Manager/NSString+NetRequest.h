@@ -13,4 +13,6 @@
 
 - (void)httpRequestWithParams:(NSMutableDictionary *)params networkMethod:(NetworkMethod)method andBlock:(void (^)(id data, NSError * error))block;
 
+- (void)httpRequestWithParams:(NSMutableDictionary *)params networkMethod:(NetworkMethod)method isShowHud:(BOOL)isShowHud andBlock:(void (^)(id data, NSError * error))block;
+
 @end

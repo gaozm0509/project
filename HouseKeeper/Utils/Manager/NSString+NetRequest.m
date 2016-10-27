@@ -38,4 +38,36 @@
         
     }];
 }
+
+- (void)httpRequestWithParams:(NSMutableDictionary *)params networkMethod:(NetworkMethod)method isShowHud:(BOOL)isShowHud andBlock:(void (^)(id, NSError *))block{
+    
+    //添加imei
+    KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
+    NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
+    [params setValue:imeiCode forKey:@"imei"];
+    [params setValue:kmember_id forKey:@"member_id"];
+    [params setValue:@"1" forKey:@"rights"];
+    
+    //添加hud
+    if (isShowHud) {
+        [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    }
+    
+    [[HKAFHTTPSessionManager sharedJsonClient]requestJsonDataWithPath:self withParams:params withMethodType:method andBlock:^(NSNumber *code, id data, NSString *message, NSError *error) {
+        
+        //删除hud
+        if (isShowHud) {
+            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+        }
+        
+        if (data) {
+            block(data, nil);
+        }else{
+            block(message, error);
+        }
+    } progressBlock:^(NSProgress *downloadProgress) {
+        
+    }];
+}
+
 @end

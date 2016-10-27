@@ -10,19 +10,23 @@
 #import "AssetTableView.h"
 #import "AsssetAddRoomSheetView.h"
 #import "ActionSheetPicker.h"
+#import "AssetBatchAddRoomSheetView.h"
 
-@interface AssetViewController ()<AssetTableViewDelegate,BaseSheetViewDelegate>
+@interface AssetViewController ()<AssetTableViewDelegate,BaseSheetViewDelegate,AssetBatchAddRoomSheetViewDeleagte>
 
 @property (nonatomic, strong) AssetTableView *tableView;
 
 @property (nonatomic, strong) UIButton *leftButton;
 @property (nonatomic, strong) UIButton *rightButton;
 @property (nonatomic, strong) AsssetAddRoomSheetView *sheetView;
+@property (nonatomic, strong) AssetBatchAddRoomSheetView *batchSheetView;
 
 @property (nonatomic, strong) StateModel *model;
 @property (nonatomic ,strong) RoomListModel *roomListModel;
 
 @property (nonatomic, strong) NSString *typeId;//被选中的room的typeId；
+
+@property (nonatomic, strong) RoomTypeList *roomTypeList;
 
 @end
 
@@ -38,6 +42,8 @@
     
     [self.view addSubview:self.tableView];
     [self netRequest];
+    
+    _roomTypeList = [[RoomTypeList alloc] initWithDic:@{}];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -82,6 +88,15 @@
     return _rightButton;
 }
 
+- (AssetBatchAddRoomSheetView *)batchSheetView{
+    if (!_batchSheetView) {
+        _batchSheetView = [[AssetBatchAddRoomSheetView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 300)];
+        _batchSheetView.delegate = self;
+        _batchSheetView.textFieldClickDelegate = self;
+    }
+    return _batchSheetView;
+}
+
 #pragma mark - Delegate
 
 - (void)BaseSheetViewSave{
@@ -103,11 +118,38 @@
     }];
 }
 
+#pragma mark AssetBatchAddRoomSheetViewDeleagte
+
+
+- (void)textFieldClickWithIndex:(NSInteger)index{
+    NSArray *arr = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10"];
+    [ActionSheetStringPicker showPickerWithTitle:@"数量选择" rows:arr initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        _roomTypeList.dataList[index].count = selectedValue;
+        _batchSheetView.model = _roomTypeList;
+        
+    } cancelBlock:nil origin:self.view];
+}
+
+#pragma mark BaseSheetViewDelegate
+
+
 #pragma mark AssetTableViewDelegate
 
 //前去采集
 - (void)assetCollection{
-
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"room" forKey:@"type"];
+    [kApi_info_options httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            [self.batchSheetView show];
+            _roomTypeList = [[RoomTypeList alloc] initWithDic:data[@"data"]];
+            _batchSheetView.model = _roomTypeList;
+        }
+    }];
 }
 
 //更换

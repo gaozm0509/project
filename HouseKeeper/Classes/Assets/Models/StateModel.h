@@ -45,6 +45,7 @@
 
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *count;
 
 @end
 
