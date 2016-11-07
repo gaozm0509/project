@@ -8,6 +8,10 @@
 
 #import "ToBePaidTableViewCell.h"
 
+#define kTextFont kFont14
+
+static CGFloat itemHeight = 40.f;
+
 @interface ToBePaidTableViewCell()
 
 
@@ -32,17 +36,17 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setupSubViews];
+        
+        _orderType = OrderTypeToBePaid;
     }
     return self;
 }
 
+#pragma mark - getter
 
 - (UILabel *)orderNumber{
     if (!_orderNumber) {
         _orderNumber = [[UILabel alloc]init];
-        NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:@"订单号：G23098" attributes:@{NSFontAttributeName:kFont12,NSForegroundColorAttributeName:[UIColor blackColor]}];
-        [text addAttributes:@{NSFontAttributeName:kFont12,NSForegroundColorAttributeName:KMajorColor} range:NSMakeRange(4, 6)];
-        _orderNumber.attributedText = text;
     }
     return _orderNumber;
 }
@@ -50,9 +54,9 @@
 - (UILabel *)timeLabel{
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc]init];
-        _timeLabel.font = kFont12;
-        _timeLabel.textColor = [UIColor blackColor];
-        _timeLabel.text = @"下单时间：2015-10-11 05：12：33";
+        _timeLabel.font = kTextFont;
+        _timeLabel.textColor = kText_Color;
+        _timeLabel.text = @"下单时间：2015-10-11";
     }
     return _timeLabel;
 }
@@ -60,39 +64,59 @@
 - (UILabel *)nameLabel{
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc]init];
-        _nameLabel.font = kFont12;
-        _nameLabel.textColor = [UIColor blackColor];
-        _nameLabel.text = @"上门录入资产";
+        _nameLabel.font = kTextFont;
+        _nameLabel.textColor = kText_Color;
+        _nameLabel.text = @"订单类型";
     }
     return _nameLabel;
 }
-- (UILabel *)unitPriceLabel{
-    if (!_unitPriceLabel) {
-        _unitPriceLabel = [[UILabel alloc]init];
-        _unitPriceLabel.font = kFont10;
-        _unitPriceLabel.textColor = Color_Hex(@"666666");
-        _unitPriceLabel.text = @"单价：88/次";
+
+- (UILabel *)nameValueLabel{
+    if (!_nameValueLabel) {
+        _nameValueLabel = [[UILabel alloc] init];
+        _nameValueLabel.textAlignment = NSTextAlignmentRight;
+        _nameValueLabel.text = @"待支付";
+        _nameValueLabel.font = kTextFont;
+        _nameValueLabel.textColor = kText_Color;
     }
-    return _unitPriceLabel;
+    return _nameValueLabel;
 }
 
-- (UILabel *)totalPriceLabel{
-    if (!_totalPriceLabel) {
-        _totalPriceLabel = [[UILabel alloc]init];
-        _totalPriceLabel.font = kFont10;
-        _totalPriceLabel.textColor = Color_Hex(@"ee530e");
-        _totalPriceLabel.text = @"总价：99";
-        _totalPriceLabel.textAlignment = NSTextAlignmentRight;
+- (UILabel *)serviceTypeLabel{
+    if (!_serviceTypeLabel) {
+        _serviceTypeLabel = [[UILabel alloc] init];
+        _serviceTypeLabel.text = [NSString stringWithFormat:@"服务类型:%@",@"保修"];
+        _serviceTypeLabel.font = kTextFont;
+        _serviceTypeLabel.textColor = kText_Color;
     }
-    return _totalPriceLabel;
+    return _serviceTypeLabel;
 }
+
+- (UILabel *)sumLabel{
+    if (!_sumLabel) {
+        _sumLabel = [[UILabel alloc] init];
+        _sumLabel.text = [NSString stringWithFormat:@"金额:%@元",@"99"];
+        _sumLabel.font = kTextFont;
+        _sumLabel.textColor = kText_Color;
+    }
+    return _sumLabel;
+}
+
+- (UILabel *)doorEntryFeeLabel{
+    if (!_doorEntryFeeLabel) {
+        _doorEntryFeeLabel = [[UILabel alloc] init];
+        _doorEntryFeeLabel.text = [NSString stringWithFormat:@"上门费:%@元",@"99.00"];
+        _doorEntryFeeLabel.font = kTextFont;
+        _doorEntryFeeLabel.textColor = kText_Color;
+    }
+    return _doorEntryFeeLabel;
+}
+
 
 - (UILabel *)paymentLabel{
     if(!_paymentLabel){
         _paymentLabel = [[UILabel alloc]init];
-        NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:@"应付金额：99元" attributes:@{NSFontAttributeName:kFont14,NSForegroundColorAttributeName:[UIColor blackColor]}];
-        [text addAttributes:@{NSFontAttributeName:kFont14,NSForegroundColorAttributeName:Color_Hex(@"ee530e")} range:NSMakeRange(5, 3)];
-        _paymentLabel.attributedText = text;
+        
     }
     return _paymentLabel;
 }
@@ -106,87 +130,194 @@
         _paymentButton.layer.borderWidth = 1;
         _paymentButton.titleLabel.font = kFont14;
         _paymentButton.layer.cornerRadius = 4;
+        _paymentButton.tag = 1001;
+        [_paymentButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _paymentButton;
 }
 
-+ (CGFloat)getCellHieght{
-    return 10 + 12 +20 + 12 + 5 +10 + 20 + 30 + 10;
+- (UIButton *)cancelButton{
+    if (!_cancelButton) {
+        _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_cancelButton setTitleColor:KMajorColor forState:UIControlStateNormal];
+        [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+        _cancelButton.layer.borderColor = KMajorColor.CGColor;
+        _cancelButton.layer.borderWidth = 1;
+        _cancelButton.titleLabel.font = kFont14;
+        _cancelButton.layer.cornerRadius = 4;
+        _cancelButton.tag = 1002;
+        [_cancelButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _cancelButton;
 }
 
++ (CGFloat)getCellHieghtOrderType:(OrderType)orderType{
+    if (orderType == OrderTypeToBePaid) {
+        return itemHeight * 5;
+    }
+    return itemHeight * 4;
+}
+
+#pragma mark - setter
+
+- (void)setOrderModel:(MyOrderModel *)orderModel{
+    if (_orderModel == orderModel) {
+        return;
+    }
+    _orderModel = orderModel;
+    
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:@"订单号：" attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:kText_Color}];
+    NSMutableAttributedString *text1 = [[NSMutableAttributedString alloc]initWithString:_orderModel.id attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:KMajorColor}];
+    [text appendAttributedString:text1];
+    _orderNumber.attributedText = text;
+    
+    _timeLabel.text = _orderModel.order_date;
+    _nameValueLabel.text = [self getTypeName:_orderModel.type];
+    _serviceTypeLabel.text = [NSString stringWithFormat:@"服务类型:%@",_orderModel.server];
+    _sumLabel.text = [NSString stringWithFormat:@"金额:%@元",_orderModel.amount];
+    _doorEntryFeeLabel.text = [NSString stringWithFormat:@"上门费:%@元",_orderModel.amount];
+    
+    NSMutableAttributedString *paymentText = [[NSMutableAttributedString alloc]initWithString:@"应付金额：" attributes:@{NSFontAttributeName:kFont14,NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSMutableAttributedString *paymentText1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@元",_orderModel.amount] attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:KMajorYellowColor}];
+    [paymentText appendAttributedString:paymentText1];
+    _paymentLabel.attributedText = paymentText;
+}
+
+#pragma mark - event
+
+- (void)click:(UIButton *)button{
+    switch (button.tag) {
+        case 1001:{
+            //支付
+            
+            break;
+        }
+        case 1002:{
+            //取消
+        }
+        default:
+            break;
+    }
+}
+
+#pragma mark - setSubViews
+
+- (void)addPayButtonWithType:(OrderType)orderType{
+    if (orderType == OrderTypeToBePaid) {
+        [self addSubview:self.paymentButton];
+        [self addSubview:self.cancelButton];
+        
+        [_cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.mas_right).offset(- 10);
+            make.width.offset(50);
+            make.height.offset(25);
+            make.centerY.equalTo(self.mas_bottom).offset(- itemHeight / 2);
+        }];
+        [_paymentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.cancelButton.mas_left).offset(- 10);
+            make.width.equalTo(self.cancelButton.mas_width);
+            make.height.equalTo(self.cancelButton.mas_height);
+            make.centerY.equalTo(self.cancelButton.mas_centerY);
+        }];
+    }
+    else{
+        [_paymentButton removeFromSuperview];
+        [_cancelButton removeFromSuperview];
+    }
+}
+
+
+
 - (void)setupSubViews{
+    
     [self addSubview:self.orderNumber];
     [self addSubview:self.timeLabel];
     [self addSubview:self.nameLabel];
-    [self addSubview:self.unitPriceLabel];
-    [self addSubview:self.totalPriceLabel];
-    [self addSubview:self.paymentButton];
+    [self addSubview:self.nameValueLabel];
+    [self addSubview:self.serviceTypeLabel];
+    [self addSubview:self.sumLabel];
+    [self addSubview:self.doorEntryFeeLabel];
     [self addSubview:self.paymentLabel];
     
-    UIView *line1 = [[UIView alloc]init];
-    line1.backgroundColor = kBorderColor;
-    [self addSubview:line1];
-    
-    UIView *line2 = [[UIView alloc]init];
-    line2.backgroundColor = kBorderColor;
-    [self addSubview:line2];
-    
-    
-    WS(weakSelf);
     [_orderNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.and.left.equalTo(weakSelf).offset(10);
-        make.right.equalTo(weakSelf.mas_centerX);
-        make.height.offset(12);
+        make.left.equalTo(self).offset(10);
+        make.width.lessThanOrEqualTo(@kScreen_Width);
+        make.height.lessThanOrEqualTo(@20);
+        make.centerY.equalTo(self.mas_top).offset(itemHeight / 2);
     }];
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.mas_right).offset(- 10);
-        make.height.offset(10);
-        make.left.equalTo(weakSelf.mas_centerX);
-        make.centerY.equalTo(weakSelf.orderNumber.mas_centerY);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.orderNumber.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(- 10);
     }];
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.orderNumber.mas_bottom).offset(20);
-        make.left.equalTo(weakSelf.orderNumber);
-        make.right.equalTo(weakSelf.mas_right);
-        make.height.offset(12);
+        make.left.equalTo(self).offset(10);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.orderNumber.mas_centerY).offset(itemHeight);
     }];
-    [_unitPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.nameLabel.mas_bottom).offset(5);
-        make.height.offset(10);
-        make.left.equalTo(weakSelf.orderNumber);
-        make.width.offset(100);
+    [_nameValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(- 10);
     }];
-    [_totalPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.mas_right).offset(- 10);
-        make.height.offset(10);
-        make.width.offset(100);
-        make.centerY.equalTo(weakSelf.unitPriceLabel);
+    [_serviceTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(10);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.nameLabel.mas_centerY).offset(itemHeight);
     }];
-    [_paymentButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.mas_right).offset(- 10);
-        make.width.offset(80);
-        make.height.offset(30);
-        make.top.equalTo(weakSelf.totalPriceLabel.mas_bottom).offset(20);
+    [_sumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.serviceTypeLabel.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(- 10);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+    }];
+    [_doorEntryFeeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(10);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.serviceTypeLabel.mas_centerY).offset(itemHeight);
     }];
     [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.orderNumber);
-        make.width.offset(200);
-        make.centerY.equalTo(weakSelf.paymentButton.mas_centerY).offset(0);
-        make.height.offset(14);
+        make.right.equalTo(self.mas_right).offset(- 10);
+        make.width.lessThanOrEqualTo(@kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.doorEntryFeeLabel.mas_centerY);
     }];
     
-    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf);
-        make.right.equalTo(weakSelf.mas_right);
-        make.top.equalTo(weakSelf.orderNumber.mas_bottom).offset(10);
-        make.height.offset(0.5);
-    }];
-    [line2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf);
-        make.right.equalTo(weakSelf.mas_right);
-        make.top.equalTo(weakSelf.unitPriceLabel.mas_bottom).offset(10);
-        make.height.offset(0.5);
-    }];
+    [self addPayButtonWithType:_orderType];
+    for (NSInteger i = 1; i <= 4; i ++) {
+        CALayer *layer = [[CALayer alloc] init];
+        layer.frame = CGRectMake(10, i * itemHeight , kScreen_Width - 20, 0.5);
+        layer.backgroundColor = kBorderColor.CGColor;
+        [self.layer addSublayer:layer];
+    }
+}
+
+#pragma mark - pravit method
+
+- (NSString *)getTypeName:(NSString *)type{
+    if ([type isEqualToString:@"1"]) {
+        return @"待支付";
+    }
+    else if ([type isEqualToString:@"2"]) {
+        return @"待支付";
+    }
+    else if ([type isEqualToString:@"3"]) {
+        return @"待支付";
+    }
+    else if ([type isEqualToString:@"4"]) {
+        return @"待支付";
+    }
+    else if ([type isEqualToString:@"5"]) {
+        return @"待支付";
+    }
+    else{
+    return @"全部";
+    }
 }
 
 @end

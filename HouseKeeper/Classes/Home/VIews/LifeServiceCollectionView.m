@@ -23,7 +23,7 @@
     if (self) {
         self.dataSource = self;
         self.delegate = self;
-        self.backgroundColor = kBorderColor;
+        self.backgroundColor = kBackgroundColor;
         
         [self registerClass:[LifeServiceCollectionViewCell class] forCellWithReuseIdentifier:@"LifeServiceCollectionViewCellId"];
         [self registerClass:[LifeServiceCollectionViewCell1 class] forCellWithReuseIdentifier:@"LifeServiceCollectionViewCellId1"];

@@ -8,6 +8,8 @@
 
 #import "BaseVIew.h"
 
+@class BaseSheetView;
+
 @protocol BaseSheetViewDelegate <NSObject>
 
 - (void)BaseSheetViewSave;

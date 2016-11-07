@@ -38,7 +38,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -49,19 +49,6 @@
     return kMarginTop + kNameHeight + kMarginTop + kAdreeHeight + kMarginTop;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    UIView *view = [[UIView alloc]init];
-//    view.backgroundColor = [UIColor clearColor];
-//    if (section == 9) {
-//    }else{
-//        view.frame = CGRectMake(kMarginLeft, 0, 0.5, kScreen_Width - kMarginLeft);
-//    }
-//    return view;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    return 0;
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.clickCell cliclCellWithIndexPath:indexPath];

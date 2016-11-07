@@ -185,6 +185,7 @@
         CGFloat buttonH = 150;
         _button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonW, buttonH) verticalValue:10 title:@"绿植水培" image:Image(@"service_活动－水培") font:kFont14];
         [_button setTitleColor:KMajorColor forState:UIControlStateNormal];
+        _button.userInteractionEnabled = NO;
     }
     return _button;
 }

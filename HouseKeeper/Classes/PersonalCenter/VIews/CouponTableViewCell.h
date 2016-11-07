@@ -14,9 +14,9 @@
 #define kBgViewWidht (kScreen_Width - 2 * kMarginleft)
 
 typedef NS_ENUM(NSInteger, CouponType) {
-    CouponTypeUnUsed = 0,
-    CouponTypeUsed,
-    CouponTypeOverdue,
+    CouponTypeUnUsed = 1,
+    CouponTypeUsed = 2,
+    CouponTypeOverdue = 3,
 };
 
 @interface CouponTableViewCell : UITableViewCell

@@ -47,8 +47,7 @@ int _selectedIndex;
 - (iCarousel *)myCarousel{
     if (!_myCarousel) {
         _myCarousel = [[iCarousel alloc]init];
-        CGRect frame = CGRectMake(0,kMySegmentControl_Height, kScreen_Width, self.view.frame.size.height-kMySegmentControl_Height);
-        _myCarousel.frame = frame;
+        _myCarousel.frame = CGRectMake(0, kMySegmentControl_Height, kScreen_Width, kScreen_Height - kNavHeight - kMySegmentControl_Height);
         _myCarousel.dataSource = self;
         _myCarousel.delegate = self;
         _myCarousel.decelerationRate = 1.0;
@@ -89,10 +88,69 @@ int _selectedIndex;
 #pragma mark - Delegate
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view{
-    UIView *view1 = [[UIView alloc]initWithFrame:self.view.bounds];
-    ToBePaidTableView *toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
-    toBePaidTableView.clickDelegate = self;
-    return toBePaidTableView;
+    OrderType type = OrderTypeToBePaid;
+    switch (index) {
+        case 0:{
+            type = OrderTypeCompletedPaid;
+            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+            if (!toBePaidTableView) {
+                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+                toBePaidTableView.clickDelegate = self;
+            }
+            toBePaidTableView.orderType = type;
+            return toBePaidTableView;
+            break;
+        }
+        case 1:{
+            type = OrderTypeArrange;
+            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+            if (!toBePaidTableView) {
+                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+                toBePaidTableView.clickDelegate = self;
+            }
+            toBePaidTableView.orderType = type;
+            
+            return toBePaidTableView;
+            break;
+        }
+        case 2:{
+            type = OrderTypeServering;
+            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+            if (!toBePaidTableView) {
+                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+                toBePaidTableView.clickDelegate = self;
+            }
+            toBePaidTableView.orderType = type;
+            
+            return toBePaidTableView;
+            break;
+        }
+        case 3:{
+            type = OrderTypeCompletedAll;
+            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+            if (!toBePaidTableView) {
+                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+                toBePaidTableView.clickDelegate = self;
+            }
+            toBePaidTableView.orderType = type;
+            
+            return toBePaidTableView;
+            break;
+        }
+        default:{
+            type = OrderTypeAll;
+            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+            if (!toBePaidTableView) {
+                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+                toBePaidTableView.clickDelegate = self;
+            }
+            toBePaidTableView.orderType = type;
+            
+            return toBePaidTableView;
+            break;
+        }
+    }
+    
 }
 
 - (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel{

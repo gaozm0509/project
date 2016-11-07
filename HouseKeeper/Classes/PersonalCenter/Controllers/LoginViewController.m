@@ -11,6 +11,7 @@
 #import "AssetAddaddressViewController.h"
 #import "TabBarViewController.h"
 #import "UserAccout.h"
+#import "StateModel.h"
 
 #define kSendCodeTime 60
 
@@ -116,17 +117,16 @@
         if (error) {
             [self showError:error];
             NSLog(@"%@",error);
-            UIWindow * window = [[UIApplication sharedApplication].delegate window];
-            //window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[AssetAddaddressViewController new]];
-            window.rootViewController = [TabBarViewController new];
+//            UIWindow * window = [[UIApplication sharedApplication].delegate window];
+//            window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[AssetAddaddressViewController new]];
+//            window.rootViewController = [TabBarViewController new];
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
             UserAccout *userAccout = [[UserAccout alloc]initWithDic:data[@"data"]];
             
-            SetUserDefaults(userAccout.id, @"userId");
-            SetUserDefaults(_loginView.phoneTextField.text, @"mobile");
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [UsersManager savePhone:userAccout.mobile];
+            [UsersManager saveMemberId:userAccout.id];
             
             NSLog(@"%@",userAccout);
             UIWindow * window = [[UIApplication sharedApplication].delegate window];
@@ -135,6 +135,7 @@
         }
     }];
 }
+
 
 #pragma mark - Event method
 

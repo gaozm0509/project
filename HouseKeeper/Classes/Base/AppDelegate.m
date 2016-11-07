@@ -11,8 +11,9 @@
 #import "TabBarViewController.h"
 #import <AFNetworkActivityIndicatorManager.h>
 #import "KeychainItemWrapper.h"
+#import "WXApi.h"
 
-@interface AppDelegate () <UISplitViewControllerDelegate>
+@interface AppDelegate () <UISplitViewControllerDelegate,WXApiDelegate>
 
 @end
 
@@ -22,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    if (IsLogin) {
+    if ([UsersManager memberId].length > 0) {
         TabBarViewController *rootVC = [[TabBarViewController alloc]init];
         self.window.rootViewController = rootVC;
     }
@@ -40,6 +41,12 @@
     //设置NavBar
     [self customizeInterface];
     [self setImeiCode];
+    
+    if ([WXApi registerApp:kWXAppId withDescription:nil]) {
+        NSLog(@"wechat regist success");
+    };
+    
+    
     return YES;
 }
 
@@ -75,6 +82,47 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+//9.0后的方法
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    //这里判断是否发起的请求为微信支付，如果是的话，用WXApi的方法调起微信客户端的支付页面（://pay 之前的那串字符串就是你的APPID，）
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+#pragma mark - WXApiDelegate
+// 微信支付结果回调方法
+- (void)onResp:(BaseResp *)resp {
+    NSString *payResoult = [NSString stringWithFormat:@"%d", resp.errCode];
+    
+    if([resp isKindOfClass:[PayResp class]]){
+        
+        /**
+         WXSuccess           = 0,    成功
+         WXErrCodeCommon     = -1,    普通错误类型
+         WXErrCodeUserCancel = -2,    用户点击取消并返回
+         WXErrCodeSentFail   = -3,    发送失败
+         WXErrCodeAuthDeny   = -4,    授权失败
+         WXErrCodeUnsupport  = -5,    微信不支持
+         */
+        //支付返回结果，实际支付结果需要去微信服务器端查询
+        switch (resp.errCode) {
+            case WXSuccess:
+                payResoult = @"支付成功";
+                break;
+            case WXErrCodeCommon:
+                payResoult = @"支付失败";
+                break;
+            case WXErrCodeUserCancel:
+                payResoult = @"用户点击取消并返回";
+                break;
+            default:
+                // 错误码 以及 错误提示字符串
+                payResoult = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
+                break;
+        }
+        [self showHudTipStr:payResoult];
+    }
 }
 
 #pragma mark  键盘隐藏

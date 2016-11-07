@@ -17,8 +17,11 @@
     //添加imei
     KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
     NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
+    if (!params) {
+        params = [NSMutableDictionary dictionary];
+    }
     [params setValue:imeiCode forKey:@"imei"];
-    [params setValue:kmember_id forKey:@"member_id"];
+    [params setValue:[UsersManager memberId] forKey:@"member_id"];
     [params setValue:@"1" forKey:@"rights"];
     
     //添加hud
@@ -27,7 +30,7 @@
     [[HKAFHTTPSessionManager sharedJsonClient]requestJsonDataWithPath:self withParams:params withMethodType:method andBlock:^(NSNumber *code, id data, NSString *message, NSError *error) {
         
         //删除hud
-        [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
         
         if (data) {
             block(data, nil);
@@ -45,7 +48,7 @@
     KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
     NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
     [params setValue:imeiCode forKey:@"imei"];
-    [params setValue:kmember_id forKey:@"member_id"];
+    [params setValue:[UsersManager memberId] forKey:@"member_id"];
     [params setValue:@"1" forKey:@"rights"];
     
     //添加hud

@@ -9,6 +9,7 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+
 #import "UIColor+expanded.h"
 #import "UIImage+Common.h"
 #import "NSDate+Helper.h"
@@ -17,13 +18,21 @@
 #import "UILabel+Common.h"
 #import "UIView+Common.h"
 #import "UIButton+TitleImage.h"
-#import "Masonry.h"
-#import "APIUrl.h"
 #import "UITableView+Common.h"
-#import "PUSHPAGE.h"
 #import "NSDictionary+JudgeObj.h"
 #import "NSString+NetRequest.h"
 #import "UIViewController+help.h"
+
+
+#import "Masonry.h"
+#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+
+#import "APIUrl.h"
+
+#import "PUSHPAGE.h"
+
+#import "UsersManager.h"
 
 
 #endif
@@ -32,7 +41,15 @@
 
 #endif /* PrefixHeader_pch */
 
-#define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#ifdef DEBUG
+#define NSLog(xx, ...)          NSLog(xx, ##__VA_ARGS__)
+#define NSLogMethod(xx, ...)    NSLog(@"%s(%d): " xx, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define NSLog(xx, ...)          ((void)0)
+#define NSLogMethod(xx, ...)    ((void)0)
+#endif
+
+
 #define kHigher_iOS_6_1 (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
 #define kHigher_iOS_6_1_DIS(_X_) ([[NSNumber numberWithBool:kHigher_iOS_6_1] intValue] * _X_)
 #define kNotHigher_iOS_6_1_DIS(_X_) (-([[NSNumber numberWithBool:kHigher_iOS_6_1] intValue]-1) * _X_)
@@ -52,7 +69,7 @@
 
 #define kScreen_Bounds [UIScreen mainScreen].bounds             //屏幕的Bounds
 #define kScreen_Height [UIScreen mainScreen].bounds.size.height   //屏幕的高
-#define kScreen_Width [UIScreen mainScreen].bounds.size.width   //屏幕的宽
+#define kScreen_Width ([UIScreen mainScreen].bounds.size.width)   //屏幕的宽
 
 #define kNavTitleFontSize 18        //返回NavBar上标题字体大小
 #define kBackButtonFontSize 15         //返回按钮字体大小
@@ -97,9 +114,13 @@
 
 #define SetUserDefaults(value,key) [[NSUserDefaults standardUserDefaults]setValue:value forKey:key]
 #define GetUserDefaults(key) [[NSUserDefaults standardUserDefaults] objectForKey:key]
-#define IsLogin ([NSString stringWithFormat:@"%@",GetUserDefaults(@"userId")].length > 0 && GetUserDefaults(@"userId") != nil)
-#define kmember_id GetUserDefaults(@"userId")
-#define kmobile GetUserDefaults(@"mobile")
+//#define IsLogin ([NSString stringWithFormat:@"%@",GetUserDefaults(@"userId")].length > 0 && GetUserDefaults(@"userId") != nil)
+//#define kmember_id GetUserDefaults(@"userId")
+//#define kmobile GetUserDefaults(@"mobile")
 
 //通知
 #define kShowMapNotification @"showMapNotification"
+
+//微信支付
+#define  kWXAppId @"wxca2e5cd6e4aa44ff"
+#define kWXBusinessSecretKey @"m4v8t4otrk8ngr13u9vbweadnl1ue9da"

@@ -363,4 +363,16 @@
     });
 }
 
+- (NSString *)stringTOjson   //把字典和数组转换成json字符串
+{
+    if (!self) {
+        return nil;
+    }
+    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:self
+                                                      options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *strs=[[NSString alloc] initWithData:jsonData
+                                         encoding:NSUTF8StringEncoding];
+    return strs;
+}
+
 @end

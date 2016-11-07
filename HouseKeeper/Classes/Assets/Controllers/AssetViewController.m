@@ -80,7 +80,10 @@
     if (!_rightButton) {
         _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _rightButton.frame = CGRectMake(0, 0, 44, 44);
-        [_rightButton setImage:Image(@"搜索") forState:UIControlStateNormal];
+//        [_rightButton setImage:Image(@"搜索") forState:UIControlStateNormal];
+        [_rightButton setTitle:@"预约" forState:UIControlStateNormal];
+        [_rightButton setTitleColor:KMajorColor forState:UIControlStateNormal];
+        _rightButton.titleLabel.font = kFont14;
         _rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _rightButton.tag = 1002;
         [_rightButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -93,6 +96,7 @@
         _batchSheetView = [[AssetBatchAddRoomSheetView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 300)];
         _batchSheetView.delegate = self;
         _batchSheetView.textFieldClickDelegate = self;
+        _batchSheetView.tag = 2001;
     }
     return _batchSheetView;
 }
@@ -100,7 +104,6 @@
 #pragma mark - Delegate
 
 - (void)BaseSheetViewSave{
-    NSLog(@"BaseSheetViewSave");
     
     NSMutableDictionary *params = [NSMutableDictionary new];
     [params setValue:_model.id forKey:@"state_id"];
@@ -122,12 +125,42 @@
 
 
 - (void)textFieldClickWithIndex:(NSInteger)index{
-    NSArray *arr = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10"];
+    NSArray *arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10"];
     [ActionSheetStringPicker showPickerWithTitle:@"数量选择" rows:arr initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-        _roomTypeList.dataList[index].count = selectedValue;
+        
+        _roomTypeList.dataList[index].num = selectedValue;
         _batchSheetView.model = _roomTypeList;
         
     } cancelBlock:nil origin:self.view];
+}
+
+- (void)AssetBatchAddRoomSheetViewSave{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:_model.id forKey:@"state_id"];
+    
+    NSMutableArray *roomTypeList = [NSMutableArray array];
+    for (RoomType *roomType in _roomTypeList.dataList) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        if (roomType.num.integerValue != 0) {
+            [dic setValue:roomType.id forKey:@"type_id"];
+            [dic setValue:roomType.name forKey:@"name"];
+            [dic setValue:@(roomType.num.integerValue) forKey:@"num"];
+            
+            [roomTypeList addObject:dic];
+        }
+    }
+    
+    [params setValue:[roomTypeList stringTOjson] forKey:@"rooms"];
+    [kApi_room_batchcreate httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            [_batchSheetView hid];
+            [self netRequest_GetRooms];
+        }
+    }];
 }
 
 #pragma mark BaseSheetViewDelegate
@@ -176,6 +209,8 @@
             _tableView.model = _model;
             
             [self netRequest_GetRooms];
+            
+            [UsersManager saveStateModel:_model];
         }
     }];
 }
@@ -189,7 +224,7 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
-            
+            [_tableView.roomClassModel.roomClasses removeAllObjects];
             
             NSDictionary *dataDic = data[@"data"];
             
@@ -213,7 +248,8 @@
         [self sheetViewShow];
     }
     if (button.tag == 1002) {
-        //搜索按钮
+        //预约
+        [self pushNewViewController:@"DoorEntryViewController" params:@{@"priceId":@"1"}];
     }
 }
 
@@ -257,6 +293,7 @@
     }
     [_sheetView show];
 }
+
 
 
 @end

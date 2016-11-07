@@ -90,24 +90,27 @@ int _selectedIndex;
         CouponTableView *couponTableView = (CouponTableView *)view;
         if (!couponTableView) {
             couponTableView = [[CouponTableView alloc]initWithFrame:carousel.bounds style:UITableViewStylePlain];
+            couponTableView.couponType = CouponTypeUnUsed;
         }
-        couponTableView.couponType = CouponTypeUnUsed;
+        
         return couponTableView;
     }
     if (index == 1) {
         CouponTableView *couponTableView = (CouponTableView *)view;
         if (!couponTableView) {
             couponTableView = [[CouponTableView alloc]initWithFrame:carousel.bounds style:UITableViewStylePlain];
+            couponTableView.couponType = CouponTypeUsed;
         }
-        couponTableView.couponType = CouponTypeUsed;
+        
         return couponTableView;
     }
     if (index == 2) {
         CouponTableView *couponTableView = (CouponTableView *)view;
         if (!couponTableView) {
             couponTableView = [[CouponTableView alloc]initWithFrame:carousel.bounds style:UITableViewStylePlain];
+            couponTableView.couponType = CouponTypeOverdue;
         }
-        couponTableView.couponType = CouponTypeOverdue;
+
         return couponTableView;
     }
     return nil;
@@ -138,6 +141,7 @@ int _selectedIndex;
 
 
 #pragma mark - Net request
+
 
 
 #pragma mark - Event

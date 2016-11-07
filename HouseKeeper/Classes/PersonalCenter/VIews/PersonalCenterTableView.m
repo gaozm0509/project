@@ -41,7 +41,7 @@
         }
         return cell;
     }
-    if (indexPath.section == 1) {
+    else if (indexPath.section == 1) {
         PersonalCenterTableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:cellId2];
         if (!cell) {
             cell = [[PersonalCenterTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId2];
@@ -61,7 +61,7 @@
         }
         return cell;
     }
-    if (indexPath.section == 2) {
+    else {
         PersonalCenterTableViewBottomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId3];
         if (!cell) {
             cell = [[PersonalCenterTableViewBottomCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId3];
@@ -77,7 +77,6 @@
         }
         return cell;
     }
-    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

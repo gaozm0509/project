@@ -40,6 +40,7 @@
 @synthesize code;
 @synthesize message;
 
+
 -(instancetype)initWithDic:(NSDictionary*)dic{
     if (dic == nil) {
         return nil;
@@ -113,4 +114,32 @@
     self.code = [[dict ConvertStringForKey:@"code"] integerValue];
     self.message = [dict ConvertStringForKey:@"message"];
 }
+@end
+
+
+@implementation PageModel
+
+- (instancetype)initWithDic:(NSDictionary *)dic{
+    if (dic == nil) {
+        return nil;
+    }
+    if (self=[super init]) {
+        [self mappingSelfProperty:dic];
+    }
+    return self;
+}
+
+- (void)mappingSelfProperty:(NSDictionary *)dict{
+    [super mappingSelfProperty:dict];
+    self.current_page = [dict ConvertStringForKey:@"current_page"];
+    self.from = [dict ConvertStringForKey:@"from"];
+    self.last_page = [dict ConvertStringForKey:@"last_page"];
+    self.next_page_url = [dict ConvertStringForKey:@"next_page_url"];
+    self.per_page = [dict ConvertStringForKey:@"per_page"];
+    self.prev_page_url = [dict ConvertStringForKey:@"prev_page_url"];
+    self.to = [dict ConvertStringForKey:@"to"];
+    self.total = [dict ConvertStringForKey:@"total"];
+}
+
+
 @end

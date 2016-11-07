@@ -13,6 +13,8 @@
 
 - (void)textFieldClickWithIndex:(NSInteger)index;
 
+- (void)AssetBatchAddRoomSheetViewSave;
+
 @end
 
 @interface AssetBatchAddRoomSheetView : BaseSheetView

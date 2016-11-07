@@ -13,7 +13,7 @@
 
 + (CGFloat)getHeightWithModel:(BaseModel *)model;
 
-+ (CGFloat) getHeightWith;
++ (CGFloat) getHeight;
 
 - (void) setupSubViews;
 

@@ -8,6 +8,7 @@
 
 #import "LifeServiceViewController.h"
 #import "LifeServiceCollectionView.h"
+#import "KeychainItemWrapper.h"
 
 @interface LifeServiceViewController ()<LifeServiceCollectionViewDelegate>
 
@@ -86,25 +87,33 @@
         case 1:{
             if(indexPath.row == 0){
                 //资产录入
-                
+                [self pushNewViewController:@"DoorEntryViewController" params:@{@"priceId":@"1"}];
             }
             if(indexPath.row == 1){
                 //充值返现
+                [self pushNewViewController:@"RechargeViewController"];
                 
             }
             if(indexPath.row == 2){
                 //深度检测
+                [self pushNewViewController:@"DoorEntryViewController" params:@{@"priceId":@"2"}];
                 
             }
             if(indexPath.row == 3){
                 //空气治理
-                
+                [self pushNewViewController:@"AirTreatmentViewController"];
             }
             break;
         }
         case 2:{
             if(indexPath.row == 0){
                 //绿植水培
+
+                KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
+                NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
+                
+                NSString *url = [NSString stringWithFormat:@"https://kdt.im/-cSggr?mobile=%@&memberid=%@&seckey=%@",[UsersManager phone],[UsersManager memberId],imeiCode];
+                [self pushNewViewController:@"WebViewController" params:@{@"title":@"绿植水培",@"url":url}];
                 
             }
             if(indexPath.row == 1){
@@ -127,5 +136,6 @@
 
 
 #pragma mark - Pravit method
+
 
 @end

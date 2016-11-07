@@ -70,7 +70,7 @@
 #pragma mark - Delegate
 
 - (void)cliclCellWithIndexPath:(NSIndexPath *)indexPath{
-    [self.navigationController pushViewController:[[BalanceViewController alloc]init] animated:YES];
+    [self pushNewViewController:@"AssetAddaddressViewController" params:@{}];
 }
 
 #pragma mark - Net request

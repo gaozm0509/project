@@ -120,7 +120,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section > 0 && section < _roomClassModel.roomClasses.count - 1) {
+    if (section > 0 && section < _roomClassModel.roomClasses.count) {
         return 10;
     }
     return 0;

@@ -51,12 +51,12 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0];
         
-        cell.phoneLabel.text = [NSString stringWithFormat:@"手机号：%@",kmobile];
+        cell.phoneLabel.text = [NSString stringWithFormat:@"手机号：%@",[UsersManager phone]];
         cell.loctionLabel.text = _city;
         return cell;
         
     }
-    if (indexPath.section == 1) {
+    else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             static NSString *cellId = @"FurnitureDetailsTableViewCell1";
             FurnitureDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
@@ -87,7 +87,7 @@
         
     }
     
-    if (indexPath.section == 2) {
+    else{
         static NSString *cellId = @"FurnitureDetailsTableViewCell2";
         FurnitureDetailsTableViewCell2 *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -100,8 +100,6 @@
         
         return cell;
     }
-    
-    return nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

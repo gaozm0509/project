@@ -22,6 +22,8 @@
         self.delegate = self;
         self.dataSource = self;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+//        [self netRequest];
     }
     return self;
 }
@@ -61,7 +63,23 @@
 
 - (void)setCouponType:(CouponType)couponType{
     _couponType = couponType;
+    [self netRequest];
     [self reloadData];
 }
+
+- (void)netRequest{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@(_couponType) forKey:@"type"];
+    [kApi_member_coupons httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            
+        }
+    }];
+}
+
 
 @end

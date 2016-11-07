@@ -49,6 +49,10 @@
                  withMethodType:(int)NetworkMethod
                        andBlock:(void (^)(NSNumber *code,id data,NSString* message,NSError *error))block progressBlock:(void (^)(NSProgress *))progressBlock{
     //log请求数据
+    NSString *currPage = params[@"page"];
+    if (currPage) {
+        aPath = [NSString stringWithFormat:@"%@?page=%@",aPath,currPage];
+    }
     NSLog(@"\n===========request===========\n%@:\n%@", aPath, params);
     //发起请求
     switch (NetworkMethod) {
@@ -56,9 +60,10 @@
             [self GET:aPath parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
                 progressBlock(downloadProgress);
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                block(@0,responseObject,responseObject[@"message"],nil);
                 
-                 NSLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+                NSLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+                
+                block(@0,responseObject,responseObject[@"message"],nil);
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 block(@1,nil,nil,error);
@@ -72,15 +77,17 @@
                  progressBlock(uploadProgress);
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
-                block(@0,responseObject,responseObject[@"message"],nil);
-                
                 NSLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+                
+                block(@0,responseObject,responseObject[@"message"],nil);
                 
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                block(@1,nil,nil,error);
                 
                 NSLog(@"\n===========response===========\n%@:\n%@", aPath, error);
+                
+                block(@1,nil,nil,error);
+                
                 
             }];
             break;
@@ -89,4 +96,20 @@
             break;
     }
 }
+
+- (NSString *)logDic:(NSDictionary *)dic {
+    if (![dic count]) {
+        return nil;
+    }
+    NSString *tempStr1 = [[dic description] stringByReplacingOccurrencesOfString:@"\\u"
+                                                 withString:@"\\U"];
+    NSString *tempStr2 =
+    [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr3 =
+    [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *str = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:NULL];
+    return str;
+}
+
 @end

@@ -9,6 +9,9 @@
 #import "AsssetServiceViewController.h"
 #import "AsssetServiceTableView.h"
 #import <CoreLocation/CoreLocation.h>
+#import "BottomOrderView.h"
+#import "DoorEntryModel.h"
+#import "PayModel.h"
 
 #define kBottomViewHeight 90
 
@@ -21,6 +24,10 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 @property (nonatomic, strong) NSString *city;
+
+@property (nonatomic, strong) BottomOrderView *bottomOrderView;
+
+@property (nonatomic, strong) DoorEntryModel *payModel;
 
 
 @end
@@ -37,9 +44,11 @@
     _furnitureModel = self.receiveParams[@"model"];
     
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.bottomOrderView];
     
     //定位
     [self setLocationManager];
+    [self netRequestGetPriceWithIsMaintenance:YES];
 
 }
 
@@ -52,10 +61,25 @@
 - (AsssetServiceTableView *)tableView{
     if (!_tableView) {
         _tableView = [[AsssetServiceTableView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavHeight - kBottomViewHeight)];
+        _tableView.height = kScreen_Height - kNavHeight - 45;
         _tableView.furnitureModel = _furnitureModel;
         _tableView.clickDelegate = self;
     }
     return _tableView;
+}
+
+- (BottomOrderView *)bottomOrderView{
+    if (!_bottomOrderView) {
+        _bottomOrderView = [[BottomOrderView alloc] initWithFrame:CGRectMake(0, kScreen_Height - kNavHeight - 45, kScreen_Width, 45)];
+        _bottomOrderView.orderTitle = @"上门服务费";
+        _bottomOrderView.sum = @"99";
+        WS(weakSelf);
+        OrderAction action = ^(NSString *sum){
+            [weakSelf netRequestCreatOrder];
+        };
+        _bottomOrderView.orderAction = action;
+    }
+    return _bottomOrderView;
 }
 
 #pragma mark - Delegate
@@ -71,6 +95,7 @@
             break;
     }
 }
+
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
     
@@ -118,16 +143,54 @@
     if (isMaintenance) {
         //保养
         NSLog(@"保养");
+        
     }
     else{
         //保修
         NSLog(@"修");
     }
+    [self netRequestGetPriceWithIsMaintenance:isMaintenance];
 }
 
 #pragma mark - Net request
 
+- (void)netRequestGetPriceWithIsMaintenance:(BOOL)isMaintenance{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:isMaintenance ? @"4" : @"3" forKey:@"price_id"];
+    
+    [kApi_orders_getPrice httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            _payModel = [[DoorEntryModel alloc] initWithDic:data[@"data"]];
+            _bottomOrderView.orderTitle = _payModel.name;
+            _bottomOrderView.sum = _payModel.price;
+        }
+    }];
+}
 
+- (void)netRequestCreatOrder{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:_furnitureModel.id forKey:@"furniture_id"];
+    [params setValue:_payModel.id forKey:@"type"];
+    StateModel *stateModel = [UsersManager stateModel];
+    [params setValue:stateModel.id forKey:@"state_id"];
+    [params setValue:_payModel.price forKey:@"amount"];
+    
+    [kApi_orders_create httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            PayModel *orderModel = [[PayModel alloc] initWithDic:data[@"data"]];
+            [self pushNewViewController:@"CreatOrderViewController" params:@{@"orderModel":orderModel,@"name":_payModel.name}];
+        }
+    }];
+    
+}
 
 #pragma mark - Event method
 

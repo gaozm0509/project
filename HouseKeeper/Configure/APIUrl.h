@@ -25,6 +25,12 @@
 
 #define kApi_member_upload @"api/member/upload"
 
+#define kApi_member_getNumber @"api/member/getNumber"
+
+#define kApi_member_coupons @"api/member/coupons"
+
+#define kApi_member_info @"api/member/info"
+
 #pragma mark - 个人中心 end
 
 
@@ -60,6 +66,11 @@
 
 #define kApi_orders_refuse @"api/orders/refuse"
 
+#define kApi_orders_getPrice @"api/orders/getPrice"
+
+//支付
+#define kApi_payment_create @"api/payment/create"
+
 
 #define kApi_type_create @"api/type/create"
 
@@ -68,6 +79,11 @@
 #define kApi_room_delete @"api/room/delete"
 
 #define kApi_room_update @"api/room/update"
+
+#define kApi_room_points @"api/room/percentage"
+
+//批量添加房间
+#define kApi_room_batchcreate @"/api/room/batchcreate"
 
 
 #define kApi_state_create @"api/state/create"
@@ -78,8 +94,14 @@
 
 #define kApi_state_update @"api/state/update"
 
+#define kApi_state_points @"api/state/points"
+
 
 #define kApi_personal @"api/personal"
+
+
+
+
 
 
 //获取房间类型

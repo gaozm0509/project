@@ -78,4 +78,7 @@ typedef NS_ENUM(NSInteger, DateFormatters)
 
 //清除app中的缓存
 - (void)clearCachingAndFinishBlock:(void (^)(BOOL isFinish))block;
+
+//转成json字符串
+- (NSString *)stringTOjson;
 @end

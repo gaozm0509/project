@@ -30,7 +30,7 @@
     return self;
 }
 
-+ (CGFloat)getHeightWith{
++ (CGFloat)getHeight{
     return 0;
 }
 

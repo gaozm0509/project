@@ -77,6 +77,7 @@
         [_editButton setTitleColor:kTextColor forState:UIControlStateNormal];
         _editButton.titleLabel.font = kTextFont;
         _editButton.tag = 1001;
+        _editButton.userInteractionEnabled = NO;
     }
     return _editButton;
 }

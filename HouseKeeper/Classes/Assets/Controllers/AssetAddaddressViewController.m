@@ -100,6 +100,8 @@
         if ([data[@"code"] integerValue] == 1) {
             UIWindow * window = [[UIApplication sharedApplication].delegate window];
             window.rootViewController = [TabBarViewController new];
+            StateModel *stateModel = [[StateModel alloc] initWithDic:data[@"data"]];
+            [UsersManager saveStateModel:stateModel];
         }
     }];
 }

@@ -62,7 +62,7 @@
 - (void)BaseTableViewClickWithIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
         //个人信息
-        
+        [self pushNewViewController:@"PsersonalInfoViewController"];
     }
     if (indexPath.section == 1){
         //用户协议

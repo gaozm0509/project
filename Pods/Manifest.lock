@@ -18,6 +18,7 @@ PODS:
   - IQKeyboardManager (3.3.7)
   - Masonry (1.0.1)
   - MBProgressHUD (0.9.2)
+  - MJRefresh (3.1.12)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.1):
@@ -25,13 +26,14 @@ PODS:
   - SDWebImage/Core (3.8.1)
 
 DEPENDENCIES:
-  - ActionSheetPicker-3.0
-  - AFNetworking
-  - IQKeyboardManager
-  - Masonry
+  - ActionSheetPicker-3.0 (~> 2.2.0)
+  - AFNetworking (~> 3.1.0)
+  - IQKeyboardManager (~> 3.3.7)
+  - Masonry (~> 1.0.1)
   - MBProgressHUD (~> 0.9.2)
-  - SDCycleScrollView
-  - SDWebImage (~> 3.7)
+  - MJRefresh (~> 3.1.12)
+  - SDCycleScrollView (~> 1.65)
+  - SDWebImage (~> 3.8.1)
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
@@ -39,6 +41,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 

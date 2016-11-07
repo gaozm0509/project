@@ -74,7 +74,7 @@
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, i * (45 + 0.5), kScreen_Width - 20, 45)];
         textField.textColor = KMajorColor;
         textField.font = kFont14;
-        textField.text = [NSString stringWithFormat:@"%ld",[roomType.count integerValue]];
+        textField.text = [NSString stringWithFormat:@"%ld",[roomType.num integerValue]];
         textField.leftViewMode = UITextFieldViewModeAlways;
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 45)];
@@ -105,7 +105,7 @@
 }
 
 - (void)save{
-    [self.delegate BaseSheetViewSave];
+    [self.textFieldClickDelegate AssetBatchAddRoomSheetViewSave];
 }
 
 - (void)setupSubViews{

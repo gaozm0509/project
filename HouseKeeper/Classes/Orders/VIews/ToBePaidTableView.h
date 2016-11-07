@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ToBePaidTableViewCell.h"
+#import "BaseTableView.h"
 
 @protocol ToBePaidTableViewDelegate <NSObject>
 
@@ -15,8 +16,12 @@
 
 @end
 
-@interface ToBePaidTableView : UITableView
+@interface ToBePaidTableView : BaseTableView
 
 @property (nonatomic, weak) id<ToBePaidTableViewDelegate> clickDelegate;
+
+@property (nonatomic, assign) OrderType orderType;
+
+
 
 @end
