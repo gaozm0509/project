@@ -53,8 +53,10 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
+            
             UserAccout *userAccout = [[UserAccout alloc] initWithDic:data[@"data"]];
             _tableView.userAccout = userAccout;
+            
         }
     }];
 }
