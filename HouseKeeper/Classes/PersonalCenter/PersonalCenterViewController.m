@@ -23,8 +23,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.leftButton];
-    [self.view addSubview:self.rightButton];
+//    [self.view addSubview:self.leftButton];
+//    [self.view addSubview:self.rightButton];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     
     [self netApiGet];
 }
@@ -32,13 +34,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    [self.navigationController setNavigationBarHidden:YES];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 //    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,7 +60,7 @@
 - (UIButton *)leftButton{
     if (!_leftButton) {
         _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftButton.frame = CGRectMake(10, 12, 44, 44);
+        _leftButton.frame = CGRectMake(0, 0, 44, 44);
         [_leftButton setImage:[UIImage imageNamed:@"设置"] forState:UIControlStateNormal];
         _leftButton.tag = 1001;
         [_leftButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -69,7 +71,7 @@
 - (UIButton *)rightButton{
     if (!_rightButton) {
         _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rightButton.frame = CGRectMake(kScreen_Width - 10 - 44, 12, 44, 44);
+        _rightButton.frame = CGRectMake(0, 0, 44, 44);
         [_rightButton setImage:[UIImage imageNamed:@"我的资产"] forState:UIControlStateNormal];
         _rightButton.tag = 1002;
         [_rightButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];

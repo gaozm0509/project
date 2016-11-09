@@ -195,6 +195,7 @@
 		80A52D831DD0D1C200B197AD /* PsersonalInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A52D821DD0D1C200B197AD /* PsersonalInfoTableView.m */; };
 		80A52D861DD0D1E400B197AD /* PsersonalInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A52D851DD0D1E400B197AD /* PsersonalInfoTableViewCell.m */; };
 		80AC57B91DC1059400C6BC1B /* AssetBatchAddRoomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AC57B81DC1059400C6BC1B /* AssetBatchAddRoomSheetView.m */; };
+		80C5A73D1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C5A73C1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m */; };
 		80CE2D9D1D41220C004E6622 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE2D9C1D41220C004E6622 /* iCarousel.m */; };
 		80CE2DA11D4122A3004E6622 /* XTSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE2DA01D4122A3004E6622 /* XTSegmentControl.m */; };
 		80CE2DA41D479BEA004E6622 /* PersonalCenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE2DA31D479BEA004E6622 /* PersonalCenterTableViewCell.m */; };
@@ -570,6 +571,8 @@
 		80A52D851DD0D1E400B197AD /* PsersonalInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PsersonalInfoTableViewCell.m; sourceTree = "<group>"; };
 		80AC57B71DC1059400C6BC1B /* AssetBatchAddRoomSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetBatchAddRoomSheetView.h; sourceTree = "<group>"; };
 		80AC57B81DC1059400C6BC1B /* AssetBatchAddRoomSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetBatchAddRoomSheetView.m; sourceTree = "<group>"; };
+		80C5A73B1DD224F500BEDDF5 /* EditPsersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPsersonalInfoViewController.h; sourceTree = "<group>"; };
+		80C5A73C1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPsersonalInfoViewController.m; sourceTree = "<group>"; };
 		80CE2D9B1D41220C004E6622 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		80CE2D9C1D41220C004E6622 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		80CE2D9F1D4122A3004E6622 /* XTSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSegmentControl.h; sourceTree = "<group>"; };
@@ -1074,6 +1077,8 @@
 				801DA5DB1DB7BE730084C4EC /* SettingViewController.m */,
 				80A52D7E1DD0D17E00B197AD /* PsersonalInfoViewController.h */,
 				80A52D7F1DD0D17E00B197AD /* PsersonalInfoViewController.m */,
+				80C5A73B1DD224F500BEDDF5 /* EditPsersonalInfoViewController.h */,
+				80C5A73C1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1776,6 +1781,7 @@
 				80762CD71DB2781200B3061D /* AddAssetViewController.m in Sources */,
 				807767CF1D5F6CB0008F4D77 /* AllOrdersTableView.m in Sources */,
 				8073DD471D3A17D3007DA983 /* NSDictionary+JudgeObj.m in Sources */,
+				80C5A73D1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m in Sources */,
 				80A52D6F1DCDB54D00B197AD /* PayModel.m in Sources */,
 				800DC98D1D4C55BC00B89FC2 /* InServiceTableViewCell.m in Sources */,
 				80A52D691DCC88DA00B197AD /* CreatOrderTableView.m in Sources */,

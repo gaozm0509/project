@@ -9,10 +9,18 @@
 #import "BaseTableView.h"
 #import "PsersonalInfoTableViewCell.h"
 
+@protocol PsersonalInfoTableViewDelegate <NSObject>
+
+- (void)editGenderWithGender:(NSInteger)gender;
+
+@end
+
 @interface PsersonalInfoTableView : BaseTableView
 
 @property (nonatomic, weak) id<BaseTableViewDelegate> clickDelegate;
 
 @property (nonatomic, strong) UserAccout *userAccout;
+
+@property (nonatomic, weak) id<PsersonalInfoTableViewDelegate> editGenderDelegate;
 
 @end

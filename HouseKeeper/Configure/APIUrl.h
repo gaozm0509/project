@@ -31,6 +31,8 @@
 
 #define kApi_member_info @"api/member/info"
 
+#define kApi_member_update @"api/member/update"
+
 #pragma mark - 个人中心 end
 
 

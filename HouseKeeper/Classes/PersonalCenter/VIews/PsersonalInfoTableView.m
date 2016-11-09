@@ -10,7 +10,7 @@
 
 
 
-@interface PsersonalInfoTableView()<UITableViewDelegate,UITableViewDataSource>
+@interface PsersonalInfoTableView()<UITableViewDelegate,UITableViewDataSource,PsersonalInfoTableViewCellDelegate>
 
 @end
 
@@ -77,11 +77,12 @@
     PsersonalInfoTableViewCell2 *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[PsersonalInfoTableViewCell2 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.delegate = self;
     }
     
     [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0];
     
-    if (_userAccout.gender == 0) {
+    if (_userAccout.gender.integerValue == 1) {
         cell.manButton.selected = YES;
         cell.wemanButton.selected = NO;
     }
@@ -126,7 +127,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.clickDelegate BaseTableViewClickWithIndexPath:indexPath];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0 && indexPath.row != 0) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    
+}
+
+- (void)editGenderWithGender:(NSInteger)gender{
+    [self.editGenderDelegate editGenderWithGender:gender];
 }
 
 - (void)setUserAccout:(UserAccout *)userAccout{

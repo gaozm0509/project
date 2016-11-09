@@ -9,6 +9,12 @@
 #import "BaseTableViewCell.h"
 #import "UserAccout.h"
 
+@protocol PsersonalInfoTableViewCellDelegate <NSObject>
+
+- (void)editGenderWithGender:(NSInteger )gender;
+
+@end
+
 @interface PsersonalInfoTableViewCell : BaseTableViewCell
 
 @property (nonatomic, strong) UIImageView *avaterImageView;
@@ -18,6 +24,7 @@
 @interface PsersonalInfoTableViewCell1 : BaseTableViewCell
 
 @property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIImageView *rightIcon;
 
 @end
 
@@ -26,5 +33,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *manButton;
 @property (nonatomic, strong) UIButton *wemanButton;
+
+@property (nonatomic, weak) id<PsersonalInfoTableViewCellDelegate> delegate;
 
 @end
