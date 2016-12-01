@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) UIImage *backgroundImage;
 
+@property (nonatomic, strong) MBProgressHUD *hudView;
+
 - (void)netRequest;
 
 @end

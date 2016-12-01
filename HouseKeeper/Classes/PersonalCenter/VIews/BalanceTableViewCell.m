@@ -74,6 +74,17 @@
     return label;
 }
 
+- (void)setModel:(BalanceHistoryModel *)model{
+    if (_model == model) {
+        return;
+    }
+    _model = model;
+    _typeLabel.text = _model._description;
+    _moneylabel.text = [NSString stringWithFormat:@"%@元",_model.amount];
+    _timeLabel.text = _model.created_at;
+    _numberLabel.text = _model.id;
+}
+
 - (void)setupSubViews{
     [self addSubview:self.typeLabel];
     [self addSubview:self.moneylabel];

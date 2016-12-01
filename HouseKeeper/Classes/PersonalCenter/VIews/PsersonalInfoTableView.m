@@ -40,7 +40,9 @@
             if (!cell) {
                 
                 cell = [[PsersonalInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
+                cell.delegate = self;
                 
             }
             
@@ -126,8 +128,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.clickDelegate BaseTableViewClickWithIndexPath:indexPath];
     if (indexPath.section == 0 && indexPath.row != 0) {
+        [self.clickDelegate BaseTableViewClickWithIndexPath:indexPath];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     
@@ -135,6 +137,10 @@
 
 - (void)editGenderWithGender:(NSInteger)gender{
     [self.editGenderDelegate editGenderWithGender:gender];
+}
+
+- (void)avaterClick{
+    [self.editGenderDelegate avaterClick];
 }
 
 - (void)setUserAccout:(UserAccout *)userAccout{

@@ -26,7 +26,7 @@
         _textField.font = kFont14;
         _textField.leftViewMode = UITextFieldViewModeAlways;
         _textField.rightViewMode = UITextFieldViewModeAlways;
-        _textField.keyboardType = UIKeyboardTypeNumberPad;
+        _textField.keyboardType = UIKeyboardTypeNamePhonePad;
         
         UILabel *leftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width - 20 - 80, 45)];
         leftView.textColor = kText_Color;

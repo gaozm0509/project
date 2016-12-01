@@ -97,6 +97,25 @@
     }
 }
 
+- (void)uploudFileWithPath:(NSString *)aPath
+                withParams:(NSMutableDictionary*)params
+                 withImage:(UIImage *)image
+                  andBlock:(void (^)(NSNumber *code,id data,NSString* message,NSError *error))block progressBlock:(void (^)(NSProgress *))progressBlock{
+    [self POST:aPath parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        NSData *imageDate = UIImageJPEGRepresentation(image, 0.5);
+        
+        [formData appendPartWithFileData:imageDate name:@"image" fileName:@"image.jpg" mimeType:@"image/jpg"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        progressBlock(uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        block(@0,responseObject,responseObject[@"message"],nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(@0,nil,nil,error);
+    }];
+}
+
+
 - (NSString *)logDic:(NSDictionary *)dic {
     if (![dic count]) {
         return nil;

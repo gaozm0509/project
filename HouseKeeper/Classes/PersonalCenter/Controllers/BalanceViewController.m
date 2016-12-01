@@ -22,6 +22,9 @@
     [super viewDidLoad];
     self.title = @"余额";
     [self.view addSubview:self.balanceView];
+    self.balanceView.balanceLabel.text = [NSString stringWithFormat:@"%.2f",[self.receiveParams[@"balance"] floatValue]];
+    
+    [self netRequest];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,6 +47,19 @@
 
 #pragma mark - Net request
 
+- (void)netRequest{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [kApi_member_balanceHistory httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            BalanceHistoryListModel *listModel = [[BalanceHistoryListModel alloc] initWithDic:data];
+            self.balanceView.listModel = listModel;
+        }
+    }];
+}
 
 #pragma mark - Event
 

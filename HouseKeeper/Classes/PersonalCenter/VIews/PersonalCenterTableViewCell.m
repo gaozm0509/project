@@ -55,7 +55,7 @@
     [_leftIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf).offset(kMarginLeft);
         make.centerY.equalTo(weakSelf.mas_centerY);
-        make.width.offset(11);
+        make.width.offset(15);
         make.height.offset(15);
     }];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -80,7 +80,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = kBackgroundColor;
+        self.backgroundColor = [UIColor whiteColor];
+        self.selectionStyle = UITableViewCellEditingStyleNone;
         [self setupSubViews];
     }
     return self;
@@ -93,6 +94,10 @@
         _headImage.layer.masksToBounds = YES;
         _headImage.layer.borderWidth = 1;
         _headImage.layer.borderColor = KMajorColor.CGColor;
+        _headImage.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarClick)];
+        [_headImage addGestureRecognizer:gesture];
     }
     return _headImage;
 }
@@ -160,6 +165,15 @@
     return _bottomLine;
 }
 
+- (void)setModel:(UserAccout *)model{
+    _model = model;
+    [_headImage sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:nil];
+    _balanceView.valueLabel.text = [NSString stringWithFormat:@"%.2f元",_model.balance.floatValue];
+    _nameLabel.text = _model.name;
+    _phoneLabel.text = _model.mobile;
+    
+}
+
 - (void)setupSubViews{
     [self addSubview:self.headImage];
     [self addSubview:self.nameLabel];
@@ -167,7 +181,7 @@
     
     [self addSubview:self.balanceView];
     [self addSubview:self.couponView];
-    [self addSubview:self.integralView];
+//    [self addSubview:self.integralView];
     
     [self addSubview:self.bottomLine];
     
@@ -192,23 +206,22 @@
     }];
     
     [_balanceView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(kScreen_Width / 4 - kScreen_Width / 8);
         make.top.equalTo(weakSelf.phoneLabel.mas_bottom).offset(30);
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(- 15);
-        make.left.equalTo(weakSelf);
-        make.width.offset(kScreen_Width /3);
+        make.width.and.height.offset(kScreen_Width / 4);
+        
     }];
     [_couponView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).offset(- (kScreen_Width / 4 - kScreen_Width / 8));
+        make.width.and.height.offset(kScreen_Width / 4);
         make.top.equalTo(weakSelf.phoneLabel.mas_bottom).offset(30);
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(- 15);
-        make.centerX.equalTo(weakSelf.mas_centerX);
-        make.width.offset(kScreen_Width /3);
     }];
-    [_integralView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.phoneLabel.mas_bottom).offset(30);
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(- 15);
-        make.right.equalTo(weakSelf.mas_right);
-        make.width.offset(kScreen_Width /3);
-    }];
+//    [_integralView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(weakSelf.phoneLabel.mas_bottom).offset(30);
+//        make.bottom.equalTo(weakSelf.mas_bottom).offset(- 15);
+//        make.right.equalTo(weakSelf.mas_right);
+//        make.width.offset(kScreen_Width /3);
+//    }];
     [_bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf).offset(10);
         make.right.equalTo(weakSelf.mas_right).offset(- 10);
@@ -219,6 +232,10 @@
 
 - (void)click:(UIButton *)button{
     [self.delegate click:button.tag - 1001];
+}
+
+- (void)avatarClick{
+    [self.delegate click:4];
 }
 
 + (CGFloat)getHieght{
@@ -232,7 +249,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.backgroundColor = kBackgroundColor;
+        self.backgroundColor = [UIColor whiteColor];
         [self setupSubViews];
     }
     return self;

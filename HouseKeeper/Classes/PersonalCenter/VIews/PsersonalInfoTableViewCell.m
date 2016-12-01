@@ -27,6 +27,11 @@ static CGFloat avaterHeight = 80;
         _avaterImageView = [[UIImageView alloc] init];
         _avaterImageView.layer.masksToBounds = YES;
         _avaterImageView.layer.cornerRadius = avaterHeight / 2;
+        _avaterImageView.userInteractionEnabled = YES;
+        _avaterImageView.backgroundColor = KMajorColor;
+        
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avaterClick)];
+        [_avaterImageView addGestureRecognizer:gesture];
     }
     return _avaterImageView;
 }
@@ -34,9 +39,14 @@ static CGFloat avaterHeight = 80;
 - (void)setupSubViews{
     [self addSubview:self.avaterImageView];
     [_avaterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
-        make.height.and.with.offset(avaterHeight);
+        make.width.and.height.offset(avaterHeight);
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY);
     }];
+}
+
+- (void)avaterClick{
+    [self.delegate avaterClick];
 }
 
 @end
@@ -142,6 +152,8 @@ static CGFloat avaterHeight = 80;
     }
     [self.delegate editGenderWithGender:button.tag - 1000];
 }
+
+
 
 - (void)setupSubViews{
     [self addSubview:self.titleLabel];

@@ -38,4 +38,11 @@
  */
 + (NSString *)JSONString:(id)obj;
 
+/**
+ 判断是否是电话
+ 
+ @return 是或者否
+ */
+- (BOOL)isPhoneNum;
+
 @end

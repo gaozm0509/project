@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSInteger, BasePayTableViewSelectPaymentMethod) {
     PaymentMethodWechat = 0,
-    PaymentMethodAirpay
+    PaymentMethodAirpay,
+    PaymentMethodBlance
 };
 
 @class ChosenPaymentMethod;
@@ -28,9 +29,15 @@ typedef NS_ENUM(NSInteger, BasePayTableViewSelectPaymentMethod) {
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) ChosenPaymentMethod *wechatPay;
 @property (nonatomic, strong) ChosenPaymentMethod *airPay;
+@property (nonatomic, strong) ChosenPaymentMethod *balance;
 @property (nonatomic, strong) UIButton *moreButton;
 @property (nonatomic, assign) BasePayTableViewSelectPaymentMethod paymentMethod;
+@property (nonatomic, strong) UIView *morePayView;//放置余额支付和支付宝支付的view
 @property (nonatomic, weak) id<BasePayTableViewCellDelegate> delegate;
+
+@property (nonatomic, assign) BOOL isBalance;
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier isBalance:(BOOL)isBalance;
 
 + (CGFloat)getHeight;
 

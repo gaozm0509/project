@@ -14,14 +14,19 @@
 
 - (void)ToBePaidClickCellButton;
 
+@optional
+- (void)payWithModel:(MyOrderModel *)model;
+- (void)cancelPayWithModel:(MyOrderModel *)model;
+
 @end
 
-@interface ToBePaidTableView : BaseTableView
+@interface ToBePaidTableView : UICollectionViewCell
 
 @property (nonatomic, weak) id<ToBePaidTableViewDelegate> clickDelegate;
 
 @property (nonatomic, assign) OrderType orderType;
 
+@property (nonatomic, strong) BaseTableView *tableView;
 
 
 @end

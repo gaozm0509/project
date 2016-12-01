@@ -8,6 +8,7 @@
 
 #import "AirTreatmentViewController.h"
 #import "AirTreatmentTableView.h"
+#import "PayModel.h"
 
 
 #define kBottomHeight 45
@@ -83,11 +84,31 @@
     }];
 }
 
+- (void)netRequestCreatOrderWithModel:(DoorEntryModel *)model{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:model.id forKey:@"type"];
+    StateModel *stateModel = [UsersManager stateModel];
+    [params setValue:stateModel.id forKey:@"state_id"];
+    [params setValue:model.price forKey:@"amount"];
+    
+    [kApi_orders_create httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            PayModel *orderModel = [[PayModel alloc] initWithDic:data[@"data"]];
+            [self pushNewViewController:@"CreatOrderViewController" params:@{@"orderModel":orderModel,@"name":model.name}];
+        }
+    }];
+    
+}
+
 #pragma mark - Event method
 
 - (void)bottomButtonClick:(UIButton *)button{
     //点击下单按钮
-    
+    [self netRequestCreatOrderWithModel:_tableView.model];
 }
 
 #pragma mark - Pravit method

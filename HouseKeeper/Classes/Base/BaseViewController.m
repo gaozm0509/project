@@ -45,6 +45,13 @@
     imgView.frame = self.view.bounds;
 }
 
+- (MBProgressHUD *)hudView{
+    if (!_hudView) {
+        _hudView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    return _hudView;
+}
+
 #pragma mark - 子类中实现的方法
 - (void)netRequest{};
 

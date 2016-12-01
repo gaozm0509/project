@@ -61,6 +61,7 @@
             cell.textLabel.text = _name;
             cell.textLabel.textColor = kText_Color;
             cell.textLabel.font = kFont14;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
             
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@元",_amount];
             cell.detailTextLabel.textColor = KMajorColor;
@@ -73,7 +74,7 @@
             static NSString *cellId = @"cellId2";
             BasePayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
             if (!cell) {
-                cell = [[BasePayTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell = [[BasePayTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId isBalance:YES];
                 cell.delegate = self;
             }
             return cell;

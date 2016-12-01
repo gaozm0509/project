@@ -12,8 +12,8 @@
 
 @protocol  BaseTableViewDelegate <NSObject>
 
+@optional
 - (void)BaseTableViewClickWithModel:(BaseModel *)baseModel;
-
 - (void)BaseTableViewClickWithIndexPath:(NSIndexPath *)indexPath;
 
 @end

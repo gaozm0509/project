@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BalanceHistoryModel.h"
 
 #define kMarginTop 8
 #define kHeight 12
@@ -17,5 +18,7 @@
 @property (nonatomic, strong) UILabel *moneylabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *numberLabel;
+
+@property (nonatomic, strong) BalanceHistoryModel *model;
 
 @end

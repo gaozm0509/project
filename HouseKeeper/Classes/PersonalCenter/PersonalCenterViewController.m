@@ -8,6 +8,7 @@
 
 #import "PersonalCenterViewController.h"
 #import "PersonalCenterTableView.h"
+#import "PsersonalInfoViewController.h"
 
 @interface PersonalCenterViewController ()<PersonalCenterTableViewDelegate>
 
@@ -28,19 +29,15 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftButton];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     
-    [self netApiGet];
+    [self netRequest];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:YES];
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:NO];
-//    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,6 +49,7 @@
 - (PersonalCenterTableView *)tableView{
     if (!_tableView) {
         _tableView = [[PersonalCenterTableView alloc]initWithFrame:self.view.bounds];
+        _tableView.height = kScreen_Height - kNavHeight;
         _tableView.clcikDelegate = self;
     }
     return _tableView;
@@ -116,7 +114,14 @@
             [self pushNewViewController:@"IntegralViewController"];
             break;
         }
-            
+        case 4:{
+        //点击头像
+            WS(weakSelf);
+            UserAccoutBlock userAccoutBlock = ^(UserAccout *userAccout){
+                weakSelf.tableView.model = userAccout;
+            };
+            [self pushNewViewController:@"PsersonalInfoViewController" params:@{@"block":userAccoutBlock}];
+        }
         default:
             break;
     }
@@ -124,11 +129,36 @@
 
 #pragma mark - Net request
 
-- (void)netApiGet{
-//    [kApi_employee_sendVerificationCode httpRequestWithParams:[@{@"mobile":@"18036396675"} mutableCopy]  networkMethod:Post andBlock:^(id data, NSError *error) {
-//        NSLog(@"+++%@++++",data);
-//    }];
-    
+- (void)netRequest{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [kApi_member_info httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            UserAccout *model = [[UserAccout alloc] initWithDic:data[@"data"]];
+            self.tableView.model = model;
+        }
+    }];
+}
+
+- (void)netRequestCoupon{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"0" forKey:@"type"];
+    [kApi_member_coupons httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 0) {
+            
+        }
+    }];
+}
+
+- (void)netRequestBlabce{
+
 }
 
 #pragma mark - Pravit method

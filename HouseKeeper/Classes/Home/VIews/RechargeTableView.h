@@ -10,8 +10,16 @@
 #import "RechargeTableViewCell.h"
 #import "BasePayTableViewCell.h"
 
+@protocol RechargeTableViewDelegate <NSObject>
+
+- (void)textFieldEdit:(UITextField *)textFiled;
+
+@end
+
 @interface RechargeTableView : BaseTableView
 
 @property (nonatomic, assign) BasePayTableViewSelectPaymentMethod paymentMethod;
+
+@property (nonatomic, weak) id <RechargeTableViewDelegate> clickDelegate;
 
 @end

@@ -20,8 +20,9 @@ typedef NS_ENUM(NSInteger, OrderType) {
 
 @protocol ToBePaidTableViewCellDelegate <NSObject>
 
-- (void)payWithModel;
-- (void)cancelPayWithModel;
+@optional
+- (void)payWithModel:(MyOrderModel *)model;
+- (void)cancelPayWithModel:(MyOrderModel *)model;
 
 @end
 
@@ -39,8 +40,6 @@ typedef NS_ENUM(NSInteger, OrderType) {
 @property (nonatomic, strong) UIButton *paymentButton;
 @property (nonatomic, strong) UIButton *cancelButton;
 
-@property (nonatomic, strong) MyOrderModel *model;
-
 @property (nonatomic, strong) id<ToBePaidTableViewCellDelegate> delegate;
 
 @property (nonatomic, assign) OrderType orderType;
@@ -48,5 +47,7 @@ typedef NS_ENUM(NSInteger, OrderType) {
 @property (nonatomic, strong) MyOrderModel *orderModel;
 
 + (CGFloat)getCellHieghtOrderType:(OrderType)orderType;
+
+
 
 @end

@@ -375,4 +375,22 @@
     return strs;
 }
 
+
+#pragma mark 判断是否是第一次打开
+- (BOOL)isFirstOpen{
+    // 取出当前软件版本号
+    NSString *curVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
+    
+    // 取出上次手动存储的版本号
+    NSString *oldVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"VersionKey"];
+    
+    // 比对当前软件是否第一次打开
+    if (![curVersion isEqual:oldVersion]){
+        [[NSUserDefaults standardUserDefaults] setValue:curVersion forKey:@"VersionKey"];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

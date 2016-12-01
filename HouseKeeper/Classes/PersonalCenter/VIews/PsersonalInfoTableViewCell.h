@@ -13,11 +13,14 @@
 
 - (void)editGenderWithGender:(NSInteger )gender;
 
+- (void)avaterClick;
+
 @end
 
 @interface PsersonalInfoTableViewCell : BaseTableViewCell
 
 @property (nonatomic, strong) UIImageView *avaterImageView;
+@property (nonatomic, weak) id<PsersonalInfoTableViewCellDelegate> delegate;
 
 @end
 

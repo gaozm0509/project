@@ -27,9 +27,9 @@
 #pragma mark - Cycle life
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"名称";
     
     _model = self.receiveParams[@"model"];
+    self.title = _model.name;
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.seviceButton];
@@ -84,6 +84,7 @@
 - (void)BaseTableViewClickWithIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 2) {
         //我的发票
+        [self pushNewViewController:@"AssetInvoiceViewController" params:@{@"model":_model}];
         
     }
     if (indexPath.section == 3) {

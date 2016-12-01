@@ -26,6 +26,11 @@
     return self;
 }
 
+- (void)setModel:(UserAccout *)model{
+    _model = model;
+    [self reloadData];
+}
+
 #pragma mark - Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -39,6 +44,7 @@
             cell = [[PersonalCenterTableViewTopCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId0];
             cell.delegate = self;
         }
+        cell.model = _model;
         return cell;
     }
     else if (indexPath.section == 1) {
@@ -53,8 +59,8 @@
                 cell.leftIcon.image = [UIImage imageNamed:@"地址管理"];
                 break;
             case 1:
-                cell.titleLabel.text = @"发票管理";
-                cell.leftIcon.image = [UIImage imageNamed:@"发票管理"];
+                cell.titleLabel.text = @"第二联系人";
+                cell.leftIcon.image = [UIImage imageNamed:@"头像"];
                 break;
             default:
                 break;
@@ -93,7 +99,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

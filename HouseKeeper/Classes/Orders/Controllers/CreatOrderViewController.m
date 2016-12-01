@@ -34,6 +34,9 @@
     if (title.length == 0) {
         title = @"支付" ;
     }
+    if (self.name.length == 0) {
+        self.name = @"订单金额";
+    }
     self.title = title;
     
     [self.view addSubview:self.tableView];
@@ -84,7 +87,7 @@
 - (void)netRequest{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:self.orderModel.id forKey:@"order_id"];
-    [params setValue:@"0.01" forKey:@"amount"];
+    [params setValue:self.orderModel.amount forKey:@"amount"];
     
     //支付方式
     switch (_tableView.paymentMethod) {
@@ -96,7 +99,6 @@
             [params setValue:@"alipay" forKey:@"vendor"];
             break;
         }
-            
         default:{
             [params setValue:@"balance" forKey:@"vendor"];
             break;
@@ -109,11 +111,16 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
-            if (_tableView.pagingEnabled == PaymentMethodAirpay) {
+            if (_tableView.paymentMethod == PaymentMethodAirpay) {
                 //支付宝
             }
-            else{
+            else if(_tableView.paymentMethod == PaymentMethodWechat){
+                //微信
                 [self creatWxPayReq:data];
+            }
+            else if(_tableView.paymentMethod == PaymentMethodBlance){
+                //余额
+            
             }
         }
     }];

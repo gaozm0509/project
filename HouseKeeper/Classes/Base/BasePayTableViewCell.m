@@ -8,13 +8,21 @@
 
 #import "BasePayTableViewCell.h"
 
+static BOOL isShowAirPay  = NO;//控制支付宝是否显示
+
 #define kPayButtonHeight 70
 
 @implementation BasePayTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [self initWithStyle:style reuseIdentifier:reuseIdentifier isBalance:NO];
+    return self;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier isBalance:(BOOL)isBalance{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        _isBalance = isBalance;
         [self setupSubViews];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = kBackgroundColor;
@@ -70,6 +78,8 @@
     return _wechatPay;
 }
 
+
+
 - (ChosenPaymentMethod *)airPay{
     if (!_airPay) {
         _airPay = [[ChosenPaymentMethod alloc] init];
@@ -82,10 +92,44 @@
         [_airPay addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
         _airPay.tag = 1002;
         [_airPay setImageEdgeInsets:UIEdgeInsetsMake(0, kScreen_Width - 27, 0, 0)];
-        _airPay.frame = CGRectMake(0, 35 + kPayButtonHeight, kScreen_Width, 0);
+        _airPay.frame = CGRectMake(0, 0, kScreen_Width, kPayButtonHeight);
         _airPay.layer.masksToBounds = YES;
     }
     return _airPay;
+}
+
+- (ChosenPaymentMethod *)balance{
+    if (!_balance) {
+        _balance = [[ChosenPaymentMethod alloc] init];
+        _balance.platformNameLabel.text = @"余额支付";
+        _balance.backgroundColor = [UIColor whiteColor];
+        _balance.platformDescriptionLabel.text = @"推荐用户使用";
+        _balance.imgView.image = Image(@"order余额支付");
+        [_balance setImage:Image(@"pay_unselect") forState:UIControlStateNormal];
+        [_balance setImage:Image(@"pay_select") forState:UIControlStateSelected];
+        _balance.selected = NO;
+        _balance.layer.masksToBounds = YES;
+        [_balance addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+        _balance.tag = 1004;
+        [_balance setImageEdgeInsets:UIEdgeInsetsMake(0, kScreen_Width - 27, 0, 0)];
+        
+        _balance.frame = CGRectMake(0,isShowAirPay ? self.airPay.bottom : 0, kScreen_Width, kPayButtonHeight);
+    }
+    return _balance;
+}
+
+- (UIView *)morePayView{
+    if (!_morePayView) {
+        _morePayView = [[UIView alloc] initWithFrame:CGRectMake(0, self.wechatPay.bottom, kScreen_Width, 0)];
+        if (isShowAirPay) {
+            [_morePayView addSubview:self.airPay];
+        }
+        if (_isBalance) {
+            [_morePayView addSubview:self.balance];
+        }
+        _morePayView.layer.masksToBounds = YES;
+    }
+    return _morePayView;
 }
 
 - (UIButton *)moreButton{
@@ -102,7 +146,7 @@
         _moreButton.selected = NO;
         _moreButton.tag = 1003;
         [_moreButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
-        _moreButton.frame = CGRectMake(0, 35 + kPayButtonHeight, kScreen_Width, 40);
+        _moreButton.frame = CGRectMake(0, self.morePayView.bottom, kScreen_Width, 40);
         [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, kScreen_Width / 2 + 50, 0, 0)];
     }
     return _moreButton;
@@ -112,7 +156,7 @@
     [self addSubview:self.topView];
     [self addSubview:self.line];
     [self addSubview:self.wechatPay];
-    [self addSubview:self.airPay];
+    [self addSubview:self.morePayView];
     [self addSubview:self.moreButton];
     
     [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -160,6 +204,7 @@
         //微信
         _wechatPay.selected = YES;
         _airPay.selected = NO;
+        _balance.selected = NO;
         _paymentMethod = PaymentMethodWechat;
         
         [self.delegate BasePayTableViewCellGetPaymentMethod:_paymentMethod];
@@ -168,6 +213,7 @@
         //支付宝
         _wechatPay.selected = NO;
         _airPay.selected = YES;
+        _balance.selected = NO;
         _paymentMethod = PaymentMethodAirpay;
         
         [self.delegate BasePayTableViewCellGetPaymentMethod:_paymentMethod];
@@ -176,32 +222,47 @@
         //更多支付
         _moreButton.selected = !_moreButton.selected;
         if (!_moreButton.selected) {
-            [self showMore];
-        }
-        else{
             [self hidMore];
         }
+        else{
+            [self showMore];
+        }
+    }
+    if(button.tag == 1004){
+        //支付宝
+        _wechatPay.selected = NO;
+        _airPay.selected = NO;
+        _balance.selected = YES;
+        _paymentMethod = PaymentMethodBlance;
+        
+        [self.delegate BasePayTableViewCellGetPaymentMethod:_paymentMethod];
     }
 }
 
 #pragma mark - paravit method
 
-- (void)showMore{
+- (void)hidMore{
     [UIView animateWithDuration:0.5 animations:^{
-        _airPay.height = 0;
-        _moreButton.top = _airPay.bottom;
+        _morePayView.height = 0;
+        _moreButton.top = _wechatPay.bottom;
     }];
 }
 
-- (void)hidMore{
+- (void)showMore{
     [UIView animateWithDuration:0.5 animations:^{
-        _airPay.height = kPayButtonHeight;
-        _moreButton.top = _airPay.bottom;
+        if (isShowAirPay) {
+            _morePayView.height = _isBalance ? kPayButtonHeight * 2 : kPayButtonHeight;
+            _moreButton.top = _morePayView.bottom;
+        }
+        else{
+            _morePayView.height = _isBalance ? kPayButtonHeight : 0;
+            _moreButton.top = _morePayView.bottom;
+        }
     }];
 }
 
 + (CGFloat)getHeight{
-    return 200;
+    return 500;
 }
 
 @end

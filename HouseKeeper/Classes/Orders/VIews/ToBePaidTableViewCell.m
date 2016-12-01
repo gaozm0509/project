@@ -172,7 +172,7 @@ static CGFloat itemHeight = 40.f;
     _orderNumber.attributedText = text;
     
     _timeLabel.text = _orderModel.order_date;
-    _nameValueLabel.text = [self getTypeName:_orderModel.type];
+    _nameValueLabel.text = [self getTypeName:_orderType];
     _serviceTypeLabel.text = [NSString stringWithFormat:@"服务类型:%@",_orderModel.server];
     _sumLabel.text = [NSString stringWithFormat:@"金额:%@元",_orderModel.amount];
     _doorEntryFeeLabel.text = [NSString stringWithFormat:@"上门费:%@元",_orderModel.amount];
@@ -181,7 +181,10 @@ static CGFloat itemHeight = 40.f;
     NSMutableAttributedString *paymentText1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@元",_orderModel.amount] attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:KMajorYellowColor}];
     [paymentText appendAttributedString:paymentText1];
     _paymentLabel.attributedText = paymentText;
+    
+    [self addPayButtonWithType:_orderType];
 }
+
 
 #pragma mark - event
 
@@ -189,11 +192,16 @@ static CGFloat itemHeight = 40.f;
     switch (button.tag) {
         case 1001:{
             //支付
-            
+            if ([self.delegate respondsToSelector:@selector(payWithModel:)]){
+                [self.delegate payWithModel:_orderModel];
+            }
             break;
         }
         case 1002:{
             //取消
+            if ([self.delegate respondsToSelector:@selector(cancelPayWithModel:)]){
+                [self.delegate cancelPayWithModel:_orderModel];
+            }
         }
         default:
             break;
@@ -288,7 +296,6 @@ static CGFloat itemHeight = 40.f;
         make.centerY.equalTo(self.doorEntryFeeLabel.mas_centerY);
     }];
     
-    [self addPayButtonWithType:_orderType];
     for (NSInteger i = 1; i <= 4; i ++) {
         CALayer *layer = [[CALayer alloc] init];
         layer.frame = CGRectMake(10, i * itemHeight , kScreen_Width - 20, 0.5);
@@ -299,24 +306,24 @@ static CGFloat itemHeight = 40.f;
 
 #pragma mark - pravit method
 
-- (NSString *)getTypeName:(NSString *)type{
-    if ([type isEqualToString:@"1"]) {
+- (NSString *)getTypeName:(OrderType)type{
+    if (type == OrderTypeToBePaid) {
         return @"待支付";
     }
-    else if ([type isEqualToString:@"2"]) {
-        return @"待支付";
+    else if (type == OrderTypeCompletedPaid) {
+        return @"已支付";
     }
-    else if ([type isEqualToString:@"3"]) {
-        return @"待支付";
+    else if (type == OrderTypeArrange) {
+        return @"安排中";
     }
-    else if ([type isEqualToString:@"4"]) {
-        return @"待支付";
+    else if (type == OrderTypeServering) {
+        return @"服务中";
     }
-    else if ([type isEqualToString:@"5"]) {
-        return @"待支付";
+    else if (type == OrderTypeCompletedAll) {
+        return @"已完成";
     }
     else{
-    return @"全部";
+        return @"全部";
     }
 }
 

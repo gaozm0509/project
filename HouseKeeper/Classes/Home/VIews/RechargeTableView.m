@@ -39,6 +39,7 @@
         RechargeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
             cell = [[RechargeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            [cell.textField addTarget:self action:@selector(textFieldEdit:) forControlEvents:UIControlEventEditingChanged];
         }
         return cell;
     }
@@ -46,7 +47,7 @@
         static NSString *cellId = @"cellId1";
         BasePayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
-            cell = [[BasePayTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[BasePayTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId isBalance:NO];
             cell.delegate = self;
         }
         return cell;
@@ -88,6 +89,10 @@
 
 - (void)BasePayTableViewCellGetPaymentMethod:(BasePayTableViewSelectPaymentMethod)paymentMethod{
     _paymentMethod = paymentMethod;
+}
+
+- (void)textFieldEdit:(UITextField *)textFiled{
+    [self.clickDelegate textFieldEdit:textFiled];
 }
 
 @end

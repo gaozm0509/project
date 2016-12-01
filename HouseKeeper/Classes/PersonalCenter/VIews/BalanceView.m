@@ -7,7 +7,6 @@
 //
 
 #import "BalanceView.h"
-#import "BalanceTableViewCell.h"
 
 #define kCircleViewHeight 100
 @interface BalanceView()<UITableViewDelegate,UITableViewDataSource>
@@ -15,7 +14,6 @@
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UIView *circleView;
 @property (nonatomic, strong) UILabel *balanceTitelLabel;
-@property (nonatomic, strong) UILabel *balanceLabel;
 
 @property (nonatomic, strong)UITableView *tabelView;
 
@@ -91,7 +89,9 @@
     if (cell == nil) {
         cell = [[BalanceTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.model = _listModel.dataList[indexPath.row];
     return cell;
 }
 
@@ -100,7 +100,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return _listModel.dataList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -108,14 +108,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 44;
+    return 55;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 44)];
     view.backgroundColor = [UIColor whiteColor];
     UILabel *label = [[UILabel alloc]init];
-    label.text  = @"充值记录";
+    label.text  = @"交易记录";
     label.font = [UIFont systemFontOfSize:12];
     label.textColor  =[UIColor blackColor];
     label.textAlignment = NSTextAlignmentCenter;
@@ -126,6 +126,11 @@
         make.height.equalTo(view.mas_height);
     }];
     return view;
+}
+
+- (void)setListModel:(BalanceHistoryListModel *)listModel{
+    _listModel = listModel;
+    [self.tabelView reloadData];
 }
 
 #pragma mark - Pravit method

@@ -204,10 +204,10 @@
     [self addSubview:self.codeTextField];
     [self addSubview:self.codeButton];
     [self addSubview:self.loginButton];
-    [self addSubview:self.divisionView];
-    [self addSubview:self.wechartButton];
-    [self addSubview:self.weiboButton];
-    [self addSubview:self.qqButton];
+//    [self addSubview:self.divisionView];
+//    [self addSubview:self.wechartButton];
+//    [self addSubview:self.weiboButton];
+//    [self addSubview:self.qqButton];
     
     WS(ws);
     [_bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -247,39 +247,51 @@
         make.right.equalTo(ws.mas_right).offset(- kMarginLeft);
         make.height.offset(kHeight);
     }];
-    [_divisionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(ws).offset(15);
-        make.height.offset(20);
-        make.right.equalTo(ws.mas_right).offset(- 15);
-        make.top.equalTo(ws.loginButton.mas_bottom).offset(25);
-    }];
-    [_wechartButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.divisionView.mas_bottom).offset(10);
-        make.left.equalTo(ws).offset(2 *kMarginLeft);
-        make.width.offset(40);
-        make.height.offset(40);
-    }];
-    [_weiboButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(ws.wechartButton.mas_centerY);
-        make.centerX.equalTo(ws.mas_centerX);
-        make.width.offset(40);
-        make.height.offset(40);
-    }];
-    [_qqButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(ws.wechartButton.mas_centerY);
-        make.right.equalTo(ws).offset(- 2 *kMarginLeft);
-        make.width.offset(40);
-        make.height.offset(40);
-    }];
+//    [_divisionView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(ws).offset(15);
+//        make.height.offset(20);
+//        make.right.equalTo(ws.mas_right).offset(- 15);
+//        make.top.equalTo(ws.loginButton.mas_bottom).offset(25);
+//    }];
+//    [_wechartButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(ws.divisionView.mas_bottom).offset(10);
+//        make.left.equalTo(ws).offset(2 *kMarginLeft);
+//        make.width.offset(40);
+//        make.height.offset(40);
+//    }];
+//    [_weiboButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(ws.wechartButton.mas_centerY);
+//        make.centerX.equalTo(ws.mas_centerX);
+//        make.width.offset(40);
+//        make.height.offset(40);
+//    }];
+//    [_qqButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(ws.wechartButton.mas_centerY);
+//        make.right.equalTo(ws).offset(- 2 *kMarginLeft);
+//        make.width.offset(40);
+//        make.height.offset(40);
+//    }];
 }
 
 - (void)click:(UIButton *)button{
     if (button.tag == 1001) {
+        if (![self.phoneTextField.text isPhoneNum]) {
+            [self showHudTipStr:@"请输入正确手机号码"];
+            return;
+        }
         //发送验证码
         [self.delegate sendCodeEvent];
     }
     if (button.tag == 1002) {
         //登录
+        if (![self.phoneTextField.text isPhoneNum]) {
+            [self showHudTipStr:@"请输入正确手机号码"];
+            return;
+        }
+        if (self.codeTextField.text.length == 0) {
+            [self showHudTipStr:@"请输入验证码"];
+            return;
+        }
         [self.delegate loginEvent];
     }
 }

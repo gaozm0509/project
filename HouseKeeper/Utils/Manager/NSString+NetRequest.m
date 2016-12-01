@@ -8,7 +8,7 @@
 
 #import "NSString+NetRequest.h"
 #import "KeychainItemWrapper.h"
-#import "MBProgressHUD+Add.h"
+
 
 @implementation NSString (NetRequest)
 
@@ -34,11 +34,21 @@
         
         if (data) {
             block(data, nil);
+            if ([data[@"code"] integerValue] == 0) {
+                [self showHudTipStr:data[@"message"]];
+            }
         }else{
             block(message, error);
         }
     } progressBlock:^(NSProgress *downloadProgress) {
         
+    }];
+}
+
+- (void)httpRequestWithParams:(NSMutableDictionary *)params hudView:(MBProgressHUD *)hueView networkMethod:(NetworkMethod)method andBlock:(void (^)(id, NSError *))block{
+    [self httpRequestWithParams:params networkMethod:method isShowHud:NO andBlock:^(id data, NSError *error) {
+        [hueView hide:YES];
+        block(data,error);
     }];
 }
 
@@ -65,11 +75,28 @@
         
         if (data) {
             block(data, nil);
+            if ([data[@"code"] integerValue] == 0) {
+                [self showHudTipStr:data[@"message"]];
+            }
         }else{
             block(message, error);
         }
     } progressBlock:^(NSProgress *downloadProgress) {
         
+    }];
+}
+
+- (void)uploadImageWithParams:(NSMutableDictionary *)params image:(UIImage *)image andBlock:(void (^)(id, NSError *))block progressBlock:(void (^)(CGFloat ))progressBlock{
+    
+    
+    [params setValue:[UsersManager memberId] forKey:@"member_id"];
+    
+    [[HKAFHTTPSessionManager sharedJsonClient] uploudFileWithPath:self withParams:params withImage:image andBlock:^(NSNumber *code, id data, NSString *message, NSError *error) {
+        block(data,error);
+        
+    } progressBlock:^(NSProgress *downloadProgress) {
+        NSLog(@"%f",(float)downloadProgress.completedUnitCount / downloadProgress.totalUnitCount);
+        progressBlock(downloadProgress.completedUnitCount / downloadProgress.totalUnitCount);
     }];
 }
 

@@ -13,6 +13,8 @@
 
 - (void)editGenderWithGender:(NSInteger)gender;
 
+- (void)avaterClick;
+
 @end
 
 @interface PsersonalInfoTableView : BaseTableView

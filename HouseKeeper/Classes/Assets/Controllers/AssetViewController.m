@@ -60,6 +60,13 @@
     if (!_tableView) {
         _tableView = [[AssetTableView alloc]initWithFrame:kViewFrame];
         _tableView.clickDelegate = self;
+        _tableView.isHeadOpen = YES;
+        _tableView.isFootOpen = NO;
+        
+        WS(weakSelf);
+        [_tableView setMorePage:^(int Page) {
+            [weakSelf netRequest_GetRooms];
+        }];
     }
     return _tableView;
 }
@@ -219,6 +226,7 @@
     NSMutableDictionary *params = [NSMutableDictionary new];
     [params setValue:_model.id forKey:@"state_id"];
     [kApi_furniture httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+        _tableView.isMJStop = YES;
         if (error) {
             [self showError:error];
             return ;

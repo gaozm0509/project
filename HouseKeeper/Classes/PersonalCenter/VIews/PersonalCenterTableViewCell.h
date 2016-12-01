@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserAccout.h"
 
 #define kMarginLeft 10
 #define kTextFont [UIFont systemFontOfSize:12]
@@ -26,7 +27,9 @@
 @class CustomView;
 @protocol PersonalCenterTableViewCellDelegate <NSObject>
 
+
 - (void)click:(NSInteger)index;
+
 
 @end
 @interface PersonalCenterTableViewTopCell : UITableViewCell
@@ -41,6 +44,9 @@
 
 @property (nonatomic, strong) UIView *bottomLine;
 
+@property (nonatomic, strong) UserAccout *model;
+
+
 @property (nonatomic, strong) id<PersonalCenterTableViewCellDelegate> delegate;
 
 + (CGFloat)getHieght;
@@ -54,6 +60,8 @@
 @property (nonatomic, strong) UIImageView *img;
 @property (nonatomic, strong) UIImage *image;
 
+@property (nonatomic, strong) UserAccout *model;
+
 @end
 
 
@@ -62,5 +70,7 @@
 @property (nonatomic, strong) UILabel *leftLabel;
 @property (nonatomic, strong) UILabel *centerLabel;
 @property (nonatomic, strong) UIImageView *rightIcon;
+
+@property (nonatomic, strong) UserAccout *model;
 
 @end

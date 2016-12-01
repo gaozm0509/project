@@ -81,8 +81,9 @@
                 //维修
                 
             }
-            
+            [self pushNewViewController:@"LifeSerViceListViewController" params:@{@"type":[NSString stringWithFormat:@"%ld",indexPath.row + 1]}];
             break;
+            
         }
         case 1:{
             if(indexPath.row == 0){

@@ -251,4 +251,16 @@
     return jsonString;
 }
 
+
+/**
+ 判断是否是电话
+
+ @return 是或者否
+ */
+- (BOOL)isPhoneNum {
+    //    @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    //    @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$"
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(13[0-9]|15[0-9]|18[0-9]|14[0-9]|17[0-9])\\d{8}$"];
+    return [phoneTest evaluateWithObject:self];
+}
 @end

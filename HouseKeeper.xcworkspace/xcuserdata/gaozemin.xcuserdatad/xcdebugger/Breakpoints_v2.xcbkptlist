@@ -24,18 +24,30 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = ""
+            moduleName = "">
+            <Locations>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HouseKeeper/Classes/Base/WebViewController.m"
-            timestampString = "499939529.031778"
+            filePath = "HouseKeeper/Classes/Orders/VIews/ToBePaidTableView.m"
+            timestampString = "501737643.317214"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "+backClick"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "-netApiCancelOrderWithMyOrderModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -45,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HouseKeeper/Utils/Manager/HKAFHTTPSessionManager.m"
-            timestampString = "500223597.797095"
+            filePath = "HouseKeeper/Classes/Orders/Controllers/CreatOrderViewController.m"
+            timestampString = "502028195.230472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "-requestJsonDataWithPath:withParams:withMethodType:andBlock:progressBlock:"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "-netRequest"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

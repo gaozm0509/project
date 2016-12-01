@@ -33,6 +33,14 @@
 
 #define kApi_member_update @"api/member/update"
 
+#define kApi_member_upload @"api/member/upload"
+
+//余额历史记录
+#define kApi_member_balanceHistory @"api/member/balanceHistory"
+
+//充值
+#define kApi_member_balance @"api/member/balance"
+
 #pragma mark - 个人中心 end
 
 
@@ -53,12 +61,16 @@
 
 
 
+#pragma mark - 服务首页按钮跳转
 
+#define kApi_member_advertisements @"api/member/advertisements"
 
 
 
 
 #define kApi_orders_additional @"api/orders/additional"
+
+#define kApi_orders_cancel @"api/orders/cancel"
 
 #define kApi_orders_cancelAdditional @"api/orders/cancelAdditional"
 

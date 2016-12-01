@@ -247,13 +247,13 @@
     
     // 箭头
 //    CGFloat leftMargin = ScreenWidth / 2 - ([self.stateLabel.text calculateSize:CGSizeMake(MAXFLOAT, 12) font:defFont12].width / 2) - self.arrowView.image.size.width - 10;
-    CGFloat arrowCenterY = self.mj_h * 0.5;
+//    CGFloat arrowCenterY = self.mj_h * 0.5;
 //    self.arrowView.center = CGPointMake(leftMargin, arrowCenterY);
-    [self.arrowView removeFromSuperview];
-    
-    // 圈圈
-    self.loadingView.frame = self.arrowView.frame;
-    self.loadingView.center = self.stateLabel.center;
+//    [self.arrowView removeFromSuperview];
+//    
+//    // 圈圈
+//    self.loadingView.frame = self.arrowView.frame;
+//    self.loadingView.center = self.stateLabel.center;
     
 }
 
@@ -284,15 +284,15 @@
     
     // 箭头
 //    CGFloat leftMargin = ScreenWidth / 2 - ([self.stateLabel.text calculateSize:CGSizeMake(MAXFLOAT, 12) font:defFont12].width / 2) - self.arrowView.image.size.width - 10;
-    CGFloat arrowCenterY = self.mj_h * 0.5;
+//    CGFloat arrowCenterY = self.mj_h * 0.5;
 //    self.arrowView.center = CGPointMake(leftMargin, arrowCenterY);
-    //需求，删除箭头
-    [self.arrowView removeFromSuperview];
-    
-    // 圈圈
-    self.loadingView.frame = self.arrowView.frame;
-    self.loadingView.center = self.stateLabel.center;
-    
+//    //需求，删除箭头
+//    [self.arrowView removeFromSuperview];
+//    
+//    // 圈圈
+//    self.loadingView.frame = self.arrowView.frame;
+//    self.loadingView.center = self.stateLabel.center;
+//    
 }
 
 

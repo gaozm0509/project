@@ -12,6 +12,7 @@
 #import <AFNetworkActivityIndicatorManager.h>
 #import "KeychainItemWrapper.h"
 #import "WXApi.h"
+#import "NewFeaturesViewController.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate,WXApiDelegate>
 
@@ -23,14 +24,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    if ([UsersManager memberId].length > 0) {
-        TabBarViewController *rootVC = [[TabBarViewController alloc]init];
-        self.window.rootViewController = rootVC;
+    if ([self isFirstOpen]) {
+        NewFeaturesViewController *VC = [[NewFeaturesViewController alloc]init];
+        self.window.rootViewController = VC;
+    }else{
+        if ([UsersManager memberId].length > 0) {
+            TabBarViewController *rootVC = [[TabBarViewController alloc]init];
+            self.window.rootViewController = rootVC;
+        }
+        else{
+            LoginViewController *rootVC = [[LoginViewController alloc]init];
+            self.window.rootViewController = rootVC;
+        }
     }
-    else{
-        LoginViewController *rootVC = [[LoginViewController alloc]init];
-        self.window.rootViewController = rootVC;
-    }
+    
+    
     
     [self.window makeKeyAndVisible];
     
@@ -46,8 +54,11 @@
         NSLog(@"wechat regist success");
     };
     
+    //启动页停留
+    [NSThread sleepForTimeInterval:1.5];
     
     return YES;
+    
 }
 
 /**
@@ -98,7 +109,7 @@
     if([resp isKindOfClass:[PayResp class]]){
         
         /**
-         WXSuccess           = 0,    成功
+         WXSuccess           = 0,     成功
          WXErrCodeCommon     = -1,    普通错误类型
          WXErrCodeUserCancel = -2,    用户点击取消并返回
          WXErrCodeSentFail   = -3,    发送失败

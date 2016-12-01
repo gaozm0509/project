@@ -81,4 +81,7 @@ typedef NS_ENUM(NSInteger, DateFormatters)
 
 //转成json字符串
 - (NSString *)stringTOjson;
+
+- (BOOL)isFirstOpen;
+
 @end

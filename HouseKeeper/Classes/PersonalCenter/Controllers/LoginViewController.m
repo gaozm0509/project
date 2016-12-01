@@ -106,11 +106,11 @@
 - (void)netRequestLogin{
     
     NSMutableDictionary *params = [NSMutableDictionary new];
-//    [params setValue:_loginView.phoneTextField.text forKey:@"mobile"];
-//    [params setValue:_loginView.codeTextField.text forKey:@"code"];
+    [params setValue:_loginView.phoneTextField.text forKey:@"mobile"];
+    [params setValue:_loginView.codeTextField.text forKey:@"code"];
     
-    [params setValue:@"18036396675" forKey:@"mobile"];
-    [params setValue:@"123456" forKey:@"code"];
+//    [params setValue:@"18036396675" forKey:@"mobile"];
+//    [params setValue:@"123456" forKey:@"code"];
     
     [kApi_member_signin httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
         

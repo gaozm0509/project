@@ -23,9 +23,17 @@
     self.title = self.receiveParams[@"title"];
     
     NSString *url = self.receiveParams[@"url"];
+    
+    NSString *htmlString = self.receiveParams[@"htmlString"];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.view addSubview:self.webView];
-    [_webView loadRequest:request];
+    if (htmlString) {
+        [_webView loadHTMLString:htmlString baseURL:nil];
+    }
+    else{
+        [_webView loadRequest:request];
+    }
     [self.view addSubview:self.progressView];
     [self load];
     

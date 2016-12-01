@@ -7,20 +7,22 @@
 //
 
 #import "OrderViewController.h"
-#import "iCarousel.h"
 #import "XTSegmentControl.h"
 #import "ToBePaidTableView.h"
+#import "PayModel.h"
 
 #define kMySegmentControl_Height 45.0
-@interface OrderViewController ()<iCarouselDataSource,iCarouselDelegate,ToBePaidTableViewDelegate>{
+@interface OrderViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,ToBePaidTableViewDelegate,UIScrollViewDelegate>{
 int _selectedIndex;
 }
 
-@property (nonatomic, strong) iCarousel *myCarousel;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic ,strong) XTSegmentControl *mySegmentControl;
 @property (assign, nonatomic) NSInteger oldSelectedIndex;
 
 @end
+
+static NSString *collectionViewId = @"collectionViewId";
 
 @implementation OrderViewController
 
@@ -28,7 +30,7 @@ int _selectedIndex;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的订单";
-    [self.view addSubview:self.myCarousel];
+    [self.view addSubview:self.collectionView];
     [self setMySegmentControl];
 }
 
@@ -44,40 +46,44 @@ int _selectedIndex;
 
 #pragma mark - Getter and setter
 
-- (iCarousel *)myCarousel{
-    if (!_myCarousel) {
-        _myCarousel = [[iCarousel alloc]init];
-        _myCarousel.frame = CGRectMake(0, kMySegmentControl_Height, kScreen_Width, kScreen_Height - kNavHeight - kMySegmentControl_Height);
-        _myCarousel.dataSource = self;
-        _myCarousel.delegate = self;
-        _myCarousel.decelerationRate = 1.0;
-        _myCarousel.scrollSpeed = 1.0;
-        _myCarousel.type = iCarouselTypeLinear;
-        _myCarousel.pagingEnabled = YES;
-        _myCarousel.clipsToBounds = YES;
-        _myCarousel.bounceDistance = 0.2;
+- (UICollectionView *)collectionView{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.minimumLineSpacing = 0;
+        layout.minimumInteritemSpacing = 0;
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kMySegmentControl_Height, kScreen_Width, kScreen_Height - kNavHeight - kMySegmentControl_Height) collectionViewLayout:layout];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.backgroundColor = kBackgroundColor;
+        _collectionView.pagingEnabled = YES;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        
+        [_collectionView registerClass:[ToBePaidTableView class] forCellWithReuseIdentifier:collectionViewId];
     }
-    return _myCarousel;
+    return _collectionView;
 }
 
 #pragma mark 添加mySegmentControl
+
 -(void)setMySegmentControl{
     CGRect frame = [UIView frameWithOutNavTab];
     //添加滑块
     frame.origin.y = 0;
     frame.size.height = kMySegmentControl_Height;
     if (!_mySegmentControl) {
-        __weak typeof(_myCarousel) weakCarousel = _myCarousel;
-        _mySegmentControl = [[XTSegmentControl alloc] initWithFrame:frame Items:@[@"待支付",@"服务中",@"已完成",@"全部"] selectedBlock:^(NSInteger index) {
+        WS(weakSelf);
+        _mySegmentControl = [[XTSegmentControl alloc] initWithFrame:frame Items:@[@"待支付",@"已支付",@"安排中",@"服务中",@"已完成",@"全部"] selectedBlock:^(NSInteger index) {
             if (index == _oldSelectedIndex) {
                 return;
             }
             _oldSelectedIndex = index;
-            [weakCarousel scrollToItemAtIndex:index animated:YES];
+            [weakSelf.collectionView setContentOffset:CGPointMake(kScreen_Width * index, 0) animated:NO];
         }];
         if (_selectedIndex != 0) {
             [_mySegmentControl selectIndex:_selectedIndex];
-            [weakCarousel scrollToItemAtIndex:_selectedIndex animated:NO];
+//            [weakSelf.myCarousel scrollToItemAtIndex:_selectedIndex animated:NO];
         }
         
         _oldSelectedIndex = 0;
@@ -87,99 +93,201 @@ int _selectedIndex;
 
 #pragma mark - Delegate
 
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view{
+#pragma mark - UICollectionViewDataSource
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ToBePaidTableView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionViewId forIndexPath:indexPath];
+    cell.clickDelegate = self;
+    
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 6;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(kScreen_Width, collectionView.height - 45);//不懂为啥要减去45，但是不减会出错
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     OrderType type = OrderTypeToBePaid;
-    switch (index) {
+    switch (indexPath.row) {
         case 0:{
-            type = OrderTypeCompletedPaid;
-            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
-            if (!toBePaidTableView) {
-                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
-                toBePaidTableView.clickDelegate = self;
-            }
-            toBePaidTableView.orderType = type;
-            return toBePaidTableView;
+            type = OrderTypeToBePaid;
             break;
         }
         case 1:{
-            type = OrderTypeArrange;
-            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
-            if (!toBePaidTableView) {
-                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
-                toBePaidTableView.clickDelegate = self;
-            }
-            toBePaidTableView.orderType = type;
-            
-            return toBePaidTableView;
+            type = OrderTypeCompletedPaid;
             break;
         }
         case 2:{
-            type = OrderTypeServering;
-            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
-            if (!toBePaidTableView) {
-                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
-                toBePaidTableView.clickDelegate = self;
-            }
-            toBePaidTableView.orderType = type;
-            
-            return toBePaidTableView;
+            type = OrderTypeArrange;
             break;
         }
         case 3:{
+            type = OrderTypeServering;
+            break;
+        }
+        case 4:{
             type = OrderTypeCompletedAll;
-            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
-            if (!toBePaidTableView) {
-                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
-                toBePaidTableView.clickDelegate = self;
-            }
-            toBePaidTableView.orderType = type;
-            
-            return toBePaidTableView;
             break;
         }
-        default:{
+        case 5:{
             type = OrderTypeAll;
-            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
-            if (!toBePaidTableView) {
-                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
-                toBePaidTableView.clickDelegate = self;
-            }
-            toBePaidTableView.orderType = type;
-            
-            return toBePaidTableView;
             break;
         }
+        default:
+            break;
     }
-    
-}
-
-- (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel{
-    return 4;
-}
-
-- (void)carouselDidScroll:(iCarousel *)carousel{
-    if (_mySegmentControl) {
-        float offset = carousel.scrollOffset;
-        if (offset > 0) {
-            [_mySegmentControl moveIndexWithProgress:offset];
-        }
+    ToBePaidTableView *myCell = (ToBePaidTableView *)cell;
+    if (myCell.orderType != type) {
+        myCell.orderType = type;
     }
 }
 
-- (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
-{
-    if (_mySegmentControl) {
-        [_mySegmentControl endMoveIndex:carousel.currentItemIndex];
-    }
-    if (_oldSelectedIndex != carousel.currentItemIndex) {
-        _oldSelectedIndex = carousel.currentItemIndex;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    float offset = scrollView.contentOffset.x / kScreen_Width;
+    if (offset > 0) {
+        [_mySegmentControl moveIndexWithProgress:offset];
     }
 }
+
+//- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view{
+//    OrderType type = OrderTypeToBePaid;
+//    switch (carousel.currentItemIndex) {
+//        case 0:{
+//            type = OrderTypeToBePaid;
+//            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+//            if (!toBePaidTableView) {
+//                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+//                toBePaidTableView.clickDelegate = self;
+//            }
+//            toBePaidTableView.orderType = type;
+//            return toBePaidTableView;
+//            break;
+//        }
+//        case 1:{
+//            type = OrderTypeCompletedPaid;
+//            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+//            if (!toBePaidTableView) {
+//                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+//                toBePaidTableView.clickDelegate = self;
+//            }
+//            toBePaidTableView.orderType = type;
+//            
+//            return toBePaidTableView;
+//            break;
+//        }
+//        case 2:{
+//            type = OrderTypeArrange;
+//            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+//            if (!toBePaidTableView) {
+//                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+//                toBePaidTableView.clickDelegate = self;
+//            }
+//            toBePaidTableView.orderType = type;
+//            
+//            return toBePaidTableView;
+//            break;
+//        }
+//        case 3:{
+//            type = OrderTypeServering;
+//            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+//            if (!toBePaidTableView) {
+//                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+//                toBePaidTableView.clickDelegate = self;
+//            }
+//            toBePaidTableView.orderType = type;
+//            
+//            return toBePaidTableView;
+//            break;
+//        }
+//        case 4:{
+//            type = OrderTypeCompletedAll;
+//            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+//            if (!toBePaidTableView) {
+//                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+//                toBePaidTableView.clickDelegate = self;
+//            }
+//            toBePaidTableView.orderType = type;
+//            
+//            return toBePaidTableView;
+//            break;
+//        }
+//        case 5:{
+//            type = OrderTypeAll;
+//            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+//            if (!toBePaidTableView) {
+//                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+//                toBePaidTableView.clickDelegate = self;
+//            }
+//            toBePaidTableView.orderType = type;
+//            
+//            return toBePaidTableView;
+//            break;
+//        }
+//        default:{
+//            type = OrderTypeAll;
+//            ToBePaidTableView *toBePaidTableView = (ToBePaidTableView *)view;
+//            if (!toBePaidTableView) {
+//                toBePaidTableView = [[ToBePaidTableView alloc]initWithFrame:carousel.bounds];
+//                toBePaidTableView.clickDelegate = self;
+//            }
+//            toBePaidTableView.orderType = type;
+//            
+//            return toBePaidTableView;
+//            break;
+//        }
+//    }
+//    
+//}
+//
+//- (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel{
+//    return 6;
+//}
+//
+//- (void)carouselDidScroll:(iCarousel *)carousel{
+//    if (_mySegmentControl) {
+//        float offset = carousel.scrollOffset;
+//        if (offset > 0) {
+//            [_mySegmentControl moveIndexWithProgress:offset];
+//        }
+//    }
+//}
+//
+//- (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
+//{
+//    if (_mySegmentControl) {
+//        [_mySegmentControl endMoveIndex:carousel.currentItemIndex];
+//    }
+//    if (_oldSelectedIndex != carousel.currentItemIndex) {
+//        _oldSelectedIndex = carousel.currentItemIndex;
+//    }
+//}
 
 #pragma mark ToBePaidTableViewDelegate
 
 - (void)ToBePaidClickCellButton{
     [self pushNewViewController:@"PayViewController"];
+}
+
+//支付
+- (void)payWithModel:(MyOrderModel *)model{
+    PayModel *payModel = [[PayModel alloc] initWithDic:@{}];
+    payModel.id = model.id;
+    payModel.member_id = model.member_id;
+    payModel.amount = model.amount;
+    payModel.furniture_id = model.furniture_id;
+    payModel.order_date.date = model.order_date;
+    payModel.state_id = model.state_id;
+    payModel.type = model.type;
+    [self pushNewViewController:@"CreatOrderViewController" params:@{@"orderModel":payModel}];
 }
 
 #pragma mark - Net request

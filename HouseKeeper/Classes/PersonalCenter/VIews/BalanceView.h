@@ -7,7 +7,11 @@
 //
 
 #import "BaseVIew.h"
+#import "BalanceTableViewCell.h"
 
 @interface BalanceView : BaseVIew
+
+@property (nonatomic, strong) BalanceHistoryListModel *listModel;
+@property (nonatomic, strong) UILabel *balanceLabel;
 
 @end

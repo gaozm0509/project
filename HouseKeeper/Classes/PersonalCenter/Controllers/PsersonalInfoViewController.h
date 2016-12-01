@@ -7,7 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "EditPsersonalInfoViewController.h"
+
+typedef void(^UserAccoutBlock)(UserAccout *userAccout);
 
 @interface PsersonalInfoViewController : BaseViewController
+
+@property (nonatomic, copy)UserAccoutBlock userAccoutBlock;
 
 @end

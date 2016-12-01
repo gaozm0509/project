@@ -40,6 +40,11 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:Image(@"service_空气治理顶图")];
+            [cell addSubview:imageView];
+            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.and.bottom.and.centerX.and.centerY.equalTo(cell);
+            }];
         }
         return cell;
     }
@@ -64,7 +69,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 45;
+        return 150;
     }
     else{
         return [AirTreatmentTableViewCell getHeight];
@@ -76,6 +81,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 0;
+    }
     return 10;
 }
 

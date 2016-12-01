@@ -66,11 +66,11 @@
     }
     if (indexPath.section == 1){
         //用户协议
-        
+        [self pushNewViewController:@"PC_AgreementAboutViewController" params:@{@"plistKey":@"Agreement",@"title":@"用户协议"}];
     }
     if(indexPath.section == 2){
         //关于我们
-        
+        [self pushNewViewController:@"PC_AgreementAboutViewController" params:@{@"plistKey":@"About",@"title":@"关于我们"}];
     }
 }
 
