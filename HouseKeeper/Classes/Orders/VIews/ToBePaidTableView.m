@@ -64,7 +64,6 @@
         cell.delegate = self;
     }
     [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0];
-    cell.orderType = _orderType;
     cell.orderModel = [_listModel.orderList objectAtIndex:indexPath.section];
     return cell;
 }
@@ -78,7 +77,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [ToBePaidTableViewCell getCellHieghtOrderType:_orderType];
+    MyOrderModel *orderModel = [_listModel.orderList objectAtIndex:indexPath.section];
+    return [ToBePaidTableViewCell getCellHieghtOrderType:orderModel.status];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -132,8 +132,14 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
-            if ([_listModel.orderList containsObject:model]) {
-                [_listModel.orderList removeObject:model];
+            if (_orderType == OrderTypeToBePaid) {
+                if ([_listModel.orderList containsObject:model]) {
+                    [_listModel.orderList removeObject:model];
+                    [self.tableView reloadData];
+                }
+            }
+            else{
+                model.status = OrderTypeCancle;
                 [self.tableView reloadData];
             }
         }

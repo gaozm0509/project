@@ -14,6 +14,7 @@
 @property (nonatomic ,copy) NSString *memberId;
 @property (nonatomic, strong) StateModel *stateModel;
 @property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *rights;
 
 
 + (void)saveMemberId:(NSString *)memberId;
@@ -24,6 +25,9 @@
 
 + (void)savePhone:(NSString *)phone;
 + (NSString *)phone;
+
++ (void)saveRights:(NSString *)rights;//是否是第二联系人
++ (NSString *)rights;
 
 + (void)loginOutAndCleanUserDefaults;
 @end

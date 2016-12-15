@@ -13,6 +13,7 @@
 
 - (void)editGenderWithGender:(NSInteger )gender;
 
+@optional
 - (void)avaterClick;
 
 @end

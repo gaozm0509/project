@@ -8,7 +8,7 @@
 
 #import "AssetTableView.h"
 
-#define kHeadCellHieght 80
+#define kHeadCellHieght 60
 
 @interface AssetTableView()<UITableViewDataSource,UITableViewDelegate,AssetTableHeadViewCellDelegate>
 

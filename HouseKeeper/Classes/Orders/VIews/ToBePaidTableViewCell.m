@@ -161,13 +161,15 @@ static CGFloat itemHeight = 40.f;
 #pragma mark - setter
 
 - (void)setOrderModel:(MyOrderModel *)orderModel{
-    if (_orderModel == orderModel) {
-        return;
-    }
     _orderModel = orderModel;
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMdd"];
+    NSDate *date = [NSDate dateFromString:_orderModel.created_at withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateStr = [NSDate stringFromDate:date withFormat:@"yyyyMMdd"];
+    
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:@"订单号：" attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:kText_Color}];
-    NSMutableAttributedString *text1 = [[NSMutableAttributedString alloc]initWithString:_orderModel.id attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:KMajorColor}];
+    NSMutableAttributedString *text1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@%@",dateStr,_orderModel.id] attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:KMajorColor}];
     [text appendAttributedString:text1];
     _orderNumber.attributedText = text;
     
@@ -181,9 +183,11 @@ static CGFloat itemHeight = 40.f;
     NSMutableAttributedString *paymentText1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@元",_orderModel.amount] attributes:@{NSFontAttributeName:kTextFont,NSForegroundColorAttributeName:KMajorYellowColor}];
     [paymentText appendAttributedString:paymentText1];
     _paymentLabel.attributedText = paymentText;
+    _nameValueLabel.text = [self getStatusDescrptionWithState:_orderModel.status];
     
-    [self addPayButtonWithType:_orderType];
+    [self addPayButtonWithType:_orderModel.status];
 }
+
 
 
 #pragma mark - event
@@ -234,6 +238,33 @@ static CGFloat itemHeight = 40.f;
     }
 }
 
+- (NSString *)getStatusDescrptionWithState:(OrderType)type{
+    switch (type) {
+        case OrderTypeToBePaid:
+            return @"待支付";
+            break;
+        case OrderTypeCompletedPaid:
+            return @"已支付";
+            break;
+        case OrderTypeArrange:
+            return @"安排中";
+            break;
+        case OrderTypeServering:
+            return @"服务中";
+            break;
+        case OrderTypeCompletedAll:
+            return @"已完成";
+            break;
+        case OrderTypeAll:
+            return @"全部";
+            break;
+        case OrderTypeCancle:
+            return @"已取消";
+            break;
+        default:
+            break;
+    }
+}
 
 
 - (void)setupSubViews{

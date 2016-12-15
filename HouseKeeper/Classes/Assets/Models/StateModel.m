@@ -143,6 +143,9 @@
 
 - (void)mappingSelfProperty:(NSDictionary *)dict{
     [super mappingSelfProperty:dict];
+    if (![dict isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
     self.brand = [dict ConvertStringForKey:@"brand"];
     self.created_at = [dict ConvertStringForKey:@"created_at"];
     self.created_by = [dict ConvertStringForKey:@"created_by"];
@@ -159,6 +162,7 @@
     self.serial = [dict ConvertStringForKey:@"serial"];
     self.type_id = [dict ConvertStringForKey:@"type_id"];
     self.updated_at = [dict ConvertStringForKey:@"updated_at"];
+    self.isMaintenanceReminder = NO;
     
     self.others = [[self dictionaryToArray:dict key:@"others" targetClass:@"OthersModel"] mutableCopy];
 }

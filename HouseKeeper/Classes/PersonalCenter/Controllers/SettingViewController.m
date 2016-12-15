@@ -81,19 +81,31 @@
 #pragma mark - Event method
 
 - (void)logOutButtonClick:(UIButton *)button{
-    UIWindow *window = [[UIApplication sharedApplication].delegate window];
-    window.rootViewController = [LoginViewController new];
     
-    //清除UserDefaults中的缓存
-    SetUserDefaults(nil, @"userId");
-    SetUserDefaults(nil, @"mobile");
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"退出登录" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
     
-    //清除文件中的缓存
-    [self clearCachingAndFinishBlock:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     
-    //通知服务器推出操作
-    [kApi_member_signOut httpRequestWithParams:nil networkMethod:Post andBlock:^(id data, NSError *error) {
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIWindow *window = [[UIApplication sharedApplication].delegate window];
+        window.rootViewController = [LoginViewController new];
+        
+        //清除UserDefaults中的缓存
+        [UsersManager loginOutAndCleanUserDefaults];
+        
+        //清除文件中的缓存
+        [self clearCachingAndFinishBlock:nil];
+        
+        //通知服务器推出操作
+        [kApi_member_signOut httpRequestWithParams:nil networkMethod:Post andBlock:^(id data, NSError *error) {
+        }];
     }];
+                                  
+    [alertVC addAction:doneAction];
+    [alertVC addAction:cancelAction];
+    
+     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 #pragma mark - Pravit method

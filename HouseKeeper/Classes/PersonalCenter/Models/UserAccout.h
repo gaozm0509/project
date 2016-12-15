@@ -26,4 +26,7 @@
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *third_part_no;
 @property (nonatomic, copy) NSString *updated_at;
+@property (nonatomic, copy) NSString *rights;
+//非网络请求字段
+@property (nonatomic, assign) NSInteger couponNumbers;
 @end

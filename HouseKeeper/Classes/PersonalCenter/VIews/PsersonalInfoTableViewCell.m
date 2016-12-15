@@ -28,7 +28,6 @@ static CGFloat avaterHeight = 80;
         _avaterImageView.layer.masksToBounds = YES;
         _avaterImageView.layer.cornerRadius = avaterHeight / 2;
         _avaterImageView.userInteractionEnabled = YES;
-        _avaterImageView.backgroundColor = KMajorColor;
         
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avaterClick)];
         [_avaterImageView addGestureRecognizer:gesture];

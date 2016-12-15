@@ -40,15 +40,8 @@
     
     [self.view addSubview:self.scrollView];
     
-    if (_model.invoice.length == 0) {
-        [self showNoInvoiceView];
-    }
-    else{
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
-        [_scrollView addSubview:self.invoiceImageView];
-    }
     
-    
+    [self netRequestGetImage];
     
 }
 
@@ -158,7 +151,6 @@
 - (UIImageView *)invoiceImageView{
     if (!_invoiceImageView) {
         _invoiceImageView = [[UIImageView alloc] init];
-        [self setInvoiceImageViewImageWithUrl:_model.invoice];
     }
     return _invoiceImageView;
 }
@@ -214,42 +206,71 @@
 
 #pragma mark - API
 
-//上传头像
-- (void)netRequestUploadHeadImage:(UIImage *)image{
+//获取发票
+- (void)netRequestGetImage{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:_model.id forKey:@"type_id"];
+    [params setValue:@"invoice" forKey:@"type"];
+    [kApi_member_image httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            NSString *url = data[@"data"][@"url"];
+            _model.invoice = url;
+            
+            if (url.length == 0) {
+                [self showNoInvoiceView];
+            }
+            else{
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
+                [_scrollView addSubview:self.invoiceImageView];
+            }
+            [self setInvoiceImageViewImageWithUrl:url];
+            
+        }
+    }];
+}
+
+
+//上传发票
+- (void)netRequestUploadImage:(UIImage *)image{
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:@"invoice" forKey:@"type"];
     [params setValue:_model.id forKey:@"type_id"];
-    [params setValue:UIImageJPEGRepresentation(image, 0.5) forKey:@"image"];
     
     [kApi_member_upload uploadImageWithParams:params image:image andBlock:^(id data, NSError *error) {
-        
-        NSLog(@"%@",data);
+        if (error) {
+            [self showError:error];
+            return ;
+        }
         if ([data[@"code"] integerValue] == 1) {
-            
-            [self hidNoInvoiceView];
-            
-            [self showHudTipStr:@"上传成功"];
-            _invoiceImageView.image = image;
-            
-            NSString *url = data[@"data"][@"url"];
-            
-            [self setInvoiceImageViewImageWithUrl:url];
-            _model.invoice = url;
-            
+            NSLog(@"%@",data);
+            if ([data[@"code"] integerValue] == 1) {
+                
+                [self hidNoInvoiceView];
+                
+                [self showHudTipStr:@"上传成功"];
+                _invoiceImageView.image = image;
+                
+                NSString *url = data[@"data"][@"url"];
+                
+                [self setInvoiceImageViewImageWithUrl:url];
+                _model.invoice = url;
+                
+            }
         }
     } progressBlock:^(CGFloat progress) {
-        NSLog(@"%f",progress);
         if (progress >= 1) {
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [hud hide:YES];
             });
-            
+           
         }
-        [hud setProgress:progress];
     }];
 }
 
@@ -262,7 +283,7 @@
     picker.allowsEditing = YES;
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     
-    [self netRequestUploadHeadImage:image];
+    [self netRequestUploadImage:image];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{

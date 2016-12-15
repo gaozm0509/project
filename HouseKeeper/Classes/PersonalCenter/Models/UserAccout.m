@@ -38,6 +38,7 @@
     self.nickname = [dict ConvertStringForKey:@"nickname"];
     self.third_part_no = [dict ConvertStringForKey:@"third_part_no"];
     self.updated_at = [dict ConvertStringForKey:@"updated_at"];
+    self.rights = [dict ConvertStringForKey:@"rights"];
 }
 
 @end

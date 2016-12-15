@@ -36,8 +36,9 @@
     self.server_point = [dict ConvertStringForKey:@"server_point"];
     self.service_id = [dict ConvertStringForKey:@"service_id"];
     self.state_id = [dict ConvertStringForKey:@"state_id"];
-    self.status = [dict ConvertStringForKey:@"status"];
+    self.status = [[dict ConvertStringForKey:@"status"] integerValue];
     self.type = [dict ConvertStringForKey:@"type"];
+    self.created_at = [dict ConvertStringForKey:@"created_at"];
     
 }
 

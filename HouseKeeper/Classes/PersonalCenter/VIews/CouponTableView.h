@@ -13,4 +13,6 @@
 
 @property (nonatomic, assign) CouponType couponType;
 
+@property (nonatomic, strong) CouponListModel *listModel;
+
 @end

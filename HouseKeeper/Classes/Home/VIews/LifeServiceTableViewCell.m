@@ -92,7 +92,7 @@ static CGFloat kImageWith = 80;
         return;
     }
     _model = model;
-    [_leftImageView sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:nil];
+    [_leftImageView sd_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:kPlaceholderImage];
     _titleLabel.text = _model.title;
     _areaLabel.text = _model.area;
     _ratingView.scoreNum = _model.points.floatValue * 2;

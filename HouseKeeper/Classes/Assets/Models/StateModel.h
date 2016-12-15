@@ -86,6 +86,15 @@
 @property (nonatomic, copy) NSString *updated_at;
 @property (nonatomic, copy) NSString *type;
 
+
+@property (nonatomic, copy) NSString *furnituresImage;
+
+
+/**
+ 保养提醒
+ */
+@property (nonatomic, assign) BOOL isMaintenanceReminder;//是否保养提醒,根据schedule和当前时间计算
+
 @property (nonatomic, strong) NSMutableArray<OthersModel *> *others;
 
 

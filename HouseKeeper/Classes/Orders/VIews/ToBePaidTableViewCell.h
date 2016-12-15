@@ -9,14 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MyOrderModel.h"
 
-typedef NS_ENUM(NSInteger, OrderType) {
-    OrderTypeToBePaid,     //待支付
-    OrderTypeCompletedPaid,//已支付
-    OrderTypeArrange,      //安排中
-    OrderTypeServering,    //服务中
-    OrderTypeCompletedAll, //已完成
-    OrderTypeAll           //全部
-};
+
 
 @protocol ToBePaidTableViewCellDelegate <NSObject>
 

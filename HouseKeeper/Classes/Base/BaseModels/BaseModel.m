@@ -111,8 +111,11 @@
 
 - (void) mappingSelfProperty:(NSDictionary*) dict
 {
-    self.code = [[dict ConvertStringForKey:@"code"] integerValue];
-    self.message = [dict ConvertStringForKey:@"message"];
+    if (!dict) {
+        return;
+    }
+//    self.code = [[dict ConvertStringForKey:@"code"] integerValue];
+//    self.message = [dict ConvertStringForKey:@"message"];
 }
 @end
 

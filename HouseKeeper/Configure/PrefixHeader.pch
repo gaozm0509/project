@@ -108,6 +108,10 @@
 #define kFont19 [UIFont systemFontOfSize:19]
 #define kFont20 [UIFont systemFontOfSize:20]
 
+//place image
+
+#define kPlaceholderImage Image(@"logo")
+
 //常用方法
 #define Image(name) [UIImage imageNamed:name]
 

@@ -49,6 +49,7 @@
     _model = model;
     _modelLabel.text = model.model;
     _serialLabel.text = model.serial;
+    [_logoImageView sd_setImageWithURL:[NSURL URLWithString: _model.furnituresImage] placeholderImage:kPlaceholderImage];
 }
 
 - (void)setupSubViews{
@@ -61,7 +62,7 @@
         make.left.equalTo(weakSelf).offset(10);
         make.top.equalTo(weakSelf).offset(10);
         make.width.offset(kScreen_Width / 3);
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(10);
+        make.bottom.equalTo(weakSelf.mas_bottom).offset(- 10);
     }];
     [_modelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.logoImageView).offset(10);
@@ -130,10 +131,20 @@
 - (UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
-        _titleLabel.textColor = Color_Hex(@"666666");
+        _titleLabel.textColor = KMajorYellowColor;
         _titleLabel.font = kFont14;
     }
     return _titleLabel;
+}
+
+- (UILabel *)rightLabel{
+    if (!_rightLabel) {
+        _rightLabel = [UILabel new];
+        _rightLabel.textColor = KMajorYellowColor;
+        _rightLabel.font = kFont14;
+        _rightLabel.text = @"修改";
+    }
+    return _rightLabel;
 }
 
 - (UIImageView *)rightIcon{
@@ -147,17 +158,24 @@
 - (void)setupSubViews{
     [self addSubview:self.titleLabel];
     [self addSubview:self.rightIcon];
+    [self addSubview:self.rightLabel];
     WS(weakSelf);
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.mas_centerY);
         make.left.equalTo(weakSelf).offset(10);
-        make.width.lessThanOrEqualTo(@100);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
         make.height.equalTo(weakSelf.mas_height);
     }];
     [_rightIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.and.height.offset(10);
         make.right.equalTo(weakSelf.mas_right).offset(- 10);
         make.centerY.equalTo(weakSelf.mas_centerY);
+    }];
+    [_rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.rightIcon.mas_left).offset(0);
+        make.width.mas_lessThanOrEqualTo(50);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.mas_centerY);
     }];
 }
 

@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIImageView *leftIcon;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *rightIcon;
+@property (nonatomic, strong) UILabel *rightLabel;
 
 
 @end

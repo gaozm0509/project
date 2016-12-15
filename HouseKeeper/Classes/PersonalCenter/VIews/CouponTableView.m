@@ -33,8 +33,10 @@
     CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[CouponTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.couponType = _couponType;
+    cell.model = _listModel.dataList[indexPath.row];
     return cell;
 }
 
@@ -43,7 +45,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return _listModel.dataList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -64,7 +66,7 @@
 - (void)setCouponType:(CouponType)couponType{
     _couponType = couponType;
     [self netRequest];
-    [self reloadData];
+    
 }
 
 - (void)netRequest{
@@ -76,7 +78,8 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
-            
+            _listModel = [[CouponListModel alloc] initWithDic:data];
+            [self reloadData];
         }
     }];
 }

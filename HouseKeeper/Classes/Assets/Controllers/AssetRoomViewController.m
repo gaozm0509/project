@@ -14,7 +14,7 @@
 @interface AssetRoomViewController ()<AssetRoomTableViewDelegate>
 
 @property (nonatomic, strong) AssetRoomTableView *tableView;
-@property (nonatomic, strong) UIButton *rightButton;
+@property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) RoomModel *roomModel;
 
 @end
@@ -29,7 +29,7 @@
     self.title = _roomModel.name;
     
     [self.view addSubview:self.tableView];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.addButton];
     
     [self netRequest];
 }
@@ -49,36 +49,34 @@
     return _tableView;
 }
 
-- (UIButton *)rightButton{
-    if (!_rightButton) {
-        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rightButton.frame = CGRectMake(0, 0, 44, 44);
-        [_rightButton setImage:Image(@"搜索") forState:UIControlStateNormal];
-        _rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        _rightButton.tag = 1001;
-        [_rightButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)addButton{
+    if (!_addButton) {
+        _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _addButton.frame = CGRectMake(0, 0, 44, 44);
+        [_addButton setImage:Image(@"添加") forState:UIControlStateNormal];
+        _addButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _addButton.tag = 1001;
+        [_addButton addTarget:self action:@selector(addFurnitureView) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _rightButton;
+    return _addButton;
 }
-
-
 
 #pragma mark - Delegate
 
 #pragma mark AssetRoomTableViewDelegate
 
-- (void)clickTableViewCellWithModel:(FurnitureModel *)model{
-    [self pushNewViewController:@"FurnitureDetailsViewController" params:@{@"model":model}];
+- (void)clickTableViewCellWithModel:(FurnitureModel *)model indexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        [self pushNewViewController:@"AsssetServiceViewController" params:@{@"model":model}];
+    }
+    else{
+        [self pushNewViewController:@"FurnitureDetailsViewController" params:@{@"model":model}];
+    }
 }
 
 - (void)showAddFurnitureView{
-    FurnitureModelBlock block = ^(FurnitureModel *model){
-        [_roomModel.furnitures addObject:model];
-        _tableView.model = _roomModel;
-    };
-    [self pushNewViewController:@"AddAssetViewController" params:@{@"roomId":_roomModel.id,@"block":block}];
-}
 
+}
 
 #pragma mark - Net request
 
@@ -86,12 +84,12 @@
 
 #pragma mark - Event method
 
-- (void)click:(UIButton *)button{
-    if (button.tag == 1001) {
-        //搜索
-
-    }
-    
+- (void)addFurnitureView{
+    FurnitureModelBlock block = ^(FurnitureModel *model){
+        [_roomModel.furnitures addObject:model];
+        _tableView.model = _roomModel;
+    };
+    [self pushNewViewController:@"AddAssetViewController" params:@{@"roomId":_roomModel.id,@"block":block}];
 }
 
 #pragma mark - Pravit method

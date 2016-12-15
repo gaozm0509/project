@@ -11,6 +11,8 @@
 #import "NSString+WPAttributedMarkup.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HKPieChartView.h"
+#import "PC_AgreementAboutViewController.h"
+#import "KeychainItemWrapper.h"
 
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
@@ -42,8 +44,8 @@
     self.title = @"管家女士";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
-    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
+//    
     
     
     
@@ -281,7 +283,6 @@
     [navigationBarAppearance setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
     [navigationBarAppearance setTitleTextAttributes:textAttributes];
     [navigationBarAppearance setShadowImage:[UIImage imageWithColor:KMajorColor]];
-    
     
     for (int i=0; i<_roomArry.count;i++) {
         int tagOther = 300+i;
@@ -560,7 +561,7 @@
     switch (index) {
         case 0:{
             //
-            
+            [self pushNewViewController:@"PC_AgreementAboutViewController" params:@{@"title":@"关于我们",@"plistKey":kAbout}];
             break;
         }
         case 1:{
@@ -574,7 +575,13 @@
             break;
         }
         case 3:{
-            //绿植水陪
+            //绿植水培
+            
+            KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
+            NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
+            
+            NSString *url = [NSString stringWithFormat:@"https://kdt.im/-cSggr?mobile=%@&memberid=%@&seckey=%@",[UsersManager phone],[UsersManager memberId],imeiCode];
+            [self pushNewViewController:@"WebViewController" params:@{@"title":@"绿植水培",@"url":url}];
             
             break;
         }

@@ -115,6 +115,24 @@
             
             UserAccout *userAccout = [[UserAccout alloc] initWithDic:data[@"data"]];
             _tableView.userAccout = userAccout;
+            [self netRequestGetImage];
+        }
+    }];
+}
+
+//获取头像
+- (void)netRequestGetImage{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:[UsersManager memberId] forKey:@"type_id"];
+    [params setValue:@"head" forKey:@"type"];
+    [kApi_member_image httpRequestWithParams:params hudView:nil networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            _tableView.userAccout.avatar = data[@"data"][@"url"];
+            [_tableView reloadData];
         }
     }];
 }

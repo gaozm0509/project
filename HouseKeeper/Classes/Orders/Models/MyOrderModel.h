@@ -8,6 +8,16 @@
 
 #import "BaseModel.h"
 
+typedef NS_ENUM(NSInteger, OrderType) {
+    OrderTypeToBePaid = 1,     //待支付
+    OrderTypeCompletedPaid,//已支付
+    OrderTypeArrange,      //安排中
+    OrderTypeServering,    //服务中
+    OrderTypeCompletedAll, //已完成
+    OrderTypeAll = 0,           //全部
+    OrderTypeCancle = 99, //已取消
+};
+
 @interface MyOrderModel : BaseModel
 
 @property (nonatomic ,copy) NSString *id;
@@ -24,7 +34,8 @@
 @property (nonatomic, copy) NSString *server_point;
 @property (nonatomic, copy) NSString *service_id;
 @property (nonatomic, copy) NSString *state_id;
-@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *created_at;
+@property (nonatomic, assign) OrderType status;
 @property (nonatomic, copy) NSString *type;
 
 

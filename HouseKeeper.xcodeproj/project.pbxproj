@@ -212,6 +212,9 @@
 		80A52D861DD0D1E400B197AD /* PsersonalInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A52D851DD0D1E400B197AD /* PsersonalInfoTableViewCell.m */; };
 		80A5D51F1DE82991003B6AA4 /* BalanceHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A5D51E1DE82991003B6AA4 /* BalanceHistoryModel.m */; };
 		80AC57B91DC1059400C6BC1B /* AssetBatchAddRoomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80AC57B81DC1059400C6BC1B /* AssetBatchAddRoomSheetView.m */; };
+		80B372B41DF456F40036D62C /* SecondContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B372B31DF456F40036D62C /* SecondContactsViewController.m */; };
+		80B372B71DF4573E0036D62C /* SecondContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B372B61DF4573E0036D62C /* SecondContactsTableViewCell.m */; };
+		80B372BA1DF4715B0036D62C /* CouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B372B91DF4715B0036D62C /* CouponModel.m */; };
 		80C5A73D1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C5A73C1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m */; };
 		80CE2D9D1D41220C004E6622 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE2D9C1D41220C004E6622 /* iCarousel.m */; };
 		80CE2DA11D4122A3004E6622 /* XTSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE2DA01D4122A3004E6622 /* XTSegmentControl.m */; };
@@ -615,6 +618,14 @@
 		80A5D51E1DE82991003B6AA4 /* BalanceHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceHistoryModel.m; sourceTree = "<group>"; };
 		80AC57B71DC1059400C6BC1B /* AssetBatchAddRoomSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetBatchAddRoomSheetView.h; sourceTree = "<group>"; };
 		80AC57B81DC1059400C6BC1B /* AssetBatchAddRoomSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetBatchAddRoomSheetView.m; sourceTree = "<group>"; };
+		80B372B21DF456F40036D62C /* SecondContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondContactsViewController.h; sourceTree = "<group>"; };
+		80B372B31DF456F40036D62C /* SecondContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondContactsViewController.m; sourceTree = "<group>"; };
+		80B372B51DF4573E0036D62C /* SecondContactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondContactsTableViewCell.h; sourceTree = "<group>"; };
+		80B372B61DF4573E0036D62C /* SecondContactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondContactsTableViewCell.m; sourceTree = "<group>"; };
+		80B372B81DF4715B0036D62C /* CouponModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponModel.h; sourceTree = "<group>"; };
+		80B372B91DF4715B0036D62C /* CouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponModel.m; sourceTree = "<group>"; };
+		80B372BB1DF589BF0036D62C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		80B372BC1DF589BF0036D62C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		80C5A73B1DD224F500BEDDF5 /* EditPsersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPsersonalInfoViewController.h; sourceTree = "<group>"; };
 		80C5A73C1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPsersonalInfoViewController.m; sourceTree = "<group>"; };
 		80CE2D9B1D41220C004E6622 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -1149,6 +1160,8 @@
 				80C5A73C1DD224F500BEDDF5 /* EditPsersonalInfoViewController.m */,
 				80A3E9431DEFCA6A00E0A8F6 /* PC_AgreementAboutViewController.h */,
 				80A3E9441DEFCA6A00E0A8F6 /* PC_AgreementAboutViewController.m */,
+				80B372B21DF456F40036D62C /* SecondContactsViewController.h */,
+				80B372B31DF456F40036D62C /* SecondContactsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1162,6 +1175,8 @@
 				80E1B0441DAE8F8700126F58 /* UserAccout.m */,
 				80A5D51D1DE82991003B6AA4 /* BalanceHistoryModel.h */,
 				80A5D51E1DE82991003B6AA4 /* BalanceHistoryModel.m */,
+				80B372B81DF4715B0036D62C /* CouponModel.h */,
+				80B372B91DF4715B0036D62C /* CouponModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1203,6 +1218,8 @@
 				80A52D821DD0D1C200B197AD /* PsersonalInfoTableView.m */,
 				80A52D841DD0D1E400B197AD /* PsersonalInfoTableViewCell.h */,
 				80A52D851DD0D1E400B197AD /* PsersonalInfoTableViewCell.m */,
+				80B372B51DF4573E0036D62C /* SecondContactsTableViewCell.h */,
+				80B372B61DF4573E0036D62C /* SecondContactsTableViewCell.m */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -1780,6 +1797,7 @@
 				8073DD201D39E345007DA983 /* UIColor+expanded.m in Sources */,
 				80CE2DA11D4122A3004E6622 /* XTSegmentControl.m in Sources */,
 				80910F101D5E002500DA6556 /* InvoiceTableViewCell.m in Sources */,
+				80B372B71DF4573E0036D62C /* SecondContactsTableViewCell.m in Sources */,
 				801283181DE68B35000BF83B /* LifeServiceListModel.m in Sources */,
 				802456E81D89A82000BDB010 /* OrderDetailsViewController.m in Sources */,
 				80A52D721DCF323700B197AD /* MyOrderModel.m in Sources */,
@@ -1794,12 +1812,14 @@
 				802456EE1D89A86200BDB010 /* OrderDetailsTableViewCell.m in Sources */,
 				8073DD341D39E97D007DA983 /* HomeViewController.m in Sources */,
 				807735681DC38B3400C843F7 /* DoorEntryTableViewCell.m in Sources */,
+				80B372B41DF456F40036D62C /* SecondContactsViewController.m in Sources */,
 				807011821DABDE3700F4A350 /* AssetAddaddressViewController.m in Sources */,
 				802EE8571DEC11F700C52BD3 /* NewFeaturesViewController.m in Sources */,
 				8073DD191D39E345007DA983 /* MBProgressHUD+Add.m in Sources */,
 				804137F51D5CC6C2006B0A3E /* IntegralTableView.m in Sources */,
 				80834F7C1DAF79AF00B98E06 /* AsssetAddRoomSheetView.m in Sources */,
 				8073DD171D39E345007DA983 /* ObjcRuntime.m in Sources */,
+				80B372BA1DF4715B0036D62C /* CouponModel.m in Sources */,
 				80CE2D9D1D41220C004E6622 /* iCarousel.m in Sources */,
 				807C93CA1DC742990072EBAD /* RechargeTableViewCell.m in Sources */,
 				8073DD221D39E345007DA983 /* UILabel+Common.m in Sources */,
@@ -1908,6 +1928,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8073DCCA1D39DF7D007DA983 /* Base */,
+				80B372BB1DF589BF0036D62C /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1916,6 +1937,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8073DCCC1D39DF7D007DA983 /* Base */,
+				80B372BC1DF589BF0036D62C /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1927,6 +1949,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1974,6 +1997,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2017,17 +2041,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Tellingservice Co. Ltd (7QQTRQVPHA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = MNR99UX34U;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HouseKeeper/Configure/PrefixHeader.pch";
 				INFOPLIST_FILE = HouseKeeper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HouseKeeper/Vendor/WechatPay",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = zm.HouseKeeper;
+				PRODUCT_BUNDLE_IDENTIFIER = telling.HouseKeeper3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2040,17 +2065,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Tellingservice Co. Ltd (7QQTRQVPHA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = MNR99UX34U;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HouseKeeper/Configure/PrefixHeader.pch";
 				INFOPLIST_FILE = HouseKeeper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HouseKeeper/Vendor/WechatPay",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = zm.HouseKeeper;
+				PRODUCT_BUNDLE_IDENTIFIER = telling.HouseKeeper3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

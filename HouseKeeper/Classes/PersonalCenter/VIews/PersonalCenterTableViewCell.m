@@ -37,6 +37,8 @@
     return _titleLabel;
 }
 
+
+
 - (UIImageView *)rightIcon{
     if (!_rightIcon) {
         _rightIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"向右"]];
@@ -45,11 +47,22 @@
 }
 
 
+- (UILabel *)rightLabel{
+    if (!_rightLabel) {
+        _rightLabel = [[UILabel alloc] init];
+        _rightLabel.font = kFont14;
+        _rightLabel.textColor = kText_Color;
+        _rightLabel.text = @"暂无";
+    }
+    return _rightLabel;
+}
+
 
 - (void)setupSubView{
     [self addSubview:self.leftIcon];
     [self addSubview:self.titleLabel];
     [self addSubview:self.rightIcon];
+    [self addSubview:self.rightLabel];
     
     WS(weakSelf);
     [_leftIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,6 +82,12 @@
         make.centerY.equalTo(weakSelf.mas_centerY);
         make.height.offset(10);
         make.width.offset(6);
+    }];
+    [_rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.rightIcon.mas_left).offset(- 5);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.centerY.equalTo(self.mas_centerY);
     }];
   
 }
@@ -167,10 +186,11 @@
 
 - (void)setModel:(UserAccout *)model{
     _model = model;
-    [_headImage sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:nil];
+    [_headImage sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:kPlaceholderImage];
     _balanceView.valueLabel.text = [NSString stringWithFormat:@"%.2f元",_model.balance.floatValue];
     _nameLabel.text = _model.name;
     _phoneLabel.text = _model.mobile;
+    _couponView.valueLabel.text = [NSString stringWithFormat:@"%ld张",_model.couponNumbers];
     
 }
 

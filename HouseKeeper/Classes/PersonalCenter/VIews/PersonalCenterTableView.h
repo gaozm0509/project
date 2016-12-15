@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UserAccout.h"
+#import "BaseTableView.h"
 
 @protocol PersonalCenterTableViewDelegate <NSObject>
 
@@ -16,7 +17,7 @@
 
 @end
 
-@interface PersonalCenterTableView : UITableView
+@interface PersonalCenterTableView : BaseTableView
 
 @property (nonatomic, strong) id<PersonalCenterTableViewDelegate> clcikDelegate;
 

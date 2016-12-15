@@ -9,6 +9,8 @@
 #import "PersonalCenterViewController.h"
 #import "PersonalCenterTableView.h"
 #import "PsersonalInfoViewController.h"
+#import "CouponModel.h"
+#import "SecondContactsViewController.h"
 
 @interface PersonalCenterViewController ()<PersonalCenterTableViewDelegate>
 
@@ -27,9 +29,10 @@
 //    [self.view addSubview:self.leftButton];
 //    [self.view addSubview:self.rightButton];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftButton];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     
     [self netRequest];
+    [self netRequestCoupon];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -51,6 +54,14 @@
         _tableView = [[PersonalCenterTableView alloc]initWithFrame:self.view.bounds];
         _tableView.height = kScreen_Height - kNavHeight;
         _tableView.clcikDelegate = self;
+        _tableView.isHeadOpen = YES;
+        _tableView.isFootOpen = NO;
+        
+        WS(weakSelf);
+        [_tableView setMorePage:^(int Page) {
+            [weakSelf netRequestCoupon];
+            [weakSelf netRequest];
+        }];
     }
     return _tableView;
 }
@@ -86,7 +97,11 @@
                 [self pushNewViewController:@"AddressManagementViewController"];
             }
             if (indexPath.row == 1) {
-                [self pushNewViewController:@"InvoiceViewController"];
+                WS(weakSelf);
+                UserAccoutBlock block = ^(UserAccout *model){
+                    weakSelf.tableView.model = model;
+                };
+                [self pushNewViewController:@"SecondContactsViewController" params:@{@"block":block}];
             }
             break;
         }
@@ -101,7 +116,7 @@
     switch (index) {
         case 0:{
             //余额BalanceViewController
-            [self pushNewViewController:@"BalanceViewController"];
+            [self pushNewViewController:@"BalanceViewController" params:@{@"balance":_tableView.model.balance}];
             break;
         }
         case 1:{
@@ -132,6 +147,9 @@
 - (void)netRequest{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [kApi_member_info httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        
+        [_tableView setIsMJStop:YES];
+        
         if (error) {
             [self showError:error];
             return ;
@@ -139,20 +157,41 @@
         if ([data[@"code"] integerValue] == 1) {
             UserAccout *model = [[UserAccout alloc] initWithDic:data[@"data"]];
             self.tableView.model = model;
+            [self netRequestGetImage];
+        }
+    }];
+}
+
+//获取头像
+- (void)netRequestGetImage{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:[UsersManager memberId] forKey:@"type_id"];
+    [params setValue:@"head" forKey:@"type"];
+    [kApi_member_image httpRequestWithParams:params hudView:nil networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            _tableView.model.avatar = data[@"data"][@"url"];
+            [_tableView reloadData];
         }
     }];
 }
 
 - (void)netRequestCoupon{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setValue:@"0" forKey:@"type"];
-    [kApi_member_coupons httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+    [params setValue:@"1" forKey:@"type"];
+    [kApi_member_coupons httpRequestWithParams:params hudView:nil networkMethod:Post andBlock:^(id data, NSError *error) {
+        [_tableView setIsMJStop:YES];
         if (error) {
             [self showError:error];
             return ;
         }
-        if ([data[@"code"] integerValue] == 0) {
-            
+        if ([data[@"code"] integerValue] == 1) {
+            CouponListModel *model = [[CouponListModel alloc] initWithDic:data];
+            _tableView.model.couponNumbers = model.dataList.count;
+            [_tableView reloadData];
         }
     }];
 }

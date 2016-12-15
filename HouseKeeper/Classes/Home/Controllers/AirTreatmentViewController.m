@@ -38,6 +38,22 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //    self.hidesBottomBarWhenPushed = YES;
+    
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    NSDictionary *textAttributes = nil;
+    textAttributes = @{
+                       NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
+                       NSForegroundColorAttributeName: [UIColor whiteColor],
+                       };
+    
+    [navigationBarAppearance setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
+    [navigationBarAppearance setTitleTextAttributes:textAttributes];
+    [navigationBarAppearance setShadowImage:[UIImage imageWithColor:KMajorColor]];
+}
+
 #pragma mark - Getter and setter
 
 - (AirTreatmentTableView *)tableView{

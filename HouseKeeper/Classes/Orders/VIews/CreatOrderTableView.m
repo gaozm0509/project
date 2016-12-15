@@ -48,6 +48,7 @@
             CreatOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
             if (!cell) {
                 cell = [[CreatOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             return cell;
             break;

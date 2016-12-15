@@ -20,6 +20,7 @@
     else if ([[self objectForKey:key] isKindOfClass:[NSDictionary class]]) {
         return @"";
     }
+    
     else {
         return [NSString stringWithFormat:@"%@",[self objectForKey:key]];
     }

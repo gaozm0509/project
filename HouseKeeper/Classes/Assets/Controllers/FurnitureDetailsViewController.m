@@ -116,6 +116,24 @@
     }];
 }
 
+//获取图片
+- (void)netRequestGetImage{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:_model.id forKey:@"type_id"];
+    [params setValue:@"furniture" forKey:@"type"];
+    [kApi_member_image httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            NSString *url = data[@"data"][@"url"];
+            _model.furnituresImage = url;
+            [_tableView reloadData];
+        }
+    }];
+}
+
 #pragma mark - Event method
 
 - (void)click:(UIButton *)button{

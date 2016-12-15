@@ -127,11 +127,32 @@
             
             [UsersManager savePhone:userAccout.mobile];
             [UsersManager saveMemberId:userAccout.id];
+            [UsersManager saveRights:userAccout.rights];
             
             NSLog(@"%@",userAccout);
+            [self getState];
+            
+        }
+    }];
+}
+
+- (void)getState{
+    [kApi_state httpRequestWithParams:[@{} mutableCopy] hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            StateModel *state = [[StateModel alloc] initWithDic:data[@"data"]];
+            
             UIWindow * window = [[UIApplication sharedApplication].delegate window];
-            //window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[AssetAddaddressViewController new]];
-            window.rootViewController = [TabBarViewController new];
+            if (state.id) {
+                window.rootViewController = [TabBarViewController new];
+                [UsersManager saveStateModel:state];
+            }
+            else{
+                window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[AssetAddaddressViewController new]];
+            }
         }
     }];
 }
@@ -142,13 +163,13 @@
 - (void)sendCodeButtonChange:(NSTimer *)timer{
     _currentTimer --;
     if (_currentTimer > 0) {
-        [_loginView.codeButton setTitle:[NSString stringWithFormat:@"%ld",_currentTimer] forState:UIControlStateNormal];
-        _loginView.userInteractionEnabled = NO;
+        [_loginView.codeButton setTitle:[NSString stringWithFormat:@"%ld重新获取",_currentTimer] forState:UIControlStateNormal];
+        _loginView.codeButton.userInteractionEnabled = NO;
     }
     else{
         [_loginView.codeButton setBackgroundColor:KMajorColor];
         [_loginView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-        _loginView.userInteractionEnabled = YES;
+        _loginView.codeButton.userInteractionEnabled = YES;
     }
 }
 

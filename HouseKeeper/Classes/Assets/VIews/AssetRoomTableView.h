@@ -11,7 +11,7 @@
 
 @protocol AssetRoomTableViewDelegate <NSObject>
 
-- (void)clickTableViewCellWithModel:(FurnitureModel *)model;
+- (void)clickTableViewCellWithModel:(FurnitureModel *)model indexPath:(NSIndexPath *)indexPath;
 
 - (void)showAddFurnitureView;
 

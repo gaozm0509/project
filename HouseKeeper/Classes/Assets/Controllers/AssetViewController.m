@@ -235,6 +235,9 @@
             [_tableView.roomClassModel.roomClasses removeAllObjects];
             
             NSDictionary *dataDic = data[@"data"];
+            if (![dataDic isKindOfClass:[NSDictionary class]]) {
+                return;
+            }
             
             NSMutableArray *dataList = [NSMutableArray new];
             NSArray *allKeys = [dataDic allKeys];

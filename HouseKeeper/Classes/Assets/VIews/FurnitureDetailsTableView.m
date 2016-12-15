@@ -78,9 +78,11 @@
         
         if (indexPath.section == 2) {
             cell.titleLabel.text = @"我的发票";
+            cell.rightLabel.text = nil;
         }
         else{
-            cell.titleLabel.text = [NSString stringWithFormat:@"保养周期:%@天",_model.schedule_period];
+            cell.titleLabel.text = [NSString stringWithFormat:@"保养周期:%@天一次",_model.schedule_period];
+            cell.rightLabel.text = @"修改";
         }
         
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];

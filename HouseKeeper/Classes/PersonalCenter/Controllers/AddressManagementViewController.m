@@ -26,14 +26,14 @@
     [super viewDidLoad];
     self.title = @"地址管理";
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.addButton];
-    WS(weakSelf);
-    [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.view.mas_bottom);
-        make.left.equalTo(weakSelf.view);
-        make.right.equalTo(weakSelf.view.mas_right);
-        make.height.offset(kAddButtonHeight);
-    }];
+//    [self.view addSubview:self.addButton];
+//    WS(weakSelf);
+//    [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(weakSelf.view.mas_bottom);
+//        make.left.equalTo(weakSelf.view);
+//        make.right.equalTo(weakSelf.view.mas_right);
+//        make.height.offset(kAddButtonHeight);
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,7 +45,7 @@
 
 - (AddressManagementTableView *)tableView{
     if (!_tableView) {
-        _tableView = [[AddressManagementTableView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavHeight - kAddButtonHeight)];
+        _tableView = [[AddressManagementTableView alloc]initWithFrame:kViewFrame];
         _tableView.clickCell = self;
     }
     return _tableView;

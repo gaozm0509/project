@@ -11,6 +11,7 @@
 #define kUsersManager_memberId @"kUsersManager_memberId"
 #define kUsersManager_stateModel @"kUsersManager_stateModel"
 #define kUsersManager_phone @"kUsersManager_phone"
+#define kUsersManager_rights @"kUsersManager_rights"
 
 @implementation UsersManager
 
@@ -28,6 +29,7 @@
     self.memberId = GetUserDefaults(kUsersManager_memberId);
     self.phone = GetUserDefaults(kUsersManager_phone);
     self.stateModel = [[StateModel alloc] initWithDic:GetUserDefaults(kUsersManager_stateModel)];
+    self.rights = GetUserDefaults(kUsersManager_rights);
 }
 
 + (void)saveMemberId:(NSString *)memberId{
@@ -70,11 +72,24 @@
     return [UsersManager sharedUsersManager].phone;
 }
 
++ (void)saveRights:(NSString *)rights{
+    SetUserDefaults(rights, kUsersManager_rights);
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [UsersManager sharedUsersManager].rights = rights;
+}
+
++ (NSString *)rights{
+    return [UsersManager sharedUsersManager].rights;
+}
+
 + (void)loginOutAndCleanUserDefaults{
     SetUserDefaults(nil, kUsersManager_memberId);
     SetUserDefaults(nil, kUsersManager_stateModel);
+    SetUserDefaults(nil, kUsersManager_rights);
     
     [UsersManager sharedUsersManager].memberId = nil;
+    [UsersManager sharedUsersManager].rights = nil;
     [UsersManager sharedUsersManager].stateModel = nil;
 }
 

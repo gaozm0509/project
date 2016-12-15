@@ -18,6 +18,8 @@
 
 @property (nonatomic, copy) EditInfoBlock editInfoBlock;
 
+@property (nonatomic, assign) BOOL isSecond;
+
 @end
 
 @implementation EditPsersonalInfoViewController
@@ -29,6 +31,7 @@
     self.editInfoBlock = self.receiveParams[@"block"];
     self.userAccout = self.receiveParams[@"userAccout"];
     self.type = self.receiveParams[@"type"];
+    self.isSecond = self.receiveParams[@"isSecond"];
     
     [self.view addSubview:self.textField];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
@@ -44,7 +47,12 @@
     if (!_textField) {
         _textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 10, kScreen_Width, 45)];
         _textField.placeholder = [NSString stringWithFormat:@"请输入%@",self.title];
-        _textField.text = [_type isEqualToString:@"1"] ? _userAccout.name : _userAccout.nickname;
+        if (self.isSecond) {
+            _textField.text = [_type isEqualToString:@"0"] ? _userAccout.b_name : _userAccout.b_mobile;
+        }
+        else{
+            _textField.text = [_type isEqualToString:@"1"] ? _userAccout.name : _userAccout.nickname;
+        }
         _textField.font = kFont14;
         _textField.textColor = kText_Color;
         _textField.backgroundColor = [UIColor whiteColor];
@@ -116,35 +124,76 @@
     }];
 }
 
+
+- (void)netRequestBInfo{
+    
+    if ([_type isEqualToString:@"0"]){
+        _userAccout.b_name = _textField.text;
+    }
+    else{
+        _userAccout.b_mobile = _textField.text;;
+    }
+    if (self.editInfoBlock) {
+        self.editInfoBlock(_userAccout);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 #pragma mark - Event method
 
 - (void)save:(UIButton *)button{
-    [self netRequest];
+    if (self.isSecond) {
+        [self netRequestBInfo];
+    }
+    else{
+        [self netRequest];
+    }
 }
 
 - (void)textFieldEvent:(UITextField *)textField{
-    int limit = 20;
-    if (textField.text.length > limit) {
-        textField.text = [textField.text substringToIndex:limit];
-    }
-    NSString *text = @"";
-    if ([_type isEqualToString:@"1"]) {
-        text = _userAccout.name;
-    }
-    else{
-        text = _userAccout.nickname;
-    }
-    
-    if ((![textField.text isEqualToString:text]) && textField.text.length > 0) {
+    if (self.isSecond) {
+        int limit = 20;
+        if (textField.text.length > limit) {
+            textField.text = [textField.text substringToIndex:limit];
+        }
+        NSString *text = @"";
+        if ([_type isEqualToString:@"1"]) {
+            text = _userAccout.b_name;
+        }
+        else{
+            text = _userAccout.b_mobile;
+        }
         _rightButton.selected = YES;
         _rightButton.userInteractionEnabled = YES;
     }
     else{
-        _rightButton.selected = NO;
-        _rightButton.userInteractionEnabled = NO;
+        int limit = 20;
+        if (textField.text.length > limit) {
+            textField.text = [textField.text substringToIndex:limit];
+        }
+        NSString *text = @"";
+        if ([_type isEqualToString:@"1"]) {
+            text = _userAccout.name;
+        }
+        else{
+            text = _userAccout.nickname;
+        }
+        
+        if ((![textField.text isEqualToString:text]) && textField.text.length > 0) {
+            _rightButton.selected = YES;
+            _rightButton.userInteractionEnabled = YES;
+        }
+        else{
+            _rightButton.selected = NO;
+            _rightButton.userInteractionEnabled = NO;
+    }
     }
 }
 
 #pragma mark - Pravit method
+
+
+
 
 @end

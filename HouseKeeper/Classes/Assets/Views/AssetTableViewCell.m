@@ -8,8 +8,8 @@
 
 #import "AssetTableViewCell.h"
 
-#define kTextColor Color_Hex(@"323232")
-#define kFont kFont12
+#define kTextColor Color_Hex(@"000000")
+#define kFont kFont13
 
 @implementation AssetTableViewCell
 
@@ -47,16 +47,15 @@
     [self addSubview:self.titleLabel];
     [self addSubview:self.rightIcon];
     
-    WS(weakSelf);
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf).offset(10);
+        make.left.equalTo(self).offset(10);
         make.height.offset(14);
         make.width.lessThanOrEqualTo(@(kScreen_Width));
-        make.centerY.equalTo(weakSelf.mas_centerY);
+        make.centerY.equalTo(self.mas_centerY);
     }];
     [_rightIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.mas_right).offset(- 10);
-        make.centerY.equalTo(weakSelf.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(- 10);
+        make.centerY.equalTo(self.mas_centerY);
         make.width.offset(6);
         make.height.offset(10);
     }];
@@ -94,12 +93,11 @@
 - (void)setupSubViews{
     [self addSubview:self.titleLabel];
     
-    WS(weakSelf);
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf).offset(10);
+        make.left.equalTo(self).offset(10);
         make.height.offset(14);
         make.width.lessThanOrEqualTo(@(kScreen_Width));
-        make.centerY.equalTo(weakSelf.mas_centerY);
+        make.centerY.equalTo(self.mas_centerY);
     }];
 }
 
@@ -200,48 +198,35 @@
 }
 
 - (void)setupSubViews{
-    [self addSubview:self.leftImageView];
     [self addSubview:self.communityLabel];
     [self addSubview:self.apartmentLabel];
     [self addSubview:self.addressLabel];
     [self addSubview:self.collectionButton];
-    [self addSubview:self.changeButton];
+//    [self addSubview:self.changeButton];
     
-    WS(weakSelf)
-    [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf).offset(10);
-        make.top.equalTo(weakSelf).offset(10);
-        make.width.and.height.offset(60);
-    }];
     [_communityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.leftImageView.mas_right).offset(10);
+        make.left.equalTo(self).offset(10);
         make.width.lessThanOrEqualTo(@(kScreen_Width));
-        make.height.offset(12);
-        make.top.equalTo(weakSelf).offset(15);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.bottom.equalTo(self.mas_centerY).offset(- 5);
     }];
     [_apartmentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.communityLabel.mas_bottom).offset(10);
-        make.left.equalTo(weakSelf.communityLabel);
+        make.top.equalTo(self.communityLabel).offset(0);
+        make.left.equalTo(self.communityLabel.mas_right).offset(10);
         make.width.lessThanOrEqualTo(@(kScreen_Width));
-        make.height.offset(12);
+        make.height.mas_lessThanOrEqualTo(20);
     }];
     [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.apartmentLabel.mas_bottom).offset(10);
-        make.left.equalTo(weakSelf.communityLabel);
+        make.top.equalTo(self.mas_centerY).offset(5);
+        make.left.equalTo(self.communityLabel);
         make.width.lessThanOrEqualTo(@(kScreen_Width));
-        make.height.offset(12);
+        make.height.mas_lessThanOrEqualTo(20);
     }];
     [_collectionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.mas_right).offset(- 10);
-        make.centerY.equalTo(weakSelf.communityLabel.mas_centerY);
-        make.height.offset(30);
-        make.width.lessThanOrEqualTo(@50);
-    }];
-    [_changeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.mas_right).offset(- 10);
-        make.centerY.equalTo(weakSelf.addressLabel.mas_centerY);
-        make.height.offset(30);
-        make.width.offset(30);
+        make.right.equalTo(self.mas_right).offset(- 10);
+        make.centerY.equalTo(self.addressLabel.mas_centerY);
+        make.height.mas_lessThanOrEqualTo(20);
+        make.width.mas_lessThanOrEqualTo(kScreen_Width);
     }];
 }
 

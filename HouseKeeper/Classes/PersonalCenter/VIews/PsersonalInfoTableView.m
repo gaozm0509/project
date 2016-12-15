@@ -48,7 +48,7 @@
             
             [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0];
             
-            [cell.avaterImageView sd_setImageWithURL:[NSURL URLWithString:_userAccout.avatar] placeholderImage:nil];
+            [cell.avaterImageView sd_setImageWithURL:[NSURL URLWithString:_userAccout.avatar] placeholderImage:kPlaceholderImage];
             return cell;
         }
         else{
@@ -80,6 +80,7 @@
     if (!cell) {
         cell = [[PsersonalInfoTableViewCell2 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0];

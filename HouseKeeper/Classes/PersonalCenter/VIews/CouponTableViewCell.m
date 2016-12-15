@@ -117,6 +117,14 @@
     }
 }
 
+- (void)setModel:(CouponModel *)model{
+    _model = model;
+    _sumLabel.text =[NSString stringWithFormat:@"￥%@",_model.amount];
+    _nameLabl.text = _model.couponDescription;
+    _instructionLabel.text = [NSString stringWithFormat:@"满%@元可使用",_model.limit_amount];
+    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",_model.expire_date];
+}
+
 - (void)setupSubViews{
     
     [self addSubview:self.bgView];
@@ -160,7 +168,7 @@
         make.right.equalTo(weakSelf.bgView.mas_right).offset(- kMarginleft - kStateLabelWidth);
     }];
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.instructionLabel.mas_bottom).offset(5);
+        make.bottom.equalTo(weakSelf.line.mas_bottom).offset(0);
         make.height.offset(12);
         make.left.equalTo(weakSelf.line.mas_right).offset(kMarginleft);
         make.right.equalTo(weakSelf.bgView.mas_right).offset(- kMarginleft);

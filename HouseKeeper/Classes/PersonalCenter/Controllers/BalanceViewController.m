@@ -36,7 +36,7 @@
 
 - (BalanceView *)balanceView {
     if (!_balanceView) {
-        _balanceView = [[BalanceView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, self.view.bounds.size.height)];
+        _balanceView = [[BalanceView alloc]initWithFrame:kViewFrame];
     }
     return _balanceView;
 }

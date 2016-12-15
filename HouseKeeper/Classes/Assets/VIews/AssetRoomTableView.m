@@ -39,20 +39,19 @@
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 50)];
         _headView.backgroundColor = kBackgroundColor;
         [_headView addSubview:self.totalAssetsLabel];
-        [_headView addSubview:self.addButton];
+//        [_headView addSubview:self.addButton];
         
-        WS(weakSelf);
         [_totalAssetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(weakSelf.headView).offset(10);
-            make.centerY.equalTo(weakSelf.headView.mas_centerY);
+            make.left.equalTo(self.headView).offset(10);
+            make.centerY.equalTo(self.headView.mas_centerY);
             make.width.lessThanOrEqualTo(@(kScreen_Width));
             make.height.lessThanOrEqualTo(@20);
         }];
-        [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(weakSelf.headView.mas_right).offset(0);
-            make.width.and.height.offset(44);
-            make.centerY.equalTo(weakSelf.headView.mas_centerY);
-        }];
+//        [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.equalTo(self.headView.mas_right).offset(0);
+//            make.width.and.height.offset(44);
+//            make.centerY.equalTo(self.headView.mas_centerY);
+//        }];
     }
     return _headView;
 }
@@ -115,7 +114,7 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, 20)];
     
     UILabel *title = [[UILabel alloc]init];
-    title.text = section == 0 ? @"保养提醒" : @"重要资产";
+    title.text = section == 0 ? @"保养提醒" : @"所有资产";
     title.textColor = Color_Hex(@"a4a4a4");
     title.font = kFont12;
     title.textAlignment = NSTextAlignmentCenter;
@@ -156,12 +155,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1) {
-        [self.clickDelegate clickTableViewCellWithModel:_model.furnitures[indexPath.row]];
-    }
-    else{
-    
-    }
+        [self.clickDelegate clickTableViewCellWithModel:_model.furnitures[indexPath.row] indexPath:indexPath];
 }
 
 - (void)setModel:(RoomModel *)model{

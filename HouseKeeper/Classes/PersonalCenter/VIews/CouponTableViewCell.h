@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CouponModel.h"
 
 #define kText @"优惠券使用说明：超过40元才能使用。"
 #define kMarginleft 10
@@ -30,4 +31,6 @@ typedef NS_ENUM(NSInteger, CouponType) {
 @property (nonatomic, strong) UILabel *stateLabel;
 
 @property (nonatomic, assign) CouponType couponType;
+
+@property (nonatomic, strong) CouponModel *model;
 @end

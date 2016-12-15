@@ -57,10 +57,12 @@
             case 0:
                 cell.titleLabel.text = @"地址管理";
                 cell.leftIcon.image = [UIImage imageNamed:@"地址管理"];
+                cell.rightLabel.text = @"";
                 break;
             case 1:
                 cell.titleLabel.text = @"第二联系人";
                 cell.leftIcon.image = [UIImage imageNamed:@"头像"];
+                cell.rightLabel.text = _model.b_name;
                 break;
             default:
                 break;
