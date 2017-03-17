@@ -14,15 +14,14 @@
 #import "PC_AgreementAboutViewController.h"
 #import "KeychainItemWrapper.h"
 #import "BannerModel.h"
-#import "AssetAddaddressViewController.h"
 
 @interface HomeViewController ()<SDCycleScrollViewDelegate>
 
-@property (nonatomic, strong) UIButton *rightButton,*ZXentering,*YYentering;
+@property (nonatomic, strong) UIButton *rightButton,*ZXentering,*YYentering,*ZXentering1,*YYentering1;
 @property (nonatomic,strong)SDCycleScrollView *cycleScrollView;
-@property (nonatomic,strong)UIView *bgView,*assetView,*assetLine,*sectionBgView,*line,*vertical,*defaultGraph;
+@property (nonatomic,strong)UIView *bgView,*assetView,*assetLine,*sectionBgView,*line,*vertical,*defaultGraph,*defaultGraph1;
 @property (nonatomic,strong)NSDictionary *style;
-@property (nonatomic,strong)UIImageView *scoreView,*icon1,*icon2,*defaultImageView;
+@property (nonatomic,strong)UIImageView *scoreView,*icon1,*icon2,*defaultImageView,*defaultImageView1;
 @property (nonatomic,strong)UILabel *scoreLabel,*assetLabel1,*assetLabel2,*assetLabel3,*sectionLabel1,*sectionLabel2,*percentLabel;
 @property (nonatomic,strong)UIScrollView *scrollView,*scrollView1;
 @property (nonatomic,strong)NSMutableArray *roomArry;
@@ -31,9 +30,6 @@
 //@property (nonatomic,strong)NSMutableArray *roomList;
 @property (nonatomic,strong)NSMutableDictionary *roomDetail;
 
-@property (nonatomic, strong) UILabel *leftAddressLabel;
-
-@property (nonatomic, strong) BannerListModel *bannerListModel;
 @property int state;
 @property CGFloat angle;
 @property int tagNum;
@@ -50,34 +46,33 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
-//
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftAddressLabel];
+    //
     
-    [self getState];
+    
     
     _state =0;
     _style = @{
                @"asset":@[[UIFont systemFontOfSize:14],
                           KMajorColor],
                @"scord":@[[UIFont boldSystemFontOfSize:16],
-                           KMajorColor],
+                          KMajorColor],
                @"scord1":@[[UIFont boldSystemFontOfSize:25],
-                          [UIColor colorWithHexString:@"E68E51"]],
+                           [UIColor colorWithHexString:@"E68E51"]],
                @"scord2":@[[UIFont systemFontOfSize:10],
-                          [UIColor colorWithHexString:@"E68E51"]],
+                           [UIColor colorWithHexString:@"E68E51"]],
                @"label":@[[UIFont systemFontOfSize:14],
-                           KMajorColor],
+                          KMajorColor],
                @"label1":@[[UIFont systemFontOfSize:12],
-                          [UIColor colorWithHexString:@"F46A0C"]],
+                           [UIColor colorWithHexString:@"F46A0C"]],
                @"room":@[[UIFont systemFontOfSize:14],
-                          [UIColor colorWithHexString:@"616161"]],
+                         [UIColor colorWithHexString:@"616161"]],
                @"number":@[[UIFont boldSystemFontOfSize:18],
-                         [UIColor colorWithHexString:@"ffffff"]],
+                           [UIColor colorWithHexString:@"ffffff"]],
                @"common":@[[UIFont systemFontOfSize:16],
                            [UIColor colorWithHexString:@"000000"]]
                };
     
-//    _roomArry = @[@"客厅1",@"客厅2",@"客厅3",@"客厅4",@"客厅5",@"客厅6",@"客厅7",@"客厅8",@"客厅9"];
+    //    _roomArry = @[@"客厅1",@"客厅2",@"客厅3",@"客厅4",@"客厅5",@"客厅6",@"客厅7",@"客厅8",@"客厅9"];
     _roomArry = [[NSMutableArray alloc]init];
     WS(weakSelf);
     
@@ -122,7 +117,7 @@
         make.right.equalTo(weakSelf.view.mas_right).offset(-10);
         make.height.offset(kScreen_Height/24);
     }];
-
+    
     
     [self.view addSubview:self.assetView];
     [_assetView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -131,7 +126,7 @@
         make.right.equalTo(weakSelf.view.mas_right).offset(-10);
         make.bottom.equalTo(_scoreView.mas_bottom).offset(-10);
     }];
-
+    
     [self.assetLabel2 addSubview:self.icon1];
     [_icon1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_assetLabel2.mas_centerX);
@@ -147,7 +142,7 @@
         make.height.offset(10);
         make.bottom.equalTo(_assetView.mas_bottom).offset(0);
     }];
-
+    
     [self.assetView addSubview:self.assetLabel3];
     [_assetLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_assetView.mas_top).offset(0);
@@ -155,7 +150,7 @@
         make.right.equalTo(_assetView.mas_right).offset(0);
         make.height.offset(kScreen_Height/24);
     }];
-
+    
     [self.assetView addSubview:self.assetLine];
     [_assetLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_assetLabel3.mas_bottom).offset(0);
@@ -176,11 +171,11 @@
             make.top.equalTo(_assetLine.mas_bottom).offset(10);
             make.left.equalTo(_assetView.mas_left).offset(10*(i+1)+(kScreen_Width-25-kScreen_Height/5-20-10-60)/5*i);
             make.bottom.equalTo(_assetView.mas_bottom).offset(-10);
-//            make.width.offset((_assetView.frame.size.width-60)/5);
+            //            make.width.offset((_assetView.frame.size.width-60)/5);
             make.width.offset((kScreen_Width-25-kScreen_Height/5-20-10-60)/5);
         }];
     }
-
+    
     
     [self.view addSubview:self.sectionBgView];
     [_sectionBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -242,6 +237,40 @@
         make.height.offset(20);
     }];
     
+    [self.sectionBgView addSubview:self.defaultGraph1];
+    [_defaultGraph1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_sectionLabel1.mas_bottom).offset(1);
+        make.left.equalTo(_scrollView.mas_right).offset(2);
+        make.right.equalTo(_sectionBgView.mas_right).offset(0);
+        make.bottom.equalTo(_sectionBgView.mas_bottom).offset(0);
+    }];
+    
+    [self.defaultGraph1 addSubview:self.defaultImageView1];
+    [_defaultImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_defaultGraph1.mas_top).offset(15);
+        make.centerX.equalTo(_defaultGraph1.mas_centerX).offset(0);
+        make.width.offset(180);
+        make.bottom.equalTo(_defaultGraph1.mas_bottom).offset(-35);
+    }];
+    
+    [self.defaultGraph1 addSubview:self.ZXentering1];
+    [_ZXentering1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(30);
+        make.left.equalTo(_defaultGraph1.mas_left).offset(20);
+        make.width.offset(60);
+        make.bottom.equalTo(_defaultGraph1.mas_bottom).offset(-5);
+    }];
+    
+    [self.defaultGraph1 addSubview:self.YYentering1];
+    [_YYentering1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(30);
+        make.right.equalTo(_defaultGraph1.mas_right).offset(-20);
+        make.width.offset(60);
+        make.bottom.equalTo(_defaultGraph1.mas_bottom).offset(-5);
+    }];
+    
+    
+    
     [self.sectionBgView addSubview:self.scrollView1];
     [_scrollView1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_line.mas_bottom).offset(0);
@@ -257,7 +286,7 @@
         make.right.equalTo(_sectionBgView.mas_right).offset(0);
         make.bottom.equalTo(_sectionBgView.mas_bottom).offset(0);
     }];
-
+    
     [self.defaultGraph addSubview:self.defaultImageView];
     [_defaultImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_defaultGraph.mas_top).offset(10);
@@ -281,7 +310,7 @@
         make.width.offset(60);
         make.bottom.equalTo(_defaultGraph.mas_bottom).offset(-5);
     }];
-
+    
 }
 
 
@@ -289,7 +318,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    
     NSDictionary *textAttributes = nil;
     textAttributes = @{
                        NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
@@ -298,13 +327,13 @@
     [self.navigationController.navigationBar setTitleTextAttributes:textAttributes];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:KMajorColor]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:KMajorColor] forBarMetrics:UIBarMetricsDefault];
-
+    
     
     [self netRequest];
     [self netRequest_GetNumber];
     [self netRequest_GetRooms];
     [self netRequestBanner];
-
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -323,7 +352,7 @@
         UILabel *roomLaber = (UILabel*)[self.view viewWithTag:tagOther];
         [roomLaber removeFromSuperview];
     }
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -366,17 +395,6 @@
     return _cycleScrollView;
 }
 
-- (UILabel *)leftAddressLabel{
-    if (!_leftAddressLabel) {
-        _leftAddressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-        _leftAddressLabel.font = kFont14;
-        _leftAddressLabel.textColor = [UIColor whiteColor];
-        StateModel *stateModel = [UsersManager stateModel];
-        _leftAddressLabel.text = stateModel.residential;
-    }
-    return _leftAddressLabel;
-}
-
 -(UIImageView*)scoreView{
     if (!_scoreView) {
         _scoreView = [[UIImageView alloc]init];
@@ -394,7 +412,7 @@
 -(UILabel*)scoreLabel{
     if (!_scoreLabel) {
         _scoreLabel = [[UILabel alloc]init];
-//        _scoreLabel.backgroundColor = [UIColor redColor];
+        //        _scoreLabel.backgroundColor = [UIColor redColor];
         _scoreLabel.textAlignment = NSTextAlignmentCenter;
         _scoreLabel.numberOfLines = 0;
         _scoreLabel.attributedText = [[NSString stringWithFormat:@"<scord>房屋\n检测</scord>"] attributedStringWithStyleBook:_style];
@@ -448,13 +466,13 @@
 -(UIView*)assetView{
     if (!_assetView) {
         _assetView = [[UIView alloc]init];
-//        _assetView.backgroundColor = [UIColor whiteColor];
+        //        _assetView.backgroundColor = [UIColor whiteColor];
         _assetView.layer.cornerRadius = 8;
         _assetView.layer.masksToBounds = YES;
         _assetView.layer.borderColor = [UIColor colorWithHexString:@"F3F3F3"].CGColor;
         _assetView.layer.borderWidth = 1;
-       
-
+        
+        
         _assetView.layer.shadowColor = [UIColor colorWithHexString:@"D9D9D9"].CGColor;//shadowColor阴影颜色
         _assetView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
         _assetView.layer.shadowOpacity = 0.8;//阴影透明度，默认0
@@ -506,7 +524,7 @@
 -(UIView*)sectionBgView{
     if (!_sectionBgView) {
         _sectionBgView = [[UIView alloc]init];
-//        _sectionBgView.backgroundColor = [UIColor redColor];
+        //        _sectionBgView.backgroundColor = [UIColor redColor];
         _sectionBgView.layer.borderColor = [UIColor colorWithHexString:@"F2F2F2"].CGColor;
         _sectionBgView.layer.borderWidth = 1;
         _sectionBgView.layer.cornerRadius = 10;
@@ -520,7 +538,7 @@
     if (!_sectionLabel1) {
         _sectionLabel1 = [[UILabel alloc]init];
         _sectionLabel1.textAlignment = NSTextAlignmentCenter;
-//        _sectionLabel1.backgroundColor = [UIColor redColor];
+        //        _sectionLabel1.backgroundColor = [UIColor redColor];
         _sectionLabel1.attributedText = [[NSString stringWithFormat:@"<common>我的资产</common>"] attributedStringWithStyleBook:_style];
     }
     return _sectionLabel1;
@@ -571,8 +589,8 @@
             _pieChartView = [[HKPieChartView alloc]initWithFrame:CGRectMake((kScreen_Width-20)/5*2+20, 45, width, width)];
         }
         
-       
-     }
+        
+    }
     return _pieChartView;
 }
 
@@ -580,7 +598,7 @@
     if (!_percentLabel) {
         _percentLabel = [[UILabel alloc]init];
         _percentLabel.textAlignment = NSTextAlignmentCenter;
-//        _percentLabel.attributedText = [[NSString stringWithFormat:@"<label>资产维护占总维护的%@%%</label>",@"30"] attributedStringWithStyleBook:_style];
+        //        _percentLabel.attributedText = [[NSString stringWithFormat:@"<label>资产维护占总维护的%@%%</label>",@"30"] attributedStringWithStyleBook:_style];
         
     }
     return _percentLabel;
@@ -589,7 +607,7 @@
 -(UIScrollView *)scrollView1{
     if (!_scrollView1) {
         _scrollView1 = [[UIScrollView alloc]init];
-//        _scrollView1.backgroundColor = [UIColor redColor];
+        //        _scrollView1.backgroundColor = [UIColor redColor];
         _scrollView1.contentSize = CGSizeMake((kScreen_Width-20)/5*3, 40*_roomArry.count);
         _scrollView1.hidden = YES;
     }
@@ -607,12 +625,29 @@
 -(UIImageView*)defaultImageView{
     if (!_defaultImageView) {
         _defaultImageView = [[UIImageView alloc]init];
-        _defaultImageView.image = [UIImage imageNamed:@"404"];
-        _defaultImageView.contentMode = UIViewContentModeCenter;
-//        _defaultImageView.image = [UIImage imageWithColor:[UIColor redColor]];
-
+        _defaultImageView.image = [UIImage imageNamed:@"defaultHomeImage"];
+        //        _defaultImageView.image = [UIImage imageWithColor:[UIColor redColor]];
+        
     }
     return _defaultImageView;
+}
+
+-(UIView*)defaultGraph1{
+    if (!_defaultGraph1) {
+        _defaultGraph1 = [[UIView alloc]init];
+        _defaultGraph1.backgroundColor = [UIColor whiteColor];
+    }
+    return _defaultGraph1;
+}
+
+-(UIImageView*)defaultImageView1{
+    if (!_defaultImageView1) {
+        _defaultImageView1 = [[UIImageView alloc]init];
+        _defaultImageView1.image = [UIImage imageNamed:@"defaultHomeImage"];
+        //                _defaultImageView1.image = [UIImage imageWithColor:[UIColor blackColor]];
+        
+    }
+    return _defaultImageView1;
 }
 
 -(UIButton*)ZXentering{
@@ -630,7 +665,7 @@
 -(UIButton*)YYentering{
     if (!_YYentering) {
         _YYentering = [[UIButton alloc]init];
-        [_YYentering setTitle:@"上门录入" forState:UIControlStateNormal];
+        [_YYentering setTitle:@"预约录入" forState:UIControlStateNormal];
         [_YYentering setTitleColor:KMajorColor forState:UIControlStateNormal];
         _YYentering.titleLabel.font = kFont14;
         _YYentering.tag = 9002;
@@ -639,81 +674,69 @@
     return _YYentering;
 }
 
+-(UIButton*)ZXentering1{
+    if (!_ZXentering1) {
+        _ZXentering1 = [[UIButton alloc]init];
+        [_ZXentering1 setTitle:@"自行录入" forState:UIControlStateNormal];
+        [_ZXentering1 setTitleColor:KMajorColor forState:UIControlStateNormal];
+        _ZXentering1.titleLabel.font = kFont13;
+        _ZXentering1.tag = 9001;
+        [_ZXentering1 addTarget:self action:@selector(enteringClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _ZXentering1;
+}
+
+-(UIButton*)YYentering1{
+    if (!_YYentering1) {
+        _YYentering1 = [[UIButton alloc]init];
+        [_YYentering1 setTitle:@"预约录入" forState:UIControlStateNormal];
+        [_YYentering1 setTitleColor:KMajorColor forState:UIControlStateNormal];
+        _YYentering1.titleLabel.font = kFont13;
+        _YYentering1.tag = 9002;
+        [_YYentering1 addTarget:self action:@selector(enteringClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _YYentering1;
+}
+
+
 #pragma mark - Delegate
 
 #pragma mark SDCycleScrollViewDelegate
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    if (_bannerListModel.data.count != 0 && _bannerListModel.data.count - 1 >= index && _bannerListModel.data[index].type.integerValue == 5) {
-        {
-            [self pushNewViewController:@"WebViewController" params:@{@"url":_bannerListModel.data[index].link}];
+    switch (index) {
+        case 0:{
+            //
+            [self pushNewViewController:@"PC_AgreementAboutViewController" params:@{@"title":@"关于我们",@"plistKey":kAbout}];
+            break;
         }
-    }
-    else{
-        switch (index) {
-            case 2:{
-                //
-                
-                [self pushNewViewController:@"PC_AgreementAboutViewController" params:@{@"title":@"关于我们",@"plistKey":@"About"}];
-                break;
-            }
-            case 1:{
-                //资产录入
-                [self pushNewViewController:@"DoorEntryViewController" params:@{@"priceId":@"1"}];
-                break;
-            }
-            case 3:{
-                //空气治理
-                [self pushNewViewController:@"AirTreatmentViewController"];
-                break;
-            }
-            case 0:{
-                //绿植水培
-                
-                KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
-                NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
-                
-                NSString *url = [NSString stringWithFormat:@"https://kdt.im/-cSggr?mobile=%@&memberid=%@&seckey=%@",[UsersManager phone],[UsersManager memberId],imeiCode];
-                [self pushNewViewController:@"WebViewController" params:@{@"title":@"绿植水培",@"url":url}];
-                
-                break;
-            }
-            default:
-                break;
+        case 1:{
+            //资产录入
+            [self pushNewViewController:@"DoorEntryViewController" params:@{@"priceId":@"1"}];
+            break;
         }
+        case 2:{
+            //空气治理
+            [self pushNewViewController:@"AirTreatmentViewController"];
+            break;
+        }
+        case 3:{
+            //绿植水培
+            
+            KeychainItemWrapper *keychain=[[KeychainItemWrapper alloc] initWithIdentifier:kImeiCode accessGroup:nil];
+            NSString *imeiCode = [keychain  objectForKey:(id)kSecAttrService];
+            
+            NSString *url = [NSString stringWithFormat:@"https://kdt.im/-cSggr?mobile=%@&memberid=%@&seckey=%@",[UsersManager phone],[UsersManager memberId],imeiCode];
+            [self pushNewViewController:@"WebViewController" params:@{@"title":@"绿植水培",@"url":url}];
+            
+            break;
+        }
+        default:
+            break;
     }
 }
 
 #pragma mark - Net request
-
-
-- (void)getState{
-    
-    [kApi_state httpRequestWithParams:[@{} mutableCopy] hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
-        if (error) {
-            [self showError:error];
-            return ;
-        }
-        if ([data[@"code"] integerValue] == 1) {
-            id stateObj = data[@"data"][@"data"];
-            StateModel *state;
-            if ([stateObj isKindOfClass:[NSDictionary class]]) {
-                state = [[StateModel alloc] initWithDic:stateObj];
-            }
-            if ([stateObj isKindOfClass:[NSArray class]]) {
-                state = [[StateModel alloc] initWithDic:[stateObj firstObject]];
-            }
-            
-            UIWindow * window = [[UIApplication sharedApplication].delegate window];
-            if (state.id.length == 0) {
-                AssetAddaddressViewController *vc = [[AssetAddaddressViewController alloc] init];
-                vc.receiveParams = [[NSMutableDictionary alloc] init];
-                [vc.receiveParams setValue:@"isEdit" forKey:@"isEdit"];
-                window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
-            }
-        }
-    }];
-}
 
 - (void)netRequestBanner{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -724,9 +747,9 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
-            _bannerListModel = [[BannerListModel alloc] initWithDic:data];
+            BannerListModel *listModel = [[BannerListModel alloc] initWithDic:data];
             NSMutableArray *imgArray = [NSMutableArray new];
-            for (BannerModel *banner in _bannerListModel.data) {
+            for (BannerModel *banner in listModel.data) {
                 [imgArray addObject:[NSString stringWithFormat:@"%@/%@",kApi_Host,banner.img]];
             }
             [self.cycleScrollView setImageURLStringsGroup:imgArray];
@@ -766,7 +789,7 @@
                 }else{
                     UILabel *lable = (UILabel*)[self.view viewWithTag:200+i];
                     lable.textAlignment = NSTextAlignmentCenter;
-                   
+                    
                     lable.attributedText = [[NSString stringWithFormat:@"<number>%d</number>",0] attributedStringWithStyleBook:_style];
                 }
                 
@@ -790,23 +813,17 @@
             _roomArry = [[NSMutableArray alloc]init];
             NSDictionary *dataDic = data[@"data"];
             
-            NSMutableArray *dataList = [NSMutableArray new];
-            
             if (![dataDic isKindOfClass:[NSDictionary class]]) {
-                dataList = (NSMutableArray *)dataDic;
-                if (dataList.count == 0) {
-                    _defaultGraph.hidden = NO;
-                    return;
-                }
+                _defaultGraph.hidden = NO;
+                return;
             }
-            else{
             
-                NSArray *allKeys = [dataDic allKeys];
-                for (NSString *key in allKeys) {
-                    [dataList addObject:[dataDic objectForKey:key]];
-                }
+            NSMutableArray *dataList = [NSMutableArray new];
+            NSArray *allKeys = [dataDic allKeys];
+            for (NSString *key in allKeys) {
+                [dataList addObject:[dataDic objectForKey:key]];
             }
-//            NSLog(@"%@",dataList);
+            //            NSLog(@"%@",dataList);
             
             for (int i=0; i<dataList.count; i++) {
                 NSArray * rooms = dataList[i][@"rooms"];
@@ -814,7 +831,7 @@
                     [_roomArry addObject:rooms[j]];
                 }
             }
-             NSLog(@"%@",_roomArry);
+            NSLog(@"%@",_roomArry);
             if (_roomArry.count>0) {
                 [self addRoomMessage];
                 _defaultGraph.hidden = YES;
@@ -849,11 +866,21 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
-             _percentage = data[@"data"][@"percentage"];
-             [_pieChartView updatePercent:[_percentage floatValue] animation:YES];
-            _percentLabel.attributedText = [[NSString stringWithFormat:@"<label>%@维护占总维护的%@%%</label>",roomName,_percentage] attributedStringWithStyleBook:_style];
-//            int x = arc4random() % 100;
-//            [_pieChartView updatePercent:x animation:YES];
+            _percentage = data[@"data"][@"percentage"];
+            int percent = [data[@"data"][@"percentage"] intValue];
+            if (percent>0) {
+                _pieChartView.hidden = NO;
+                _defaultGraph1.hidden = YES;
+                [_pieChartView updatePercent:[_percentage floatValue] animation:YES];
+                _percentLabel.attributedText = [[NSString stringWithFormat:@"<label>%@维护占总维护的%@%%</label>",roomName,_percentage] attributedStringWithStyleBook:_style];
+                //            int x = arc4random() % 100;
+                //            [_pieChartView updatePercent:x animation:YES];
+            }else{
+                _pieChartView.hidden = YES;
+                _defaultGraph1.hidden = NO;
+                
+            }
+            
         }
     }];
 }
@@ -868,14 +895,14 @@
     int tag = (int)button.tag;
     switch (tag) {
         case 9001:{
-            self.tabBarController.selectedIndex = 2;
+            [self showHudTipStr:@"自行录入"];
         }
-        break;
+            break;
         case 9002:{
-            [self pushNewViewController:@"DoorEntryViewController" params:nil];
+            [self showHudTipStr:@"预约录入"];
         }
         default:
-        break;
+            break;
     }
 }
 
@@ -889,7 +916,7 @@
         case 1001:{
             _angle = 0.0;
             if (_state == 0) {
-
+                
                 _scoreLabel.attributedText = [[NSString stringWithFormat:@"<scord>检测\n中...</scord>"] attributedStringWithStyleBook:_style];
                 [self startAnimation];
             }else{
@@ -914,15 +941,15 @@
                         roomLaber.textColor = [UIColor colorWithHexString:@"616161"];
                     }
                 }
-
-//                [_pieChartView updatePercent:100 animation:YES];
+                
+                //                [_pieChartView updatePercent:100 animation:YES];
                 [self removePercent];
-//                for (int i=0; i<_percentNum;i++) {
-//                    int tagOther = 400+i;
-//                    UILabel *roomLaber = (UILabel*)[self.view viewWithTag:tagOther];
-//                    [roomLaber removeFromSuperview];
-//                }
-//                [self addAssetHealth:0];
+                //                for (int i=0; i<_percentNum;i++) {
+                //                    int tagOther = 400+i;
+                //                    UILabel *roomLaber = (UILabel*)[self.view viewWithTag:tagOther];
+                //                    [roomLaber removeFromSuperview];
+                //                }
+                //                [self addAssetHealth:0];
             }
             
         }
@@ -935,7 +962,7 @@
             break;
         case 1003:
             _assetLabel2.hidden = NO;
-             _assetView.hidden = YES;
+            _assetView.hidden = YES;
             break;
         default:
             break;
@@ -946,7 +973,7 @@
 
 {
     
-   
+    
     CGAffineTransform endAngle = CGAffineTransformMakeRotation(_angle);
     
     [UIView animateWithDuration:0.05 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -976,10 +1003,10 @@
                     
                 }else{
                     roomLaber.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
-                   
+                    
                 }
             }
-
+            
             
             _pieChartView.hidden = YES;
             _percentLabel.hidden = YES;
@@ -992,7 +1019,7 @@
             
             _state = 1;
         }else{
-           [self startAnimation];
+            [self startAnimation];
         }
         
         
@@ -1006,16 +1033,16 @@
     for (int i=0; i<_roomArry.count;i++) {
         UILabel *roomLabel = [[UILabel alloc]init];
         roomLabel.tag = 300+i;
-//        NSLog(@"%ld",(long)roomLabel.tag);
+        //        NSLog(@"%ld",(long)roomLabel.tag);
         //        roomLabel.backgroundColor = [UIColor redColor];
         roomLabel.textAlignment = NSTextAlignmentCenter;
         roomLabel.attributedText = [[NSString stringWithFormat:@"<room>%d. %@</room>",i+1,_roomArry[i][@"name"]] attributedStringWithStyleBook:_style];
         if (_state ==1) {
-             roomLabel.textColor = [UIColor colorWithHexString:@"6d6d6d"];
-             int color = [self judgeTextColor:_roomArry[i][@"furnitures"]];
-                if (color == 1) {
-                    roomLabel.textColor = [UIColor colorWithHexString:@"F46A0C"];
-                }
+            roomLabel.textColor = [UIColor colorWithHexString:@"6d6d6d"];
+            int color = [self judgeTextColor:_roomArry[i][@"furnitures"]];
+            if (color == 1) {
+                roomLabel.textColor = [UIColor colorWithHexString:@"F46A0C"];
+            }
             if (_tagNum == roomLabel.tag) {
                 roomLabel.backgroundColor = [UIColor colorWithHexString:@"ECECEC"];
             }
@@ -1055,20 +1082,20 @@
         
         
     }
-
+    
 }
 
 -(void)click:(UITapGestureRecognizer*)recognizer{
     int tag = (int)recognizer.view.tag;
     _tagNum = tag;
-
+    
     for (int i=0; i<_roomArry.count;i++) {
         int tagOther = 300+i;
         UILabel *roomLaber = (UILabel*)[self.view viewWithTag:tagOther];
         if (tag == tagOther) {
             if (_state == 1) {
                 roomLaber.backgroundColor = [UIColor colorWithHexString:@"ECECEC"];
-//                roomLaber.textColor = KMajorColor;
+                //                roomLaber.textColor = KMajorColor;
                 [self removePercent];
                 [self addAssetHealth:tag-300];
             }else{
@@ -1079,7 +1106,7 @@
         }else{
             if (_state == 1) {
                 roomLaber.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
-//                roomLaber.textColor = KMajorColor;
+                //                roomLaber.textColor = KMajorColor;
             }else{
                 roomLaber.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
                 roomLaber.textColor = [UIColor colorWithHexString:@"616161"];
@@ -1087,7 +1114,7 @@
             
         }
     }
-
+    
 }
 
 -(void)addAssetHealth:(int)tag{
@@ -1095,7 +1122,7 @@
         return;
     }
     NSArray *furnitures =_roomArry[tag][@"furnitures"];
-//    _scrollView1.contentSize = CGSizeMake((kScreen_Width-20)/5*3, 50*5);
+    //    _scrollView1.contentSize = CGSizeMake((kScreen_Width-20)/5*3, 50*5);
     NSMutableArray *furnituresOther = [[NSMutableArray alloc]init];
     
     for (int i=0; i<furnitures.count; i++) {
@@ -1112,13 +1139,19 @@
     _percentNum =(int)furnituresOther.count;
     _scrollView1.contentSize = CGSizeMake((kScreen_Width-20)/5*3, 50*furnituresOther.count);
     
-   
+    if (furnituresOther.count>0) {
+        _defaultGraph1.hidden =YES;
+        _scrollView1.hidden = NO;
+    }else{
+        _defaultGraph1.hidden =NO;
+        _scrollView1.hidden = YES;
+    }
     
     for (int j=0; j<furnituresOther.count; j++) {
         
         NSString *interval = @"";
         NSString *endTime = [NSString stringWithFormat:@"%@",furnituresOther[j][@"schedule"]];
-//        interval = [self dateTimeDifferenceWithStartTime:@"" endTime:@"2016-10-21 21:34:29"];
+        //        interval = [self dateTimeDifferenceWithStartTime:@"" endTime:@"2016-10-21 21:34:29"];
         interval = [self dateTimeDifferenceWithStartTime:@"" endTime:endTime];
         NSString *schedule_period = [NSString stringWithFormat:@"%@",furnituresOther[j][@"schedule_period"]];
         
@@ -1156,7 +1189,7 @@
         //             make.width.offset((kScreen_Width-20)/5*3-20);
         //            make.height.offset(20);
         //        }];
-//        [interval intValue]<[schedule_period intValue]
+        //        [interval intValue]<[schedule_period intValue]
         
         if ([interval intValue]>0) {
             CGFloat pencent = [interval floatValue]/[schedule_period floatValue];
@@ -1192,7 +1225,7 @@
             
             UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake((kScreen_Width-20)/5*3-20-25, 20, 28, 20)];
             label1.textAlignment = NSTextAlignmentLeft;
-            label1.font = [UIFont systemFontOfSize:14];
+            label1.font = [UIFont systemFontOfSize:13];
             label1.textColor = [UIColor colorWithHexString:@"F46A0C"];
             label1.text = @"保养";
             [bg addSubview:label1];
@@ -1208,7 +1241,7 @@
             
             UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake((kScreen_Width-20)/5*3-20-25, 20, 28, 20)];
             label1.textAlignment = NSTextAlignmentLeft;
-            label1.font = [UIFont systemFontOfSize:14];
+            label1.font = [UIFont systemFontOfSize:13];
             label1.textColor = [UIColor colorWithHexString:@"F46A0C"];
             label1.text = @"保养";
             //        label1.backgroundColor = [UIColor blueColor];
@@ -1235,7 +1268,7 @@
                 label.textAlignment = NSTextAlignmentCenter;
                 label.attributedText =[[NSString stringWithFormat:@"<label1>已过%@天</label1>",interval1] attributedStringWithStyleBook:_style];
                 [bg addSubview:label];
-
+                
             }else{
                 UIView *uiview1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, viewWidth*0.5, 20)];
                 uiview1.backgroundColor = KMajorColor;
@@ -1259,33 +1292,33 @@
                 label.attributedText =[[NSString stringWithFormat:@"<label1>已过%@天</label1>",interval1] attributedStringWithStyleBook:_style];
                 [bg addSubview:label];
             }
-
+            
             
             
         }
         
-//        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake((kScreen_Width-20)/5*3-20-25, 20, 28, 20)];
-//        label1.textAlignment = NSTextAlignmentLeft;
-//        label1.font = [UIFont systemFontOfSize:14];
-//        label1.textColor = [UIColor colorWithHexString:@"F26A24"];
-//        label1.text = @"保养";
-//        //        label1.backgroundColor = [UIColor blueColor];
-//        [bg addSubview:label1];
-//
-//        
-//        UIView *uiview1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, viewWidth*0.5, 20)];
-//        uiview1.backgroundColor = KMajorColor;
-//        [uiviewBg addSubview:uiview1];
-//        
-//        UIView *uiview2 = [[UIView alloc]initWithFrame:CGRectMake(viewWidth*0.5, 0, viewWidth*0.2, 20)];
-//        uiview2.backgroundColor = [UIColor colorWithHexString:@"F26A24"];
-//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:uiview2.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 8)];
-//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//        maskLayer.frame = uiview2.bounds;
-//        maskLayer.path = maskPath.CGPath;
-//        uiview2.layer.mask = maskLayer;
-//        [uiviewBg addSubview:uiview2];
-
+        //        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake((kScreen_Width-20)/5*3-20-25, 20, 28, 20)];
+        //        label1.textAlignment = NSTextAlignmentLeft;
+        //        label1.font = [UIFont systemFontOfSize:14];
+        //        label1.textColor = [UIColor colorWithHexString:@"F26A24"];
+        //        label1.text = @"保养";
+        //        //        label1.backgroundColor = [UIColor blueColor];
+        //        [bg addSubview:label1];
+        //
+        //
+        //        UIView *uiview1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, viewWidth*0.5, 20)];
+        //        uiview1.backgroundColor = KMajorColor;
+        //        [uiviewBg addSubview:uiview1];
+        //
+        //        UIView *uiview2 = [[UIView alloc]initWithFrame:CGRectMake(viewWidth*0.5, 0, viewWidth*0.2, 20)];
+        //        uiview2.backgroundColor = [UIColor colorWithHexString:@"F26A24"];
+        //        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:uiview2.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 8)];
+        //        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        //        maskLayer.frame = uiview2.bounds;
+        //        maskLayer.path = maskPath.CGPath;
+        //        uiview2.layer.mask = maskLayer;
+        //        [uiviewBg addSubview:uiview2];
+        
         
     }
     
@@ -1311,7 +1344,7 @@
     NSString *str;
     if (day != 0) {
         str =[NSString stringWithFormat:@"%d",day+1];
-//        str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
+        //        str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
     }else if (day==0 && house != 0) {
         str = [NSString stringWithFormat:@"耗时%d小时%d分%d秒",house,minute,second];
     }else if (day== 0 && house== 0 && minute!=0) {
@@ -1328,23 +1361,23 @@
         UILabel *roomLaber = (UILabel*)[self.view viewWithTag:tagOther];
         [roomLaber removeFromSuperview];
     }
-
+    
 }
 
 -(int)judgeTextColor:(NSArray*)furnitures{
-        NSMutableArray *furnituresOther = [[NSMutableArray alloc]init];
-        
-        for (int i=0; i<furnitures.count; i++) {
-            if (![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule"]] isEqualToString:@"<null>"]&&
-                ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule"]] isEqualToString:@""]&&
-                furnitures[i][@"schedule"]!=nil&&
-                ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule_period"]] isEqualToString:@"<null>"]&&
-                ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule_period"]] isEqualToString:@""]&&
-                ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule_period"]] isEqualToString:@"0"]&&
-                furnitures[i][@"schedule_period"]!=nil) {
-                [furnituresOther addObject:furnitures[i]];
-            }
+    NSMutableArray *furnituresOther = [[NSMutableArray alloc]init];
+    
+    for (int i=0; i<furnitures.count; i++) {
+        if (![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule"]] isEqualToString:@"<null>"]&&
+            ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule"]] isEqualToString:@""]&&
+            furnitures[i][@"schedule"]!=nil&&
+            ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule_period"]] isEqualToString:@"<null>"]&&
+            ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule_period"]] isEqualToString:@""]&&
+            ![[NSString stringWithFormat:@"%@",furnitures[i][@"schedule_period"]] isEqualToString:@"0"]&&
+            furnitures[i][@"schedule_period"]!=nil) {
+            [furnituresOther addObject:furnitures[i]];
         }
+    }
     
     for (int j=0; j<furnituresOther.count; j++) {
         
@@ -1355,10 +1388,10 @@
             return 1;
         }
     }
-
     
     
-
+    
+    
     return 0;
 }
 
