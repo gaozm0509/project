@@ -28,8 +28,9 @@
     //如果是第二联系人，只能操作订单模块
     if ([params[@"rights"] isEqualToString:@"0"]) {
         if ([self isEqualToString:kApi_member_update]) {
-            [self showHudTipStr:@"您没有权限操作"];
+            
             [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+            [self showHudTipStr:@"您没有权限操作"];
             return;
         }
     }
@@ -61,11 +62,15 @@
 
 - (void)httpRequestWithParams:(NSMutableDictionary *)params hudView:(MBProgressHUD *)hueView networkMethod:(NetworkMethod)method andBlock:(void (^)(id, NSError *))block{
     
+    if (!params) {
+        params = [NSMutableDictionary dictionary];
+    }
+    
     //如果是第二联系人，只能操作订单模块
     if ([params[@"rights"] isEqualToString:@"0"]) {
         if ([self isEqualToString:kApi_member_update]) {
             [self showHudTipStr:@"您没有权限操作"];
-            [hueView hide:YES];
+            [hueView hide:NO];
             return;
         }
     }
@@ -93,8 +98,8 @@
     //如果是第二联系人，只能操作订单模块
     if ([params[@"rights"] isEqualToString:@"0"]) {
         if ([self isEqualToString:kApi_member_update]) {
-            [self showHudTipStr:@"您没有权限操作"];
             [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+            [self showHudTipStr:@"您没有权限操作"];
             return;
         }
     }

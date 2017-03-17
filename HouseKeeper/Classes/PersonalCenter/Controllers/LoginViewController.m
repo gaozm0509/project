@@ -29,11 +29,19 @@
 @implementation LoginViewController
 
 #pragma mark - Cycle life
+
+- (void)dealloc{
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.loginView];
-    [self.view addSubview:self.backButton];
     
+    
+//    if (_isFirstStartUp) {
+//        [self.view addSubview:self.backButton];
+//    }
     [self.navigationController.navigationBar setHidden:YES];
     
     _currentTimer = 60;
@@ -73,6 +81,7 @@
 #pragma mark LoginViewDelegate
 
 - (void)loginEvent{
+    [self.view endEditing:YES];
     [self netRequestLogin];
 }
 
@@ -128,6 +137,7 @@
             [UsersManager savePhone:userAccout.mobile];
             [UsersManager saveMemberId:userAccout.id];
             [UsersManager saveRights:userAccout.rights];
+            [UsersManager saveName:userAccout.name];
             
             NSLog(@"%@",userAccout);
             [self getState];
@@ -143,15 +153,25 @@
             return ;
         }
         if ([data[@"code"] integerValue] == 1) {
-            StateModel *state = [[StateModel alloc] initWithDic:data[@"data"]];
+            id stateObj = data[@"data"][@"data"];
+            StateModel *state;
+            if ([stateObj isKindOfClass:[NSDictionary class]]) {
+                state = [[StateModel alloc] initWithDic:stateObj];
+            }
+            if ([stateObj isKindOfClass:[NSArray class]]) {
+                state = [[StateModel alloc] initWithDic:[stateObj firstObject]];
+            }
             
             UIWindow * window = [[UIApplication sharedApplication].delegate window];
-            if (state.id) {
+            if (state.id.length > 0) {
                 window.rootViewController = [TabBarViewController new];
                 [UsersManager saveStateModel:state];
             }
             else{
-                window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[AssetAddaddressViewController new]];
+                AssetAddaddressViewController *vc = [[AssetAddaddressViewController alloc] init];
+                vc.receiveParams = [[NSMutableDictionary alloc] init];
+                [vc.receiveParams setValue:@"isEdit" forKey:@"isEdit"];
+                window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
             }
         }
     }];

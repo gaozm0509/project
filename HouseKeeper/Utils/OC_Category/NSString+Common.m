@@ -232,6 +232,41 @@
     return dic;
 }
 
+
+/**
+ 去除字符串中的变html标签
+
+ @param html html字符串
+ @return 返回去除后的字符串
+ */
++ (NSString *)filterHTML:(NSString *)html
+{
+    NSScanner * scanner = [NSScanner scannerWithString:html];
+    
+    NSString * text = nil;
+    
+    while([scanner isAtEnd]==NO)
+        
+    {
+        
+        //找到标签的起始位置
+        
+        [scanner scanUpToString:@"<" intoString:nil];
+        
+        //找到标签的结束位置
+        
+        [scanner scanUpToString:@">" intoString:&text];
+        
+        //替换字符
+        
+        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
+        
+    }
+    
+    return html;
+    
+}
+
 /*
  *对象转成json字符串
  */
@@ -250,7 +285,6 @@
                                                  encoding:NSUTF8StringEncoding];
     return jsonString;
 }
-
 
 /**
  判断是否是电话

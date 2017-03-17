@@ -12,7 +12,7 @@
 
 @protocol ToBePaidTableViewDelegate <NSObject>
 
-- (void)ToBePaidClickCellButton;
+- (void)ToBePaidClickCellButtonWithModel:(MyOrderModel *)model;
 
 @optional
 - (void)payWithModel:(MyOrderModel *)model;

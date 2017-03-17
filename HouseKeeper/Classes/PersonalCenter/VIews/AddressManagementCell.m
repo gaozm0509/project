@@ -77,9 +77,29 @@
         [_editButton setTitleColor:kTextColor forState:UIControlStateNormal];
         _editButton.titleLabel.font = kTextFont;
         _editButton.tag = 1001;
-        _editButton.userInteractionEnabled = NO;
+        _editButton.userInteractionEnabled = YES;
+        [_editButton addTarget:self action:@selector(editButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _editButton;
+}
+
+- (UIImageView *)arrowIcon{
+    if (!_arrowIcon) {
+        _arrowIcon = [[UIImageView alloc] initWithImage:Image(@"向右")];
+        _arrowIcon.contentMode = UIViewContentModeCenter;
+    }
+    return _arrowIcon;
+}
+
+- (void)setStateModel:(StateModel *)stateModel{
+    _stateModel = stateModel;
+    _nameLabel.text = [UsersManager name].length == 0 ? @"未填写" : [UsersManager name];
+    _addressLabel.text = _stateModel.address;
+    _phoneNumLabel.text = [UsersManager phone];
+}
+
+- (void)editButtonClick{
+    [self.delegate editStateWithModel:self.stateModel];
 }
 
 + (CGFloat)getHieght{
@@ -91,6 +111,7 @@
     [self addSubview:self.phoneNumLabel];
     [self addSubview:self.addressLabel];
     [self addSubview:self.editButton];
+    [self addSubview:self.arrowIcon];
     
     WS(ws);
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,8 +126,13 @@
         make.height.offset(12);
         make.width.offset(90);
     }];
+    [_arrowIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(- 10);
+        make.width.and.height.offset(10);
+    }];
     [_editButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(ws.mas_right).offset(- kMarginLeft);
+        make.right.equalTo(ws.arrowIcon.mas_left).offset(kMarginLeft);
         make.centerY.equalTo(ws.mas_centerY);
         make.width.offset(50);
     }];
@@ -116,6 +142,7 @@
         make.left.equalTo(ws.nameLabel);
         make.right.equalTo(ws.editButton).offset(- kMarginLeft);
     }];
+    
 }
 
 

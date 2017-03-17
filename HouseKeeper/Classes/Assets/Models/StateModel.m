@@ -232,7 +232,7 @@
 
 - (void)mappingSelfProperty:(NSDictionary *)dict{
     [super mappingSelfProperty:dict];
-    self.roomClasses = [self dictionaryToArray:dict key:@"data" targetClass:@"RoomListModel"];
+    self.roomClasses = [[self dictionaryToArray:dict key:@"data" targetClass:@"RoomListModel"] mutableCopy];
 }
 
 @end

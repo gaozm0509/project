@@ -9,7 +9,7 @@
 #import "AssetViewController.h"
 #import "AssetTableView.h"
 #import "AsssetAddRoomSheetView.h"
-#import "ActionSheetPicker.h"
+#import "ActionSheetStringPicker.h"
 #import "AssetBatchAddRoomSheetView.h"
 
 @interface AssetViewController ()<AssetTableViewDelegate,BaseSheetViewDelegate,AssetBatchAddRoomSheetViewDeleagte>
@@ -27,6 +27,9 @@
 @property (nonatomic, strong) NSString *typeId;//被选中的room的typeId；
 
 @property (nonatomic, strong) RoomTypeList *roomTypeList;
+
+@property (nonatomic, strong) AssetDeleteRoomSheetView *editSheet;
+@property (nonatomic, strong) RoomModel *editRoomModel;
 
 @end
 
@@ -110,6 +113,7 @@
 
 #pragma mark - Delegate
 
+
 - (void)BaseSheetViewSave{
     
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -122,8 +126,10 @@
             [self showError:error];
             return ;
         }
-        if ([data[@"code"] integerValue] == 0) {
+        if ([data[@"code"] integerValue] == 1) {
             [self showHudTipStr:@"保存成功"];
+            [self netRequest_GetRooms];
+            [self.sheetView hid];
         }
     }];
 }
@@ -133,12 +139,19 @@
 
 - (void)textFieldClickWithIndex:(NSInteger)index{
     NSArray *arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10"];
-    [ActionSheetStringPicker showPickerWithTitle:@"数量选择" rows:arr initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+    
+    
+    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"数量选择" rows:arr initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
         
         _roomTypeList.dataList[index].num = selectedValue;
         _batchSheetView.model = _roomTypeList;
         
     } cancelBlock:nil origin:self.view];
+    
+    [picker setDoneButton:[picker getDoneButton]];
+    [picker setCancelButton:[picker getCancelButton]];
+    [picker showActionSheetPicker];
+    
 }
 
 - (void)AssetBatchAddRoomSheetViewSave{
@@ -191,6 +204,20 @@
     }];
 }
 
+// 删除
+- (void)deleteTableViewCellWithModel:(RoomModel *)model{
+    [self netRequest_deleteRoomWithModel:model];
+}
+
+// 编辑
+- (void)editTableViewCellWithModel:(RoomModel *)model{
+    _editRoomModel = model;
+    _editSheet = [[AssetDeleteRoomSheetView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 180)];
+    [_editSheet show];
+    
+    [_editSheet.savebutton addTarget:self action:@selector(editRoom) forControlEvents:UIControlEventTouchUpInside];
+}
+
 //更换
 - (void)assetChange{
 
@@ -202,6 +229,39 @@
 }
 
 #pragma mark - Net request
+
+- (void)netRequest_editRoomWithModel:(RoomModel *)roomModel{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    [params setValue:@"1" forKey:@"rights"];
+    [params setValue:roomModel.id forKey:@"room_id"];
+    [params setValue:roomModel.name forKey:@"name"];
+    [params setValue:roomModel.area forKey:@"area"];
+    [kApi_room_update httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            [self netRequest_GetRooms];
+            [self.editSheet hid];
+        }
+    }];
+}
+
+- (void)netRequest_deleteRoomWithModel:(RoomModel *)roomModel{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    [params setValue:@"1" forKey:@"rights"];
+    [params setValue:roomModel.id forKey:@"room_id"];
+    [kApi_room_delete httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            [self netRequest_GetRooms];
+        }
+    }];
+}
 
 - (void)netRequest{
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -218,6 +278,7 @@
             [self netRequest_GetRooms];
             
             [UsersManager saveStateModel:_model];
+            [_tableView noDataViewShowDefaultWithDataSource:dataModel.StateModelList];
         }
     }];
 }
@@ -236,22 +297,30 @@
             
             NSDictionary *dataDic = data[@"data"];
             if (![dataDic isKindOfClass:[NSDictionary class]]) {
-                return;
+                RoomClassModel *roomClassModel = [[RoomClassModel alloc]initWithDic:@{@"data":dataDic}];
+                _tableView.roomClassModel = roomClassModel;
+            }
+            else{
+                NSMutableArray *dataList = [NSMutableArray new];
+                NSArray *allKeys = [dataDic allKeys];
+                for (NSString *key in allKeys) {
+                    [dataList addObject:[dataDic objectForKey:key]];
+                }
+                
+                RoomClassModel *roomClassModel = [[RoomClassModel alloc]initWithDic:@{@"data":dataList}];
+                _tableView.roomClassModel = roomClassModel;
             }
             
-            NSMutableArray *dataList = [NSMutableArray new];
-            NSArray *allKeys = [dataDic allKeys];
-            for (NSString *key in allKeys) {
-                [dataList addObject:[dataDic objectForKey:key]];
-            }
-            
-            RoomClassModel *roomClassModel = [[RoomClassModel alloc]initWithDic:@{@"data":dataList}];
-            _tableView.roomClassModel = roomClassModel;
         }
     }];
 }
 
 #pragma mark - Event
+
+- (void)editRoom{
+    _editRoomModel.name = _editSheet.nameField.text;
+    [self netRequest_editRoomWithModel:_editRoomModel];
+}
 
 - (void)click:(UIButton *)button{
     if (button.tag == 1001) {
@@ -281,15 +350,17 @@
                 [nameList addObject:roomType.name];
                 [idList addObject:roomType.id];
             }
-            
-            [ActionSheetStringPicker showPickerWithTitle:@"房间类型" rows:nameList initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+           
+            ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"房间类型" rows:nameList initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                 
                 _typeId = [idList objectAtIndex:selectedIndex];
                 _sheetView.roomTypeField.text = selectedValue;
                 
             } cancelBlock:nil origin:self.view];
-
             
+            [picker setDoneButton:[picker getDoneButton]];
+            [picker setCancelButton:[picker getCancelButton]];
+            [picker showActionSheetPicker];
         }
     }];
 }
@@ -304,6 +375,7 @@
     }
     [_sheetView show];
 }
+
 
 
 

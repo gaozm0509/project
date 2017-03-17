@@ -16,8 +16,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.delegate = self;
+    
+    [self.tabBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]];
+    [self.tabBar setShadowImage:[UIImage new]];
+    
     [self setUpController];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,16 +54,21 @@
     asset.title = @"我的资产";
     personalCenter.title = @"个人中心";
     self.viewControllers = @[home,order,asset,personalCenter];
+    
     home.tabBarItem.image = [UIImage imageNamed:@"unselected_tab1"];
     order.tabBarItem.image = [UIImage imageNamed:@"unselected_tab2"];
     asset.tabBarItem.image = [UIImage imageNamed:@"unselected_tab3"];
     personalCenter.tabBarItem.image = [UIImage imageNamed:@"unselected_tab4"];
     
-    home.tabBarItem.selectedImage = [UIImage imageNamed:@"selected_tab1"];
-    order.tabBarItem.selectedImage = [UIImage imageNamed:@"selected_tab2"];
-    asset.tabBarItem.selectedImage = [UIImage imageNamed:@"selected_tab3"];
-    personalCenter.tabBarItem.selectedImage = [UIImage imageNamed:@"selected_tab4"];
+    home.tabBarItem.selectedImage = [[UIImage imageNamed:@"selected_tab1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    order.tabBarItem.selectedImage = [[UIImage imageNamed:@"selected_tab2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    asset.tabBarItem.selectedImage = [[UIImage imageNamed:@"selected_tab3"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    personalCenter.tabBarItem.selectedImage = [[UIImage imageNamed:@"selected_tab4"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
+    [home.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:KMajorColor} forState:UIControlStateSelected];
+    [order.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:KMajorColor} forState:UIControlStateSelected];
+    [asset.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:KMajorColor} forState:UIControlStateSelected];
+    [personalCenter.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:KMajorColor} forState:UIControlStateSelected];
 }
 
 - (void)setTabar{
@@ -64,5 +79,7 @@
         [item setSelectedImage:[UIImage imageNamed:[NSString stringWithFormat:@"select_tab%d",i]]];
     }
 }
+
+
 
 @end

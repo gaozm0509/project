@@ -53,7 +53,7 @@ static NSString *collectionViewId = @"collectionViewId";
         layout.minimumLineSpacing = 0;
         layout.minimumInteritemSpacing = 0;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kMySegmentControl_Height, kScreen_Width, kScreen_Height - kNavHeight - kMySegmentControl_Height) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kMySegmentControl_Height, kScreen_Width, kScreen_Height - kNavHeight - kMySegmentControl_Height - kTabbarHeight) collectionViewLayout:layout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = kBackgroundColor;
@@ -68,10 +68,7 @@ static NSString *collectionViewId = @"collectionViewId";
 #pragma mark 添加mySegmentControl
 
 -(void)setMySegmentControl{
-    CGRect frame = [UIView frameWithOutNavTab];
-    //添加滑块
-    frame.origin.y = 0;
-    frame.size.height = kMySegmentControl_Height;
+    CGRect frame = CGRectMake(0, 0, kScreen_Width, kMySegmentControl_Height);
     if (!_mySegmentControl) {
         WS(weakSelf);
         _mySegmentControl = [[XTSegmentControl alloc] initWithFrame:frame Items:@[@"待支付",@"已支付",@"安排中",@"服务中",@"已完成",@"全部"] selectedBlock:^(NSInteger index) {
@@ -111,7 +108,7 @@ static NSString *collectionViewId = @"collectionViewId";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(kScreen_Width, collectionView.height - 45);//不懂为啥要减去45，但是不减会出错
+    return CGSizeMake(kScreen_Width, collectionView.height);//不懂为啥要减去45，但是不减会出错
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -161,8 +158,9 @@ static NSString *collectionViewId = @"collectionViewId";
 
 #pragma mark ToBePaidTableViewDelegate
 
-- (void)ToBePaidClickCellButton{
-    [self pushNewViewController:@"PayViewController"];
+
+- (void)ToBePaidClickCellButtonWithModel:(MyOrderModel *)model{
+    [self pushNewViewController:@"OrderDetailsViewController" params:@{@"orderType":@(model.status)}];
 }
 
 //支付

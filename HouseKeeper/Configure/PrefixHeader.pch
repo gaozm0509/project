@@ -30,9 +30,9 @@
 
 #import "APIUrl.h"
 
-#import "PUSHPAGE.h"
 
 #import "UsersManager.h"
+#import "AbstractActionSheetPicker+GetToolBarButton.h"
 
 
 #endif
@@ -118,13 +118,12 @@
 
 #define SetUserDefaults(value,key) [[NSUserDefaults standardUserDefaults]setValue:value forKey:key]
 #define GetUserDefaults(key) [[NSUserDefaults standardUserDefaults] objectForKey:key]
-//#define IsLogin ([NSString stringWithFormat:@"%@",GetUserDefaults(@"userId")].length > 0 && GetUserDefaults(@"userId") != nil)
-//#define kmember_id GetUserDefaults(@"userId")
-//#define kmobile GetUserDefaults(@"mobile")
-
 //通知
 #define kShowMapNotification @"showMapNotification"
 
 //微信支付
 #define  kWXAppId @"wxca2e5cd6e4aa44ff"
 #define kWXBusinessSecretKey @"m4v8t4otrk8ngr13u9vbweadnl1ue9da"
+
+//jsPatch key
+#define JSPatchKey @"05a1232933bf306e"

@@ -59,7 +59,7 @@
             text = [NSString stringWithFormat:@"商品品牌:%@",_model.brand];
         }
         if (indexPath.row == 2) {
-            text = [NSString stringWithFormat:@"商品编号:%@",_model.fimei];
+            text = [NSString stringWithFormat:@"商品编号:%@",_model.serial];
         }
         if (indexPath.row == 3) {
             text = [NSString stringWithFormat:@"采购时间:%@",_model.purchase_date];

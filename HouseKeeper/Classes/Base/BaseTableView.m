@@ -196,7 +196,14 @@
 }
 
 - (void)noDataViewShowDefaultWithDataSource:(NSArray *)dataList{
-    [self noDataViewByDataSource:dataList warnImg:nil warnMsg:nil];
+//    [self noDataViewByDataSource:dataList warnImg:nil warnMsg:nil];
+    if (dataList.count == 0) {
+        
+        self.noDataImageView.hidden = NO;
+    }
+    else{
+        self.noDataImageView.hidden = YES;
+    }
 }
 
 - (UILabel *)noDataLabel{
@@ -210,7 +217,10 @@
 
 - (UIImageView *)noDataImageView{
     if (!_noDataImageView) {
-        _noDataImageView = [[UIImageView alloc]init];
+        UIImage *image = Image(@"404");
+        _noDataImageView = [[UIImageView alloc]initWithImage:image];
+        self.noDataImageView.center = self.center;
+        [self addSubview:_noDataImageView];
     }
     return _noDataImageView;
 }

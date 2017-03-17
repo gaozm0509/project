@@ -37,6 +37,8 @@
     return self;
 }
 
+
+
 - (BaseTableView *)tableView{
     if (!_tableView) {
         _tableView = [[BaseTableView alloc] init];
@@ -94,7 +96,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.clickDelegate ToBePaidClickCellButton];
+    MyOrderModel *orderModel = [_listModel.orderList objectAtIndex:indexPath.section];
+    [self.clickDelegate ToBePaidClickCellButtonWithModel:orderModel];
 }
 
 
@@ -121,9 +124,11 @@
 #pragma mark - Net request
 
 - (void)netApiCancelOrderWithMyOrderModel:(MyOrderModel *)model{
+    
     NSMutableDictionary *params = [NSMutableDictionary new];
     [params setValue:model.id forKey:@"order_id"];
     [params setValue:model.coupon_id forKey:@"coupon_id"];
+    [params setValue:model.type forKey:@"type"];
     [MBProgressHUD showHUDAddedTo:self animated:YES];
     [kApi_orders_cancel httpRequestWithParams:params networkMethod:Post isShowHud:NO andBlock:^(id data, NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self animated:YES];
@@ -142,6 +147,7 @@
                 model.status = OrderTypeCancle;
                 [self.tableView reloadData];
             }
+            [self.tableView noDataViewShowDefaultWithDataSource:self.listModel.orderList];
         }
     }];
 }
@@ -176,8 +182,11 @@
             //当前访问的数据量等于规定的每页的数据，则认为是不是最后一页，可加载
             self.tableView.isFootOpen = model.orderList.count == _listModel.pageModel.per_page.integerValue;
             [self.tableView reloadData];
+            
+            [self.tableView noDataViewShowDefaultWithDataSource:self.listModel.orderList];
         }
     }];
 }
+
 
 @end

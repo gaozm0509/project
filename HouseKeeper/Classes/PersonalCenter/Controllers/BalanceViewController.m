@@ -12,6 +12,7 @@
 @interface BalanceViewController ()
 
 @property (nonatomic, strong) BalanceView *balanceView;
+@property (nonatomic, strong) UIButton *rightButton;
 
 @end
 
@@ -24,6 +25,13 @@
     [self.view addSubview:self.balanceView];
     self.balanceView.balanceLabel.text = [NSString stringWithFormat:@"%.2f",[self.receiveParams[@"balance"] floatValue]];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self netRequest];
 }
 
@@ -39,6 +47,17 @@
         _balanceView = [[BalanceView alloc]initWithFrame:kViewFrame];
     }
     return _balanceView;
+}
+
+- (UIButton *)rightButton{
+    if (!_rightButton) {
+        _rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [_rightButton setTitle:@"充值" forState:UIControlStateNormal];
+        [_rightButton setTitleColor:KMajorColor forState:UIControlStateNormal];
+        _rightButton.titleLabel.font = kFont14;
+        [_rightButton addTarget:self action:@selector(rightButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightButton;
 }
 
 #pragma mark - Delegate
@@ -63,6 +82,9 @@
 
 #pragma mark - Event
 
+- (void)rightButtonClick{
+    [self pushNewViewController:@"RechargeViewController"];
+}
 
 #pragma mark - Pravit method
 

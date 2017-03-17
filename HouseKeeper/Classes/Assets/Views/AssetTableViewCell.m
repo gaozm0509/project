@@ -111,6 +111,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupSubViews];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }

@@ -7,16 +7,22 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "MyOrderModel.h"
 
 @interface OrderDetailsTableViewCell : BaseTableViewCell
 
-@property (nonatomic, strong) UILabel *orderNumberLabel;
-@property (nonatomic, strong) UIView *lineView1;
-@property (nonatomic, strong) UILabel *orderTimeLabel;
-@property (nonatomic, strong) UILabel *serviceTimeLabel;
-@property (nonatomic, strong) UIView *lineView2;
-@property (nonatomic, strong) UILabel *contactsLabel;
-@property (nonatomic, strong) UILabel *contactsMobileLabel;
-@property (nonatomic, strong) UILabel *addressLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) UIView *leftView;
+@property (nonatomic, strong) UIView *leftLineView;
+
+@property (nonatomic, assign) BOOL isLastRow;
+
+@property (nonatomic, assign) BOOL isFirstRow;
+
+@property (nonatomic, assign) OrderType orderType;
+
+- (void)setTextWithIndex:(NSInteger)index;
 
 @end
+

@@ -8,7 +8,7 @@
 
 #import "AirTreatmentTableViewCell.h"
 
-#define kContentText @"1、专业空气检测治理人员上门进行房屋空气检测\n2、出具房屋空气检测报告\n3、使用专业仪器及药剂对房屋进行深入空气治理\n4、治理完成后给予用户相关专业治理证明"
+static NSString * const kContentText = @"1、专业空气检测治理人员上门进行房屋空气检测\n2、出具房屋空气检测报告\n3、使用专业仪器及药剂对房屋进行深入空气治理\n4、治理完成后给予用户相关专业治理证明";
 
 @implementation AirTreatmentTableViewCell
 

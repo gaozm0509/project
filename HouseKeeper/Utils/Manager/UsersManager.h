@@ -6,15 +6,15 @@
 //  Copyright © 2016年 zm. All rights reserved.
 //
 
-#import "BaseSheetView.h"
 #import "StateModel.h"
 
-@interface UsersManager : BaseSheetView
+@interface UsersManager : NSObject
 
 @property (nonatomic ,copy) NSString *memberId;
 @property (nonatomic, strong) StateModel *stateModel;
 @property (nonatomic, copy) NSString *phone;
 @property (nonatomic, copy) NSString *rights;
+@property (nonatomic, copy) NSString *name;
 
 
 + (void)saveMemberId:(NSString *)memberId;
@@ -28,6 +28,9 @@
 
 + (void)saveRights:(NSString *)rights;//是否是第二联系人
 + (NSString *)rights;
+
++ (void)saveName:(NSString *)name;
++ (NSString *)name;
 
 + (void)loginOutAndCleanUserDefaults;
 @end

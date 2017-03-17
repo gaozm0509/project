@@ -12,6 +12,10 @@
 @implementation UIViewController (help)
 
 - (void)pushNewViewController:(NSString *)VCName params:(NSDictionary *)params{
+    [self pushNewViewController:VCName params:params animated:YES];
+}
+
+- (void)pushNewViewController:(NSString *)VCName params:(NSDictionary *)params animated:(BOOL)animated{
     BaseViewController *VC = (BaseViewController *)[[NSClassFromString(VCName) alloc]init];
     if (params != nil) {
         VC.receiveParams = params;
@@ -19,30 +23,18 @@
     
     self.hidesBottomBarWhenPushed = YES;
     
-    [self.navigationController pushViewController:VC animated:YES];
+    [self.navigationController pushViewController:VC animated:animated];
     if (([self isKindOfClass:NSClassFromString(@"AssetViewController")] ||
-          [self isKindOfClass:NSClassFromString(@"HomeViewController")] ||
-          [self isKindOfClass:NSClassFromString(@"OrderViewController")] ||
-          [self isKindOfClass:NSClassFromString(@"PersonalCenterViewController")])
+         [self isKindOfClass:NSClassFromString(@"HomeViewController")] ||
+         [self isKindOfClass:NSClassFromString(@"OrderViewController")] ||
+         [self isKindOfClass:NSClassFromString(@"PersonalCenterViewController")])
         ){
         self.hidesBottomBarWhenPushed=NO;
     }
 }
 
-
 - (void)pushNewViewController:(NSString *)VCName{
-    BaseViewController *VC = (BaseViewController *)[[NSClassFromString(VCName) alloc]init];
-        
-    self.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:VC animated:YES];
-    if (([self isKindOfClass:NSClassFromString(@"AssetViewController")] ||
-        [self isKindOfClass:NSClassFromString(@"HomeViewController")] ||
-        [self isKindOfClass:NSClassFromString(@"OrderViewController")] ||
-        [self isKindOfClass:NSClassFromString(@"PersonalCenterViewController")])
-        ){
-        self.hidesBottomBarWhenPushed=NO;
-    }
+    [self pushNewViewController:VCName params:nil animated:YES];
     
 }
 

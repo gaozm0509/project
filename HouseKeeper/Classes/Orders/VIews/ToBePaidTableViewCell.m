@@ -175,7 +175,13 @@ static CGFloat itemHeight = 40.f;
     
     _timeLabel.text = _orderModel.order_date;
     _nameValueLabel.text = [self getTypeName:_orderType];
-    _serviceTypeLabel.text = [NSString stringWithFormat:@"服务类型:%@",_orderModel.server];
+    
+    if ([_orderModel.type isEqualToString:@"9"]) {
+        _serviceTypeLabel.text = [NSString stringWithFormat:@"服务类型:上门服务"];
+    }
+    else{
+        _serviceTypeLabel.text = [NSString stringWithFormat:@"服务类型:%@",_orderModel.server];
+    }
     _sumLabel.text = [NSString stringWithFormat:@"金额:%@元",_orderModel.amount];
     _doorEntryFeeLabel.text = [NSString stringWithFormat:@"上门费:%@元",_orderModel.amount];
     

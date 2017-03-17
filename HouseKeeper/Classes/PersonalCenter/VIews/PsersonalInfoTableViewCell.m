@@ -146,9 +146,9 @@ static CGFloat avaterHeight = 80;
 }
 
 - (void)click:(UIButton *)button{
-    if (button.selected) {
-        return;
-    }
+    _wemanButton.selected = NO;
+    _manButton.selected = NO;
+    button.selected = !button.selected;
     [self.delegate editGenderWithGender:button.tag - 1000];
 }
 

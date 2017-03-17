@@ -10,7 +10,7 @@
 
 
 
-@interface LifeServiceCollectionView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface LifeServiceCollectionView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) NSArray<NSString *> *cell0ImageArr;
 
@@ -34,10 +34,16 @@
     return self;
 }
 
+- (void)setBannerListModel:(BannerListModel *)bannerListModel{
+    _bannerListModel = bannerListModel;
+    [self reloadData];
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         LifeServiceCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LifeServiceCollectionViewCellId" forIndexPath:indexPath];
-        cell.indexRow = indexPath.row;
+        cell.cycleScrollView.delegate = self;
+        cell.bannerListModel = self.bannerListModel;
         return cell;
     }
     if (indexPath.section == 1) {
@@ -74,7 +80,7 @@
 
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section < 3) {
+    if (indexPath.section < 2) {
         return nil;
     }
     NSString *CellIdentifier = @"header";
@@ -94,7 +100,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (section == 0) {
-        return 8;
+        return 1;
     }
     if (section == 1) {
         return 4;
@@ -120,10 +126,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section < 3){
+    if(indexPath.section < 3 && indexPath.section != 0){
+        
         [self.clickDelegate clickItemWithIndexPath:indexPath];
     }
     
+}
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    [self.clickDelegate cycleScrollView:cycleScrollView didSelectItemAtIndex:index];
 }
 
 @end

@@ -101,13 +101,18 @@
                 [nameList addObject:furnitureType.name];
             }
             
-            [ActionSheetStringPicker showPickerWithTitle:@"选择设备类型" rows:nameList initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+            
+            ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择设备类型" rows:nameList initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                 
                 _furnitureModel.type = selectedValue;
                 _furnitureModel.type_id = [idList objectAtIndex:selectedIndex];
                 [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
                 
             } cancelBlock:nil origin:self.view];
+            
+            [picker setCancelButton:[picker getCancelButton]];
+            [picker setDoneButton:[picker getDoneButton]];
+            [picker showActionSheetPicker];
         
         }
     }];
@@ -115,6 +120,10 @@
 }
 
 - (void)AutomaticMatchingButtonClick{
+    
+    //消失键盘
+    [self.view endEditing:YES];
+    
     if (_furnitureModel.model.length == 0) {
         [self showHudTipStr:@"请填写设备型号"];
         return;
@@ -144,12 +153,17 @@
     if (textField.text.length != 0) {
         selectedDate = [NSDate dateFromString:textField.text withFormat:@"yyyy-MM-dd"];
     }
-    [ActionSheetDatePicker showPickerWithTitle:@"购买时间" datePickerMode:UIDatePickerModeDate selectedDate:selectedDate doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+    
+    ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:@"购买时间" datePickerMode:UIDatePickerModeDate selectedDate:selectedDate doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
         
         textField.text = [NSDate stringFromDate:selectedDate withFormat:@"yyyy-MM-dd"];
         _furnitureModel.purchase_date = textField.text;
         
     } cancelBlock:nil origin:self.view];
+    
+    [picker setDoneButton:[picker getDoneButton]];
+    [picker setCancelButton:[picker getCancelButton]];
+    [picker showActionSheetPicker];
 }
 
 //添加自动以属性

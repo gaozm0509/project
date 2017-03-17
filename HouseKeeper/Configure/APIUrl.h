@@ -11,7 +11,7 @@
 
 
 #endif /* APIUrl_h */
-#define kApi_Host @"http://115.28.69.246:8000"
+#define kApi_Host @"http://120.24.217.250:8001"//@"http://115.28.69.246:8000"
 
 #pragma mark - 个人中心
 
@@ -65,7 +65,7 @@
 
 #define kApi_member_advertisements @"api/member/advertisements"
 
-
+#define kApi_member_banner @"api/member/banner"
 
 
 #define kApi_orders_additional @"api/orders/additional"
@@ -81,6 +81,8 @@
 #define kApi_orders_refuse @"api/orders/refuse"
 
 #define kApi_orders_getPrice @"api/orders/getPrice"
+
+#define kApi_orders_point @"/api/orders/point"
 
 //支付
 #define kApi_payment_create @"api/payment/create"

@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StateModel.h"
 
 @protocol AddressManagementTableViewDelegate <NSObject>
 
-- (void)cliclCellWithIndexPath:(NSIndexPath *)indexPath;
+- (void)cliclCellWithModel:(StateModel *)model;
+
+- (void)editStateWithModel:(StateModel *)model;
 
 @end
 
 @interface AddressManagementTableView : UITableView
+
+@property (nonatomic, strong) StateModelDataModel *stateModelDataModel;
 
 @property (nonatomic, weak) id<AddressManagementTableViewDelegate> clickCell;
 

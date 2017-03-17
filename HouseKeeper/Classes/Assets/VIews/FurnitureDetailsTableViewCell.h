@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *modelLabel;
 @property (nonatomic, strong) UILabel *serialLabel;//型号
 
+@property (nonatomic, strong) UILabel *nameLabel;
+
 @property (nonatomic, strong) FurnitureModel *model;
 
 

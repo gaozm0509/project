@@ -13,6 +13,7 @@
 #import "KeychainItemWrapper.h"
 #import "WXApi.h"
 #import "NewFeaturesViewController.h"
+#import <JSPatchPlatform/JSPatch.h>
 
 @interface AppDelegate () <UISplitViewControllerDelegate,WXApiDelegate>
 
@@ -35,6 +36,7 @@
         else{
             LoginViewController *rootVC = [[LoginViewController alloc]init];
             self.window.rootViewController = rootVC;
+            rootVC.isFirstStartUp = YES;
         }
     }
     
@@ -44,7 +46,6 @@
     
     [[AFNetworkActivityIndicatorManager sharedManager]setEnabled:YES];
     
-    [self setUpForDismissKeyboard];
     
     //设置NavBar
     [self customizeInterface];
@@ -57,9 +58,16 @@
     //启动页停留
     [NSThread sleepForTimeInterval:1.5];
     
+    //JSPatch
+    [JSPatch startWithAppKey:JSPatchKey];
+    [JSPatch sync];
+    
+    [self setUpForDismissKeyboard];
+    
     return YES;
     
 }
+
 
 /**
  *  设置uuid存入到KeychainItemWrapper中充当imei code

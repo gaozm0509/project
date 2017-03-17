@@ -18,12 +18,13 @@
 
 @implementation BaseViewController
 
+- (void)dealloc{
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f0f0f0"];
-
-    
-    
     self.navigationController.interactivePopGestureRecognizer.delegate=(id)self;
 }
 
@@ -34,6 +35,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear: animated];
+    if (![self isKindOfClass:NSClassFromString(@"HomeViewController")]) {
+        NSDictionary *textAttributes = nil;
+        textAttributes = @{
+                           NSFontAttributeName: [UIFont boldSystemFontOfSize:kNavTitleFontSize],
+                           NSForegroundColorAttributeName:KMajorColor,
+                           };
+        [self.navigationController.navigationBar setTitleTextAttributes:textAttributes];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated{

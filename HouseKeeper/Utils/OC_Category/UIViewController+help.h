@@ -14,4 +14,6 @@
 
 - (void)pushNewViewController:(NSString *)VCName;
 
+- (void)pushNewViewController:(NSString *)VCName params:(NSDictionary *)params animated:(BOOL)animated;
+
 @end

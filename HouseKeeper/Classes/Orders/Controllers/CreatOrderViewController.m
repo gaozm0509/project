@@ -88,6 +88,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:self.orderModel.id forKey:@"order_id"];
     [params setValue:self.orderModel.amount forKey:@"amount"];
+    [params setValue:self.orderModel.type forKey:@"type"];
     
     //支付方式
     switch (_tableView.paymentMethod) {

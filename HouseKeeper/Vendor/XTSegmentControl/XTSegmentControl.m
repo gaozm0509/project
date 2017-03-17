@@ -323,9 +323,9 @@ typedef NS_ENUM(NSInteger, XTSegmentControlItemType)
     
     CGRect rect;
     
-    if (delta > 0) {
+    if (delta >= 0) {
 //        如果delta大于1的话，不能简单的用相邻item间距的乘法来计算距离
-        if (delta > 1) {
+        if (delta >= 1) {
             self.currentIndex += floorf(delta);
             delta -= floorf(delta);
             origionRect = [_itemFrames[_currentIndex] CGRectValue];;
@@ -360,7 +360,7 @@ typedef NS_ENUM(NSInteger, XTSegmentControlItemType)
         moveRect.origin = CGPointMake(CGRectGetMidX(origionLineRect) - delta * (CGRectGetMidX(lineRect) - CGRectGetMidX(origionLineRect)) - CGRectGetMidX(moveRect), CGRectGetMidY(origionLineRect) - CGRectGetMidY(moveRect));
         _lineView.frame = moveRect;
 //        _lineView.center = CGPointMake(CGRectGetMidX(origionLineRect) - delta * (CGRectGetMidX(lineRect) - CGRectGetMidX(origionLineRect)), CGRectGetMidY(origionLineRect));
-        if (delta < -1) {
+        if (delta <= -1) {
             self.currentIndex -= 1;
         }
     }    

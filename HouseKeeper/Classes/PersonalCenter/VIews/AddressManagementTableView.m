@@ -9,7 +9,7 @@
 #import "AddressManagementTableView.h"
 #import "AddressManagementCell.h"
 
-@interface AddressManagementTableView()<UITableViewDelegate,UITableViewDataSource>{}
+@interface AddressManagementTableView()<UITableViewDelegate,UITableViewDataSource,AddressManagementCellDelegate>{}
 
 @end
 @implementation AddressManagementTableView
@@ -33,12 +33,14 @@
     if (cell == nil) {
         cell = [[AddressManagementCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:kMarginLeft];
+        cell.delegate = self;
     }
+    cell.stateModel = _stateModelDataModel.StateModelList[indexPath.row];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return _stateModelDataModel.StateModelList.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -52,8 +54,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.clickCell cliclCellWithIndexPath:indexPath];
+    StateModel * model = _stateModelDataModel.StateModelList[indexPath.row];
+    [self.clickCell cliclCellWithModel:model];
 }
 
+- (void)setStateModelDataModel:(StateModelDataModel *)stateModelDataModel{
+    _stateModelDataModel = stateModelDataModel;
+    [self reloadData];
+}
+
+- (void)editStateWithModel:(StateModel *)model{
+    [self.clickCell editStateWithModel:model];
+}
 
 @end

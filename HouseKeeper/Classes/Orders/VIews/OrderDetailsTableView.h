@@ -7,7 +7,10 @@
 //
 
 #import "BaseTableView.h"
+#import "OrderDetailsTableViewCell.h"
 
 @interface OrderDetailsTableView : BaseTableView
+
+@property (nonatomic, assign) OrderType orderType;
 
 @end

@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseCollectionViewCell.h"
+#import "SDCycleScrollView.h"
+#import "BannerModel.h"
 
 @interface LifeServiceCollectionViewCell : BaseCollectionViewCell
 
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, assign) NSInteger indexRow;
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
+
+@property (nonatomic, strong) BannerListModel *bannerListModel;
 
 + (CGSize)getCellSize;
 

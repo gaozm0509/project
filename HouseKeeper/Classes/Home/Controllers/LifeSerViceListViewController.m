@@ -9,6 +9,7 @@
 #import "LifeSerViceListViewController.h"
 #import "LifeServiceTableView.h"
 
+
 @interface LifeSerViceListViewController ()<BaseTableViewDelegate>
 
 @property (nonatomic, strong) NSString *type;//生活类型的type 1 - 8
@@ -16,6 +17,8 @@
 @property (nonatomic, assign) BOOL isDetailViewController;//列表页面和详情页面公用一个页面，YES表示详情页
 
 @property (nonatomic, strong) LifeServiceListModel *detailModel;
+
+
 
 @end
 
@@ -32,6 +35,7 @@
         self.isDetailViewController = YES;
     }
     
+    
     [self.view addSubview:self.tableView];
     
     if (!_isDetailViewController) {
@@ -46,6 +50,7 @@
 }
 
 #pragma mark - Getter and setter
+
 
 - (LifeServiceTableView *)tableView{
     if (!_tableView) {
@@ -99,7 +104,6 @@
 }
 
 #pragma mark - Event method
-
 
 
 #pragma mark - Pravit method

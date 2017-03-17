@@ -20,41 +20,41 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setupSubViews];
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = kBackgroundColor;
         
         _imageArr = @[@"service_维修",@"service_绿植",@"service_洗衣",@"service_保洁",@"service_地毯清洗",@"service_装修",@"service_京东",@"service_汽车维修"];
     }
     return self;
 }
 
-- (UIImageView *)imageView{
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc]init];
-        _imageView.contentMode = UIViewContentModeCenter;
+- (SDCycleScrollView *)cycleScrollView{
+    if (!_cycleScrollView) {
+        CGRect frame = CGRectMake(10, 10, kScreen_Width-20, kScreen_Height/4.5);
+        NSArray *array = @[[UIImage imageNamed:@"banner01@3x"],[UIImage imageNamed:@"banner02@3x"],[UIImage imageNamed:@"banner03@3x"],[UIImage imageNamed:@"banner04@3x"]];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:frame imageNamesGroup:array];
+        _cycleScrollView.layer.cornerRadius = 10;
+        _cycleScrollView.layer.masksToBounds = YES;
+        _cycleScrollView.autoScrollTimeInterval = 3;
     }
-    return _imageView;
-}
-
-- (void)setIndexRow:(NSInteger)indexRow{
-    _indexRow = indexRow;
-    _imageView.image = Image([_imageArr objectAtIndex:_indexRow]);
+    return _cycleScrollView;
 }
 
 - (void)setupSubViews{
-    [self addSubview:self.imageView];
+    [self addSubview:self.cycleScrollView];
     
-    [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self);
-        make.left.equalTo(self);
-        make.right.equalTo(self.mas_right);
-        make.bottom.equalTo(self.mas_bottom);
-    }];
 }
 
+- (void)setBannerListModel:(BannerListModel *)bannerListModel{
+    NSMutableArray *imgArray = [NSMutableArray array];
+    for (BannerModel *banner in bannerListModel.data) {
+        [imgArray addObject:[NSString stringWithFormat:@"%@/%@",kApi_Host,banner.img]];
+    }
+    [self.cycleScrollView setImageURLStringsGroup:imgArray];
+}
+
+
 + (CGSize)getCellSize{
-    CGFloat width = kScreen_Width / 4 - 0.5;
-    CGFloat height = 75;
-    return CGSizeMake(width, height);
+    return CGSizeMake(kScreen_Width, kScreen_Height / 4.5 + 10);
 }
 
 @end
@@ -227,7 +227,7 @@
     if (!_textLabel) {
         _textLabel = [[UILabel alloc] init];
         _textLabel.textColor = [UIColor blackColor];
-        _textLabel.text = @"我的";
+//        _textLabel.text = @"我的";
         _textLabel.font = kFont14;
         _textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _textLabel.numberOfLines = 0;

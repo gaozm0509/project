@@ -20,6 +20,9 @@
 @property (nonatomic, strong) UITextField *addressField;
 
 @property (nonatomic, strong) UIButton *submitButton;
+@property (nonatomic, strong) StateModel *stateModel;
+
+@property (nonatomic, assign) BOOL isEdit;
 
 @end
 
@@ -28,7 +31,13 @@
 #pragma mark - Cycle life
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"添加地址";
+    
+    self.stateModel = self.receiveParams[@"model"];
+    if ([self.receiveParams[@"isEdit"] length] > 0) {
+        self.isEdit = YES;
+    }
+    
+    self.title = self.isEdit ? @"编辑地址" : @"地址";
     
     [self setupSubViews];
 }
@@ -42,6 +51,8 @@
 - (UITextField *)estatesField{
     if (!_estatesField) {
         _estatesField = [self nomarlTextFieldWithPlaceholder:@"请输入小区物业名称" leftViewTitle:@"物业名称"];
+        _estatesField.text = self.stateModel.residential;
+        _estatesField.userInteractionEnabled = _isEdit;
     }
     return _estatesField;
 }
@@ -49,6 +60,8 @@
 - (UITextField *)houseStyleField{
     if (!_houseStyleField) {
         _houseStyleField = [self nomarlTextFieldWithPlaceholder:@"如：三房两厅两卫" leftViewTitle:@"房屋描述"];
+        _houseStyleField.text = self.stateModel.layout;
+        _houseStyleField.userInteractionEnabled = _isEdit;
     }
     return _houseStyleField;
 }
@@ -56,6 +69,9 @@
 - (UITextField *)forestsField{
     if (!_forestsField) {
         _forestsField = [self nomarlTextFieldWithPlaceholder:@"单位（平方米）" leftViewTitle:@"房屋面积"];
+        _forestsField.keyboardType = UIKeyboardTypeDecimalPad;
+        _forestsField.text = self.stateModel.area;
+        _forestsField.userInteractionEnabled = _isEdit;
     }
     return _forestsField;
 }
@@ -63,6 +79,8 @@
 - (UITextField *)addressField{
     if (!_addressField) {
         _addressField = [self nomarlTextFieldWithPlaceholder:@"请输入房屋地址（必填）" leftViewTitle:@"房屋地址"];
+        _addressField.text = self.stateModel.address;
+        _addressField.userInteractionEnabled = _isEdit;
     }
     return _addressField;
 }
@@ -70,11 +88,12 @@
 - (UIButton *)submitButton{
     if (!_submitButton) {
         _submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_submitButton setTitle:@"添加" forState:UIControlStateNormal];
+        [_submitButton setTitle:@"确定" forState:UIControlStateNormal];
         [_submitButton setTitleColor:KMajorColor forState:UIControlStateNormal];
         _submitButton.titleLabel.font = kFont16;
         [_submitButton addTarget:self action:@selector(sumbit) forControlEvents:UIControlEventTouchUpInside];
         _submitButton.backgroundColor = [UIColor whiteColor];
+        _submitButton.hidden = !_isEdit;
     }
     return _submitButton;
 }
@@ -87,19 +106,29 @@
 
 - (void)netRequest{
     NSMutableDictionary *params = [NSMutableDictionary new];
+    
     [params setValue:_estatesField.text forKey:@"residential"];
     [params setValue:_houseStyleField.text forKey:@"layout"];
     [params setValue:_forestsField.text forKey:@"area"];
     [params setValue:_addressField.text forKey:@"address"];
     [params setValue:@"1" forKey:@"rights"];
+    [params setValue:_stateModel.id forKey:@"state_id"];
     
-    [kApi_state_create httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+    NSString *api = self.stateModel.id.length > 0 ? kApi_state_update : kApi_state_create;
+    
+    [api httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
         if (error) {
             [self showError:error];
         }
         if ([data[@"code"] integerValue] == 1) {
-            UIWindow * window = [[UIApplication sharedApplication].delegate window];
-            window.rootViewController = [TabBarViewController new];
+            if ([self.receiveParams[@"fromVC"] isEqualToString:@"AddressManagementViewController"]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else{
+                UIWindow * window = [[UIApplication sharedApplication].delegate window];
+                window.rootViewController = [TabBarViewController new];
+            }
+            
             StateModel *stateModel = [[StateModel alloc] initWithDic:data[@"data"]];
             [UsersManager saveStateModel:stateModel];
         }

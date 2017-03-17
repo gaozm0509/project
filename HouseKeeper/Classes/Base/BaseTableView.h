@@ -56,6 +56,7 @@ typedef void(^getMinIdblock)(NSString *minid);
 
 @property (nonatomic,strong) NSString *noDataWarning;
 
+@property (nonatomic, strong) UIImageView *noDataView;
 
 
 

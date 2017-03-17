@@ -15,6 +15,8 @@
 
 - (void)showAddFurnitureView;
 
+- (void)deleteFurnitureWithModel:(FurnitureModel *)model;
+
 @end
 
 @interface AssetRoomTableView : BaseTableView

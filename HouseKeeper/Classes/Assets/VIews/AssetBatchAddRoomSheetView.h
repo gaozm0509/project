@@ -32,3 +32,4 @@
 @property (nonatomic, weak) id<AssetBatchAddRoomSheetViewDeleagte>textFieldClickDelegate;
 
 @end
+

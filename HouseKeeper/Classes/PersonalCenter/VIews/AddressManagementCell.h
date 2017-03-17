@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StateModel.h"
 
 #define kMarginTop 10
 #define kMarginLeft 10
 #define kNameHeight 15
 #define kAdreeHeight 12
+
+@protocol AddressManagementCellDelegate;
 
 @interface AddressManagementCell : UITableViewCell
 
@@ -23,6 +26,18 @@
 
 @property (nonatomic, strong) UIButton *editButton;
 
+@property (nonatomic, strong) StateModel *stateModel;
+
+@property (nonatomic, strong) UIImageView *arrowIcon;
+
+@property (nonatomic, weak) id<AddressManagementCellDelegate> delegate;
+
 + (CGFloat)getHieght;
+
+@end
+
+@protocol AddressManagementCellDelegate <NSObject>
+
+- (void)editStateWithModel:(StateModel *)model;
 
 @end

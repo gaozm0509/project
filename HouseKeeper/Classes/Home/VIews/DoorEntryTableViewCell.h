@@ -25,4 +25,6 @@
 
 @property (nonatomic, strong) DoorEntryModel *model;
 
++ (CGFloat)getHieghtWithModel:(DoorEntryModel *)model;
+
 @end

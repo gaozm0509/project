@@ -78,7 +78,7 @@
         _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _rightButton.frame = CGRectMake(0, 0, 30, 44);
         
-        [_rightButton setTitle:@"保存" forState:UIControlStateNormal];
+        [_rightButton setTitle:@"确定" forState:UIControlStateNormal];
         [_rightButton setTitleColor:[UIColor colorWithHexString:@"35932a" andAlpha:0.7] forState:UIControlStateNormal];
         [_rightButton setTitleColor:KMajorColor forState:UIControlStateSelected];
         

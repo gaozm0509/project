@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSString *residential;
 @property (nonatomic, copy) NSString *updated_at;
 
+
 @end
 
 @interface StateModelDataModel : BaseModel

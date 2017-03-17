@@ -216,20 +216,24 @@
             [self showError:error];
             return ;
         }
-        if ([data[@"code"] integerValue] == 1) {
-            NSString *url = data[@"data"][@"url"];
-            _model.invoice = url;
-            
-            if (url.length == 0) {
-                [self showNoInvoiceView];
-            }
-            else{
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
-                [_scrollView addSubview:self.invoiceImageView];
-            }
-            [self setInvoiceImageViewImageWithUrl:url];
-            
+        
+        NSString *url = @"";
+        if ([data[@"data"] isKindOfClass:[NSDictionary class]]) {
+            url = data[@"data"][@"url"];
         }
+        
+        _model.invoice = url;
+        
+        if (url.length == 0) {
+            [self showNoInvoiceView];
+        }
+        else{
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
+            [_scrollView addSubview:self.invoiceImageView];
+        }
+        [self setInvoiceImageViewImageWithUrl:url];
+        
+        
     }];
 }
 

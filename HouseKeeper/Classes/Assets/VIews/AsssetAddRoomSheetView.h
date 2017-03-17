@@ -18,3 +18,13 @@
 @property (nonatomic, strong) UIButton *savebutton;
 
 @end
+
+
+@interface AssetDeleteRoomSheetView : BaseSheetView
+
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UITextField *nameField;
+@property (nonatomic, strong) UIButton *savebutton;
+
+@end

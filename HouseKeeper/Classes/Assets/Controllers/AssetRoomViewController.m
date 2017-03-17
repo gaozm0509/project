@@ -65,6 +65,10 @@
 
 #pragma mark AssetRoomTableViewDelegate
 
+- (void)deleteFurnitureWithModel:(FurnitureModel *)model{
+    [self netRequest_deleteFurnitureWithModel:model];
+}
+
 - (void)clickTableViewCellWithModel:(FurnitureModel *)model indexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         [self pushNewViewController:@"AsssetServiceViewController" params:@{@"model":model}];
@@ -83,6 +87,21 @@
 
 
 #pragma mark - Event method
+
+- (void)netRequest_deleteFurnitureWithModel:(FurnitureModel *)model{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:model.id forKey:@"furniture_id"];
+    [kApi_furniture_delete httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+        if (error) {
+            [self showError:error];
+            return ;
+        }
+        if ([data[@"code"] integerValue] == 1) {
+            [self.roomModel.furnitures removeObject:model];
+            self.tableView.model = self.tableView.model;
+        }
+    }];
+}
 
 - (void)addFurnitureView{
     FurnitureModelBlock block = ^(FurnitureModel *model){

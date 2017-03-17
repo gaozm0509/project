@@ -78,24 +78,47 @@
         if (indexPath.row == 0) {
             cell.contentLabel.text = [NSString stringWithFormat:@"%@元上门费",_model1.price];
             cell.titleLabel.text = @"上门资产录入";
-            cell.selectButton.selected = self.selectRow == 1 ? YES : NO;
+            cell.selectButton.selected = _model == _model1;
         }
         else{
-            cell.contentLabel.text = [NSString stringWithFormat:@"%@元上门费",_model2.price];
-            cell.titleLabel.text = @"深度资产录入";
-            cell.selectButton.selected = self.selectRow == 2 ? YES : NO;
+            static NSString *cellId = @"cellId1";
+            DoorEntryTableViewCell1 *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[DoorEntryTableViewCell1 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];
+            cell.model = _model1;
+            return cell;
         }
         
         return cell;
     }
     if (indexPath.section == 1) {
-        static NSString *cellId = @"cellId1";
-        DoorEntryTableViewCell1 *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        static NSString *cellId = @"cellId";
+        DoorEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
-            cell = [[DoorEntryTableViewCell1 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[DoorEntryTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];
-        cell.model = _model;
+        
+        if (indexPath.row == 0) {
+            cell.contentLabel.text = [NSString stringWithFormat:@"%@元上门费",_model2.price];
+            cell.titleLabel.text = @"深度资产录入";
+            cell.selectButton.selected = _model == _model2;
+        }
+        else{
+            static NSString *cellId = @"cellId1";
+            DoorEntryTableViewCell1 *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[DoorEntryTableViewCell1 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:10];
+            cell.model = _model2;
+            return cell;
+        }
+        
         return cell;
     }
     return nil;
@@ -109,15 +132,15 @@
     if (section == 0) {
         return 2;
     }
-    return 1;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
+    if (indexPath.row == 0) {
         return 45;
     }
-    if (indexPath.section == 1) {
-        return 115;
+    if (indexPath.row == 1) {
+        return [DoorEntryTableViewCell1 getHieghtWithModel:_model];
     }
     return 0;
 }
@@ -144,10 +167,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    _selectRow = _selectRow == 1 ? 2 : 1;
-    _model = _selectRow == 1 ? _model1 : _model2;
-    [tableView reloadData];
+    if (indexPath.row == 0) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        _model = indexPath.section == 0 ? _model1 : _model2;
+        [tableView reloadData];
+    }
+    
 }
 
 

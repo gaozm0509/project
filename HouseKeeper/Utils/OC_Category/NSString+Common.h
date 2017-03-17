@@ -31,6 +31,23 @@
 - (NSString *)stringByTrimmingLeftCharactersInSet:(NSCharacterSet *)characterSet;
 - (NSString *)stringByTrimmingRightCharactersInSet:(NSCharacterSet *)characterSet;
 - (CGSize)sizeWithFont:(UIFont *)font Size:(CGSize)size;
+
+
+/**
+ 去除字符串中的变html标签
+ 
+ @param html html字符串
+ @return 返回去除后的字符串
+ */
++ (NSString *)filterHTML:(NSString *)html;
+
+
+/**
+ 字符串转化为字典
+
+ @param jsonString json字符串
+ @return 返回的字典
+ */
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString ;
 
 /*

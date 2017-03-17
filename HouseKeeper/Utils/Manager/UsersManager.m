@@ -9,6 +9,7 @@
 #import "UsersManager.h"
 
 #define kUsersManager_memberId @"kUsersManager_memberId"
+#define kUsersManager_memberName @"kUsersManager_memberName"
 #define kUsersManager_stateModel @"kUsersManager_stateModel"
 #define kUsersManager_phone @"kUsersManager_phone"
 #define kUsersManager_rights @"kUsersManager_rights"
@@ -81,6 +82,17 @@
 
 + (NSString *)rights{
     return [UsersManager sharedUsersManager].rights;
+}
+
++ (void)saveName:(NSString *)name{
+    SetUserDefaults(name, kUsersManager_memberName);
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [UsersManager sharedUsersManager].name = name;
+}
+
++ (NSString *)name{
+    return [UsersManager sharedUsersManager].name;
 }
 
 + (void)loginOutAndCleanUserDefaults{

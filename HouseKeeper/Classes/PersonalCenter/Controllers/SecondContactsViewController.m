@@ -242,7 +242,7 @@
     [params setValue:_userAccout.b_mobile forKey:@"b_mobile"];
     [params setValue:@(gender) forKey:@"b_gender"];
     [params setValue:_userAccout.b_birth forKey:@"b_birth"];
-    [kApi_member_update httpRequestWithParams:params networkMethod:Post andBlock:^(id data, NSError *error) {
+    [kApi_member_update httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
         if (error) {
             [self showError:error];
             return ;
@@ -274,7 +274,7 @@
     [params setValue:_userAccout.b_mobile forKey:@"b_mobile"];
     [params setValue:_userAccout.b_gender forKey:@"b_gender"];
     [params setValue:_userAccout.b_birth forKey:@"b_birth"];
-    [kApi_member_update httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+    [kApi_member_update httpRequestWithParams:params hudView:nil networkMethod:Post andBlock:^(id data, NSError *error) {
         if (error) {
             [self showError:error];
             return ;
@@ -282,6 +282,7 @@
         if ([data[@"code"] integerValue] == 1) {
             _userAccout = [[UserAccout alloc] initWithDic:data[@"data"]];
             [_tableView reloadData];
+            [self showHudTipStr:@"保存成功"];
         }
     }];
 }
@@ -291,7 +292,7 @@
     [params setValue:@"" forKey:@"b_name"];
     [params setValue:@"" forKey:@"b_mobile"];
     [params setValue:@"" forKey:@"b_gender"];
-    [kApi_member_update httpRequestWithParams:params hudView:self.hudView networkMethod:Post andBlock:^(id data, NSError *error) {
+    [kApi_member_update httpRequestWithParams:params hudView:nil networkMethod:Post andBlock:^(id data, NSError *error) {
         if (error) {
             [self showError:error];
             return ;

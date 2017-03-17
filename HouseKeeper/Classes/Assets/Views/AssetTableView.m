@@ -78,7 +78,31 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section != 0 && indexPath.row > 0) {
+        return YES;
+    }
+    return NO;
+}
 
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section != 0 && indexPath.row > 0) {
+        
+        RoomListModel *roomListModel = _roomClassModel.roomClasses[indexPath.section - 1];
+        
+        UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"改名" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            [self.clickDelegate editTableViewCellWithModel:roomListModel.rooms[indexPath.row - 1]];
+        }];
+        [editAction setBackgroundColor:[UIColor colorWithHexString:@"dddddd"]];
+        
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            [self.clickDelegate deleteTableViewCellWithModel:roomListModel.rooms[indexPath.row - 1]];
+        }];
+        
+        return @[deleteAction,editAction];
+    }
+    return nil;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1 + _roomClassModel.roomClasses.count;

@@ -19,6 +19,10 @@
 
 - (void)clickTableViewCellWithModel:(RoomModel *)model;
 
+- (void)editTableViewCellWithModel:(RoomModel *)model;
+
+- (void)deleteTableViewCellWithModel:(RoomModel *)model;
+
 @end
 
 @interface AssetTableView : BaseTableView

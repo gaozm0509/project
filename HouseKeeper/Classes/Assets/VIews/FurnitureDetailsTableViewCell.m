@@ -30,10 +30,19 @@
 - (UILabel *)modelLabel{
     if (!_modelLabel) {
         _modelLabel = [UILabel new];
-        _modelLabel.textColor = kText_Color;
-        _modelLabel.font = kFont16;
+        _modelLabel.textColor = Color_Hex(@"666666");
+        _modelLabel.font = kFont14;
     }
     return _modelLabel;
+}
+
+- (UILabel *)nameLabel{
+    if (!_nameLabel) {
+        _nameLabel = [[UILabel alloc] init];
+        _nameLabel.textColor = Color_Hex(@"666666");
+        _nameLabel.font = kFont14;
+    }
+    return _nameLabel;
 }
 
 - (UILabel *)serialLabel{
@@ -47,7 +56,8 @@
 
 - (void)setModel:(FurnitureModel *)model{
     _model = model;
-    _modelLabel.text = model.model;
+    _nameLabel.text = [NSString stringWithFormat:@"资产名称：%@",model.name];
+    _modelLabel.text = [NSString stringWithFormat:@"设备编号：%@",model.model];
     _serialLabel.text = model.serial;
     [_logoImageView sd_setImageWithURL:[NSURL URLWithString: _model.furnituresImage] placeholderImage:kPlaceholderImage];
 }
@@ -56,6 +66,7 @@
     [self addSubview:self.logoImageView];
     [self addSubview:self.modelLabel];
     [self addSubview:self.serialLabel];
+    [self addSubview:self.nameLabel];
 
     WS(weakSelf);
     [_logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,14 +75,20 @@
         make.width.offset(kScreen_Width / 3);
         make.bottom.equalTo(weakSelf.mas_bottom).offset(- 10);
     }];
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.logoImageView).offset(3);
+        make.left.equalTo(weakSelf.logoImageView.mas_right).offset(10);
+        make.height.lessThanOrEqualTo(@20);
+        make.right.equalTo(weakSelf.mas_right).offset(- 10);
+    }];
     [_modelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.logoImageView).offset(10);
+        make.centerY.equalTo(weakSelf.mas_centerY);
         make.left.equalTo(weakSelf.logoImageView.mas_right).offset(10);
         make.height.lessThanOrEqualTo(@20);
         make.right.equalTo(weakSelf.mas_right).offset(- 10);
     }];
     [_serialLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.modelLabel.mas_bottom).offset(20);
+        make.bottom.equalTo(weakSelf.logoImageView.mas_bottom).offset(- 3);
         make.left.equalTo(weakSelf.modelLabel);
         make.height.lessThanOrEqualTo(@100);
         make.right.equalTo(weakSelf.modelLabel.mas_right);

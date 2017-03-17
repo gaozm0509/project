@@ -50,7 +50,7 @@
     if (!_bottomButton) {
         _bottomButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _bottomButton.frame = CGRectMake(0, kScreen_Height - kNavHeight - 45, kScreen_Width, 45);
-        [_bottomButton setTitle:@"下单" forState:UIControlStateNormal];
+        [_bottomButton setTitle:@"确认充值" forState:UIControlStateNormal];
         [_bottomButton setTitleColor:KMajorColor forState:UIControlStateNormal];
         _bottomButton.backgroundColor = [UIColor whiteColor];
         _bottomButton.layer.borderColor = kBorderColor.CGColor;
